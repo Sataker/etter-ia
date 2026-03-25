@@ -6,7 +6,7 @@
     <title>Etter IA - Automação Inteligente para Negócios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,17 +16,22 @@
 
         :root {
             --bg-primary: #050508;
-            --bg-secondary: #0A1628;
-            --bg-card: #0D1B2A;
+            --bg-secondary: #0A1117;
+            --bg-card: #0D1520;
+            --bg-card-hover: #111D2B;
             --accent-blue: #0066FF;
             --accent-cyan: #00D4FF;
+            --accent-purple: #7B61FF;
             --accent-gradient: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            --accent-gradient-alt: linear-gradient(135deg, #7B61FF 0%, #00D4FF 100%);
             --text-primary: #FFFFFF;
-            --text-secondary: #8892A0;
-            --text-muted: #5A6270;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --glow-blue: rgba(0, 102, 255, 0.4);
-            --glow-cyan: rgba(0, 212, 255, 0.3);
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(0, 102, 255, 0.4);
+            --glow-blue: rgba(0, 102, 255, 0.15);
+            --glow-cyan: rgba(0, 212, 255, 0.1);
+            --success: #10B981;
         }
 
         html {
@@ -37,12 +42,12 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
         /* Animated Background */
-        .bg-gradient {
+        .bg-effects {
             position: fixed;
             top: 0;
             left: 0;
@@ -53,25 +58,59 @@
             overflow: hidden;
         }
 
-        .bg-gradient::before {
-            content: '';
+        .bg-gradient-orb {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, var(--glow-blue) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 80%, var(--glow-cyan) 0%, transparent 40%);
-            animation: bgFloat 20s ease-in-out infinite;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
         }
 
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(5deg); }
-            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        .bg-gradient-orb.orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-blue);
+            top: -200px;
+            left: -200px;
+            animation: orbFloat1 25s ease-in-out infinite;
         }
 
-        /* Grid Pattern Overlay */
+        .bg-gradient-orb.orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-cyan);
+            bottom: -150px;
+            right: -150px;
+            animation: orbFloat2 30s ease-in-out infinite;
+        }
+
+        .bg-gradient-orb.orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-purple);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbFloat3 20s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, 50px) scale(1.1); }
+            66% { transform: translate(50px, 100px) scale(0.9); }
+        }
+
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-80px, -40px) scale(1.15); }
+            66% { transform: translate(-40px, -80px) scale(0.85); }
+        }
+
+        @keyframes orbFloat3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+
+        /* Grid Pattern */
         .grid-pattern {
             position: fixed;
             top: 0;
@@ -79,11 +118,24 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
             pointer-events: none;
             z-index: 1;
+        }
+
+        /* Noise Texture */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
 
         /* Navigation */
@@ -93,20 +145,21 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1.5rem 2rem;
-            background: rgba(5, 5, 8, 0.8);
+            padding: 1.25rem 2rem;
+            background: rgba(5, 5, 8, 0.7);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav.scrolled {
-            padding: 1rem 2rem;
-            background: rgba(5, 5, 8, 0.95);
+            padding: 0.875rem 2rem;
+            background: rgba(5, 5, 8, 0.9);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -114,18 +167,29 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -0.02em;
         }
 
-        .logo span {
-            font-weight: 400;
-            opacity: 0.7;
+        .logo-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: white;
+            letter-spacing: 0.05em;
         }
 
         .nav-links {
@@ -137,16 +201,17 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
@@ -163,35 +228,63 @@
         }
 
         .nav-cta {
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.75rem;
             background: var(--accent-gradient);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-cta:hover::before {
+            left: 100%;
         }
 
         .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px var(--glow-blue);
+            box-shadow: 0 10px 40px rgba(0, 102, 255, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
 
         /* Main Content */
         main {
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         section {
-            padding: 8rem 2rem;
+            padding: 7rem 2rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -200,25 +293,31 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 6rem;
+            padding-top: 8rem;
             position: relative;
         }
 
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
         .hero-content {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 650px;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            gap: 0.75rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(0, 102, 255, 0.08);
+            border: 1px solid rgba(0, 102, 255, 0.2);
             border-radius: 100px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 500;
             color: var(--accent-cyan);
             margin-bottom: 2rem;
             animation: fadeInUp 0.8s ease;
@@ -231,71 +330,109 @@
             background: var(--accent-cyan);
             border-radius: 50%;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+            50% { opacity: 0.5; transform: scale(1.3); }
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
+            font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+            font-weight: 900;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
             animation: fadeInUp 0.8s ease 0.1s backwards;
         }
 
-        .hero h1 .gradient-text {
+        .hero h1 .highlight {
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
         }
 
-        .hero p {
-            font-size: 1.25rem;
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 3rem;
+            margin-bottom: 2.5rem;
             animation: fadeInUp 0.8s ease 0.2s backwards;
+            line-height: 1.8;
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
             animation: fadeInUp 0.8s ease 0.3s backwards;
         }
 
         .btn-primary {
-            padding: 1rem 2rem;
+            padding: 1.125rem 2.25rem;
             background: var(--accent-gradient);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px var(--glow-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0, 102, 255, 0.5);
+        }
+
+        .btn-primary .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover .arrow {
+            transform: translateX(5px);
         }
 
         .btn-secondary {
-            padding: 1rem 2rem;
-            background: transparent;
+            padding: 1.125rem 2.25rem;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 14px;
             color: var(--text-primary);
             font-weight: 600;
             font-size: 1rem;
@@ -304,27 +441,170 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
-        /* Floating Elements */
+        /* Hero Visual */
         .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s ease 0.4s backwards;
+        }
+
+        .hero-visual-container {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-visual-container::before {
+            content: '';
             position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--accent-gradient);
+        }
+
+        .agent-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .agent-demo-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .agent-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .agent-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .agent-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .agent-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        .agent-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-width: 85%;
+            animation: messageIn 0.5s ease backwards;
+        }
+
+        .chat-message.user {
+            background: var(--accent-gradient);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-message.agent {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+
+        /* Floating Cards */
+        .floating-elements {
+            position: absolute;
             width: 100%;
-            max-width: 800px;
-            height: 300px;
+            height: 100%;
+            top: 0;
+            left: 0;
             pointer-events: none;
         }
 
-        .floating-card {
+        .float-card {
             position: absolute;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -333,93 +613,136 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            animation: float 6s ease-in-out infinite;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: floatCard 6s ease-in-out infinite;
         }
 
-        .floating-card:nth-child(1) {
-            left: 5%;
-            top: 20%;
+        .float-card:nth-child(1) {
+            top: -30px;
+            right: -20px;
             animation-delay: 0s;
         }
 
-        .floating-card:nth-child(2) {
-            right: 5%;
-            top: 40%;
+        .float-card:nth-child(2) {
+            bottom: 60px;
+            left: -40px;
             animation-delay: 2s;
         }
 
-        .floating-card:nth-child(3) {
-            left: 15%;
-            bottom: 10%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
+        @keyframes floatCard {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
-        .floating-card .icon {
-            width: 40px;
-            height: 40px;
+        .float-card .icon {
+            width: 44px;
+            height: 44px;
             background: var(--accent-gradient);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
         }
 
-        .floating-card .info h4 {
-            font-size: 0.85rem;
+        .float-card .info h5 {
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.125rem;
         }
 
-        .floating-card .info p {
+        .float-card .info p {
             font-size: 0.75rem;
             color: var(--text-muted);
-            margin: 0;
         }
 
-        /* Section Titles */
+        /* Trusted By */
+        .trusted-by {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            animation: fadeInUp 0.8s ease 0.5s backwards;
+        }
+
+        .trusted-by p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .trusted-logos {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+
+        .trusted-logos span {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: -0.02em;
+        }
+
+        /* Section Headers */
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 102, 255, 0.08);
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .section-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            font-size: clamp(2.25rem, 4vw, 3.25rem);
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
         }
 
         .section-header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
+            font-size: 1.15rem;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.8;
         }
 
         /* Services Section */
         .services {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
         .service-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 2.5rem;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -436,95 +759,289 @@
             transition: opacity 0.4s ease;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 102, 255, 0.3);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top center, rgba(0, 102, 255, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
-        .service-card:hover::before {
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before,
+        .service-card:hover::after {
             opacity: 1;
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             background: rgba(0, 102, 255, 0.1);
-            border-radius: 16px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            margin-bottom: 1.75rem;
             transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .service-card:hover .service-icon {
             background: var(--accent-gradient);
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.3);
         }
 
         .service-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.35rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .service-card p {
+        .service-card > p {
             color: var(--text-secondary);
             font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         .service-features {
             list-style: none;
+            position: relative;
+            z-index: 1;
         }
 
         .service-features li {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.5rem 0;
+            padding: 0.625rem 0;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
         }
 
         .service-features li::before {
             content: '✓';
-            color: var(--accent-cyan);
-            font-weight: 600;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 0.85rem;
         }
 
-        /* Results Section */
-        .results {
-            background: var(--bg-secondary);
+        /* Featured Service */
+        .service-card.featured {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-hover) 100%);
+            border-color: rgba(0, 102, 255, 0.2);
         }
 
-        .results-grid {
+        .service-card.featured .service-icon {
+            width: 80px;
+            height: 80px;
+            font-size: 2.25rem;
+        }
+
+        .service-card.featured h3 {
+            font-size: 1.75rem;
+        }
+
+        .service-card.featured > p {
+            font-size: 1.05rem;
+            max-width: 500px;
+        }
+
+        /* Cases Section */
+        .cases {
+            background: var(--bg-primary);
+        }
+
+        .cases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
         }
 
-        .result-card {
-            text-align: center;
+        .case-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-image {
+            height: 200px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--accent-gradient);
+            opacity: 0.1;
+        }
+
+        .case-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .case-content {
             padding: 2rem;
         }
 
-        .result-number {
-            font-size: 4rem;
+        .case-category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .case-results {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .case-result {
+            text-align: center;
+        }
+
+        .case-result-value {
+            font-size: 1.5rem;
             font-weight: 800;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .case-result-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Results Section */
+        .results {
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--glow-blue), transparent 60%);
+            pointer-events: none;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+        }
+
+        .result-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .result-label {
             font-size: 1rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         /* About Section */
@@ -532,71 +1049,165 @@
             background: var(--bg-primary);
         }
 
-        .about-content {
+        .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
             align-items: center;
         }
 
-        .about-text h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-visual {
+        .about-image {
             position: relative;
-            height: 400px;
         }
 
-        .about-card {
+        .about-photo-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .about-photo-container::before {
+            content: '';
             position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            z-index: 10;
+        }
+
+        .about-photo {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .about-photo-overlay h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-photo-overlay p {
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .about-badges {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .about-badge {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .about-card:nth-child(1) {
-            top: 0;
-            left: 0;
-            width: 280px;
-        }
-
-        .about-card:nth-child(2) {
-            top: 50%;
-            right: 0;
-            width: 260px;
-            transform: translateY(-50%);
-        }
-
-        .about-card:nth-child(3) {
-            bottom: 0;
-            left: 20%;
-            width: 240px;
-        }
-
-        .about-card h4 {
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            gap: 0.75rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: floatCard 6s ease-in-out infinite;
         }
 
-        .about-card p {
+        .about-badge:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        .about-badge .icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .about-badge .text h5 {
             font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .about-badge .text p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .about-content h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .about-content h2 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content > p {
             color: var(--text-secondary);
-            margin: 0;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .about-highlight {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .about-highlight-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 102, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .about-highlight h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-highlight p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         /* Process Section */
@@ -604,22 +1215,38 @@
             background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
         }
 
-        .process-steps {
+        .process-timeline {
             display: flex;
             justify-content: space-between;
             position: relative;
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .process-steps::before {
+        .process-timeline::before {
             content: '';
             position: absolute;
-            top: 40px;
-            left: 80px;
-            right: 80px;
+            top: 50px;
+            left: 100px;
+            right: 100px;
             height: 2px;
             background: var(--border-color);
+        }
+
+        .process-timeline::after {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 100px;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            animation: progressLine 3s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes progressLine {
+            to { width: calc(100% - 200px); }
         }
 
         .process-step {
@@ -630,39 +1257,56 @@
         }
 
         .step-number {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: var(--bg-card);
             border: 2px solid var(--accent-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--accent-cyan);
             transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .step-number::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
         }
 
         .process-step:hover .step-number {
             background: var(--accent-gradient);
             color: white;
             transform: scale(1.1);
-            box-shadow: 0 0 40px var(--glow-blue);
+            box-shadow: 0 0 50px rgba(0, 102, 255, 0.5);
+        }
+
+        .process-step:hover .step-number::before {
+            opacity: 0.3;
         }
 
         .process-step h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
         }
 
         .process-step p {
             font-size: 0.9rem;
             color: var(--text-secondary);
-            max-width: 200px;
+            max-width: 220px;
             margin: 0 auto;
+            line-height: 1.7;
         }
 
         /* Contact Section */
@@ -678,31 +1322,33 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--glow-blue) 0%, transparent 70%);
-            opacity: 0.3;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, var(--glow-blue) 0%, transparent 60%);
+            opacity: 0.5;
             pointer-events: none;
         }
 
         .contact-content {
             text-align: center;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
         .contact h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
         }
 
-        .contact p {
+        .contact > .contact-content > p:first-of-type {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            margin-bottom: 3.5rem;
+            line-height: 1.8;
         }
 
         .contact-methods {
@@ -710,72 +1356,78 @@
             justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
         }
 
         .contact-method {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.5rem 2rem;
+            gap: 1.25rem;
+            padding: 1.75rem 2.5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 20px;
             text-decoration: none;
             color: var(--text-primary);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 280px;
         }
 
         .contact-method:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--border-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
 
         .contact-method .icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: var(--accent-gradient);
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
         }
 
         .contact-method .info h4 {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             margin-bottom: 0.25rem;
         }
 
         .contact-method .info p {
             font-size: 0.9rem;
             color: var(--text-muted);
-            margin: 0;
         }
 
         .contact-cta {
-            padding: 1.25rem 3rem;
-            font-size: 1.1rem;
+            padding: 1.5rem 4rem;
+            font-size: 1.15rem;
         }
 
         /* Footer */
         footer {
             background: var(--bg-primary);
             border-top: 1px solid var(--border-color);
-            padding: 3rem 2rem;
-            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-logo {
-            font-size: 1.25rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
         }
 
         .footer-text {
@@ -783,11 +1435,27 @@
             font-size: 0.9rem;
         }
 
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -795,10 +1463,21 @@
             }
         }
 
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .animate-on-scroll.visible {
@@ -807,72 +1486,133 @@
         }
 
         /* Responsive */
+        @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-card.featured {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .cases-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .about-badges {
+                display: none;
+            }
+
+            .about-highlights {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-timeline {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .process-timeline::before,
+            .process-timeline::after {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .about-content {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .services-grid,
+            .cases-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
             }
 
-            .about-visual {
-                display: none;
-            }
-
-            .process-steps {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .process-steps::before {
-                display: none;
+            .service-card.featured {
+                grid-column: span 1;
             }
 
             .contact-methods {
                 flex-direction: column;
+                align-items: center;
             }
 
-            .floating-card {
-                display: none;
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
             }
-        }
 
-        /* Mobile menu button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
     <!-- Background Effects -->
-    <div class="bg-gradient"></div>
+    <div class="bg-effects">
+        <div class="bg-gradient-orb orb-1"></div>
+        <div class="bg-gradient-orb orb-2"></div>
+        <div class="bg-gradient-orb orb-3"></div>
+    </div>
     <div class="grid-pattern"></div>
+    <div class="noise"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">Etter<span>IA</span></div>
+            <div class="logo">
+                <span class="logo-text">Etter</span>IA
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Início</a></li>
                 <li><a href="#services">Soluções</a></li>
+                <li><a href="#cases">Cases</a></li>
                 <li><a href="#about">Sobre</a></li>
                 <li><a href="#process">Processo</a></li>
                 <li><a href="#contact">Contato</a></li>
             </ul>
-            <a href="#contact" class="nav-cta">Fale Conosco</a>
+            <a href="#contact" class="nav-cta">Agendar Conversa</a>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
@@ -882,50 +1622,85 @@
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="container">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        Automação Inteligente
-                    </div>
-                    <h1>
-                        Transforme seu negócio com
-                        <span class="gradient-text">Inteligência Artificial</span>
-                    </h1>
-                    <p>
-                        Desenvolvemos agentes de IA personalizados que automatizam processos, 
-                        aumentam vendas e reduzem custos operacionais da sua empresa.
-                    </p>
-                    <div class="hero-cta">
-                        <a href="#contact" class="btn-primary">
-                            Agendar Conversa
-                            <span>→</span>
-                        </a>
-                        <a href="#services" class="btn-secondary">
-                            Ver Soluções
-                        </a>
-                    </div>
-                </div>
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            Automação com Inteligência Artificial
+                        </div>
+                        <h1>
+                            Transforme seu negócio com <span class="highlight">agentes de IA</span> que trabalham 24/7
+                        </h1>
+                        <p class="hero-description">
+                            Desenvolvemos soluções personalizadas de IA que automatizam processos, 
+                            aumentam vendas e reduzem custos operacionais. De chatbots inteligentes 
+                            a aplicativos completos — tudo sob medida para sua empresa.
+                        </p>
+                        <div class="hero-cta">
+                            <a href="#contact" class="btn-primary">
+                                Falar com Especialista
+                                <span class="arrow">→</span>
+                            </a>
+                            <a href="#cases" class="btn-secondary">
+                                Ver Cases de Sucesso
+                            </a>
+                        </div>
 
-                <!-- Floating Cards -->
-                <div class="hero-visual">
-                    <div class="floating-card">
-                        <div class="icon">🤖</div>
-                        <div class="info">
-                            <h4>Agente de Atendimento</h4>
-                            <p>24/7 no WhatsApp</p>
+                        <div class="trusted-by">
+                            <p>Empresas que confiam na Etter IA</p>
+                            <div class="trusted-logos">
+                                <span>Nutricionistas</span>
+                                <span>Personal Trainers</span>
+                                <span>Clínicas</span>
+                                <span>E-commerces</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="floating-card">
-                        <div class="icon">📊</div>
-                        <div class="info">
-                            <h4>Relatórios Automáticos</h4>
-                            <p>Dados em tempo real</p>
+
+                    <div class="hero-visual">
+                        <div class="hero-visual-container">
+                            <div class="agent-demo">
+                                <div class="agent-demo-header">
+                                    <div class="agent-avatar">🤖</div>
+                                    <div class="agent-info">
+                                        <h4>Agente de Atendimento</h4>
+                                        <p>Respondendo em tempo real</p>
+                                    </div>
+                                    <div class="agent-status">Online</div>
+                                </div>
+                                <div class="chat-messages">
+                                    <div class="chat-message user" style="animation-delay: 0.2s;">
+                                        Olá, quero saber sobre o plano mensal
+                                    </div>
+                                    <div class="chat-message agent" style="animation-delay: 0.8s;">
+                                        Olá! 👋 O plano mensal inclui acompanhamento nutricional completo, 4 consultas e acesso ao app. Posso agendar uma consulta gratuita para você conhecer melhor?
+                                    </div>
+                                    <div class="chat-message user" style="animation-delay: 1.4s;">
+                                        Sim, quero agendar
+                                    </div>
+                                    <div class="typing-indicator" style="animation-delay: 2s;">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="floating-card">
-                        <div class="icon">⚡</div>
-                        <div class="info">
-                            <h4>Automação de Vendas</h4>
-                            <p>+300% de conversão</p>
+
+                        <div class="floating-elements">
+                            <div class="float-card">
+                                <div class="icon">📊</div>
+                                <div class="info">
+                                    <h5>+340% Conversão</h5>
+                                    <p>Em 30 dias</p>
+                                </div>
+                            </div>
+                            <div class="float-card">
+                                <div class="icon">⚡</div>
+                                <div class="info">
+                                    <h5>Resposta em 3s</h5>
+                                    <p>24 horas por dia</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -936,81 +1711,256 @@
         <section class="services" id="services">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Soluções que Transformam</h2>
-                    <p>Cada agente é desenvolvido sob medida para resolver os desafios específicos do seu negócio.</p>
+                    <div class="section-badge">Nossas Soluções</div>
+                    <h2>Tecnologia que resolve problemas reais</h2>
+                    <p>Cada solução é desenvolvida sob medida, integrando inteligência artificial 
+                    com os sistemas que você já usa para entregar resultados mensuráveis.</p>
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">💬</div>
-                        <h3>Agente de Atendimento</h3>
-                        <p>Responde clientes no WhatsApp, Instagram e site automaticamente, 24 horas por dia.</p>
+                    <div class="service-card featured animate-on-scroll">
+                        <div class="service-icon">🤖</div>
+                        <h3>Agentes de IA para Atendimento</h3>
+                        <p>Chatbots inteligentes que entendem contexto, respondem como humanos e 
+                        trabalham 24 horas. Integrados com WhatsApp, Instagram e site.</p>
                         <ul class="service-features">
-                            <li>Respostas instantâneas</li>
-                            <li>Integração multi-canal</li>
-                            <li>Escalamento inteligente</li>
-                            <li>Histórico completo</li>
+                            <li>Respostas instantâneas e contextuais</li>
+                            <li>Integração WhatsApp Business API</li>
+                            <li>Agendamento automático de reuniões</li>
+                            <li>Qualificação inteligente de leads</li>
+                            <li>Escalamento para humano quando necessário</li>
+                            <li>Relatórios de performance em tempo real</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">📱</div>
+                        <h3>Aplicativos Personalizados</h3>
+                        <p>Apps mobile e web desenvolvidos do zero para resolver problemas específicos do seu negócio.</p>
+                        <ul class="service-features">
+                            <li>Design personalizado</li>
+                            <li>Integração com IA</li>
+                            <li>Painel administrativo</li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
                         <div class="service-icon">📈</div>
-                        <h3>Agente de Vendas</h3>
-                        <p>Qualifica leads, agenda reuniões e acompanha todo o funil de vendas automaticamente.</p>
+                        <h3>Automação de Vendas</h3>
+                        <p>Sistemas que qualificam leads, enviam propostas e fazem follow-up automaticamente.</p>
                         <ul class="service-features">
-                            <li>Qualificação automática</li>
-                            <li>Follow-up inteligente</li>
-                            <li>Integração com CRM</li>
+                            <li>Funil automatizado</li>
+                            <li>CRM integrado</li>
                             <li>Propostas personalizadas</li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📋</div>
-                        <h3>Agente de Relatórios</h3>
-                        <p>Coleta dados, analisa métricas e gera insights automaticamente para decisões estratégicas.</p>
+                        <div class="service-icon">🏋️</div>
+                        <h3>IA de Treino e Dieta</h3>
+                        <p>Agentes especializados que criam planos personalizados e acompanham o progresso.</p>
                         <ul class="service-features">
-                            <li>Dashboards em tempo real</li>
-                            <li>Relatórios semanais</li>
-                            <li>Análise preditiva</li>
-                            <li>Alertas automáticos</li>
+                            <li>Planos adaptativos</li>
+                            <li>Tracking automático</li>
+                            <li>Lembretes inteligentes</li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📅</div>
-                        <h3>Agente de Agendamento</h3>
-                        <p>Gerencia sua agenda, confirma compromissos e reagenda automaticamente.</p>
+                        <div class="service-icon">📋</div>
+                        <h3>Relatórios Automatizados</h3>
+                        <p>Dashboards e relatórios gerados automaticamente com insights acionáveis.</p>
                         <ul class="service-features">
-                            <li>Sincronização de calendário</li>
-                            <li>Confirmações automáticas</li>
-                            <li>Lembretes inteligentes</li>
-                            <li>Gestão de cancelamentos</li>
+                            <li>Dados em tempo real</li>
+                            <li>Alertas automáticos</li>
+                            <li>Análise preditiva</li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
                         <div class="service-icon">🔄</div>
-                        <h3>Agente de Processos</h3>
-                        <p>Automatiza tarefas repetitivas, conecta sistemas e elimina trabalho manual.</p>
+                        <h3>Integrações de Sistemas</h3>
+                        <p>Conectamos suas ferramentas para eliminar trabalho manual e erros.</p>
                         <ul class="service-features">
-                            <li>Integração de sistemas</li>
-                            <li>Automação de workflows</li>
-                            <li>Redução de erros</li>
-                            <li>Economia de tempo</li>
+                            <li>APIs e webhooks</li>
+                            <li>Sincronização automática</li>
+                            <li>Fluxos personalizados</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🎯</div>
-                        <h3>Agente Personalizado</h3>
-                        <p>Desenvolvemos soluções sob medida para desafios específicos do seu negócio.</p>
-                        <ul class="service-features">
-                            <li>Análise de necessidades</li>
-                            <li>Desenvolvimento exclusivo</li>
-                            <li>Treinamento da equipe</li>
-                            <li>Suporte dedicado</li>
-                        </ul>
+        <!-- Cases Section -->
+        <section class="cases" id="cases">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <div class="section-badge">Cases de Sucesso</div>
+                    <h2>Resultados que falam por si</h2>
+                    <p>Veja como empresas reais transformaram seus negócios com nossas soluções de IA.</p>
+                </div>
+
+                <div class="cases-grid">
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            🥗
+                            <span class="case-badge">Aplicativo</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">Nutrição</div>
+                            <h3>App para Nutricionista</h3>
+                            <p>Aplicativo completo com planos alimentares personalizados por IA, 
+                            acompanhamento de pacientes e chat integrado.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">+85%</div>
+                                    <div class="case-result-label">Adesão</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">-40%</div>
+                                    <div class="case-result-label">Tempo</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">4.9★</div>
+                                    <div class="case-result-label">Avaliação</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            💇
+                            <span class="case-badge">Agendamento</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">Estética</div>
+                            <h3>Sistema para Barbearia</h3>
+                            <p>Agente de IA que agenda, confirma e reagenda horários automaticamente 
+                            pelo WhatsApp, eliminando no-shows.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">-70%</div>
+                                    <div class="case-result-label">No-shows</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">+35%</div>
+                                    <div class="case-result-label">Receita</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">24/7</div>
+                                    <div class="case-result-label">Atendimento</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            💬
+                            <span class="case-badge">Atendimento</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">E-commerce</div>
+                            <h3>IA de Suporte</h3>
+                            <p>Chatbot treinado para responder dúvidas sobre produtos, rastrear pedidos 
+                            e processar devoluções automaticamente.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">3s</div>
+                                    <div class="case-result-label">Resposta</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">92%</div>
+                                    <div class="case-result-label">Resolução</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">-60%</div>
+                                    <div class="case-result-label">Tickets</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            🏋️
+                            <span class="case-badge">IA Fitness</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">Personal Trainer</div>
+                            <h3>IA de Treino e Dieta</h3>
+                            <p>Agente que cria treinos personalizados, ajusta cargas automaticamente 
+                            e responde dúvidas sobre exercícios 24h.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">+120%</div>
+                                    <div class="case-result-label">Alunos</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">95%</div>
+                                    <div class="case-result-label">Retenção</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">-80%</div>
+                                    <div class="case-result-label">Tempo</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            🏥
+                            <span class="case-badge">Saúde</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">Clínica Médica</div>
+                            <h3>Triagem Inteligente</h3>
+                            <p>IA que faz triagem inicial de pacientes, agenda consultas 
+                            e envia lembretes de medicamentos.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">+45%</div>
+                                    <div class="case-result-label">Consultas</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">-50%</div>
+                                    <div class="case-result-label">Faltas</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">98%</div>
+                                    <div class="case-result-label">Satisfação</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-card animate-on-scroll">
+                        <div class="case-image">
+                            📊
+                            <span class="case-badge">Automação</span>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-category">Consultoria</div>
+                            <h3>Relatórios Automáticos</h3>
+                            <p>Sistema que coleta dados de múltiplas fontes e gera relatórios 
+                            executivos automaticamente toda semana.</p>
+                            <div class="case-results">
+                                <div class="case-result">
+                                    <div class="case-result-value">8h</div>
+                                    <div class="case-result-label">→ 10min</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">100%</div>
+                                    <div class="case-result-label">Precisão</div>
+                                </div>
+                                <div class="case-result">
+                                    <div class="case-result-value">Semanal</div>
+                                    <div class="case-result-label">Entrega</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1020,8 +1970,8 @@
         <section class="results">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Resultados Comprovados</h2>
-                    <p>Números que nossos clientes alcançam com nossas soluções.</p>
+                    <div class="section-badge">Impacto Real</div>
+                    <h2>Números que nossos clientes alcançam</h2>
                 </div>
 
                 <div class="results-grid animate-on-scroll">
@@ -1031,15 +1981,15 @@
                     </div>
                     <div class="result-card">
                         <div class="result-number">24/7</div>
-                        <div class="result-label">Atendimento contínuo</div>
+                        <div class="result-label">Atendimento automático</div>
                     </div>
                     <div class="result-card">
                         <div class="result-number">3x</div>
                         <div class="result-label">Aumento em conversões</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-number">-60%</div>
-                        <div class="result-label">Tempo de resposta</div>
+                        <div class="result-number">3s</div>
+                        <div class="result-label">Tempo médio de resposta</div>
                     </div>
                 </div>
             </div>
@@ -1048,40 +1998,84 @@
         <!-- About Section -->
         <section class="about" id="about">
             <div class="container">
-                <div class="about-content">
-                    <div class="about-text animate-on-scroll">
-                        <h2>Especialistas em Automação com IA</h2>
-                        <p>
-                            A Etter IA nasceu da necessidade de trazer inteligência artificial 
-                            de forma prática e acessível para empresas brasileiras.
-                        </p>
-                        <p>
-                            Não vendemos ferramentas genéricas. Desenvolvemos agentes inteligentes 
-                            que entendem seu negócio, aprendem com suas interações e evoluem 
-                            constantemente para entregar resultados reais.
-                        </p>
-                        <p>
-                            Nossa missão é eliminar o trabalho repetitivo para que você e sua 
-                            equipe possam focar no que realmente importa: crescer o negócio.
-                        </p>
-                        <a href="#contact" class="btn-primary">
-                            Conhecer a Etter IA
-                            <span>→</span>
-                        </a>
+                <div class="about-grid">
+                    <div class="about-image animate-on-scroll">
+                        <div class="about-photo-container">
+                            <!-- PLACEHOLDER: Substituir pela foto do Vale do Silício -->
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&crop=face" 
+                                 alt="Enzo Vaccaro - Fundador Etter IA" 
+                                 class="about-photo">
+                            <div class="about-photo-overlay">
+                                <h4>Enzo Vaccaro</h4>
+                                <p>Fundador & CEO da Etter IA</p>
+                            </div>
+                        </div>
+                        <div class="about-badges">
+                            <div class="about-badge">
+                                <div class="icon">🇺🇸</div>
+                                <div class="text">
+                                    <h5>Vale do Silício</h5>
+                                    <p>Experiência internacional</p>
+                                </div>
+                            </div>
+                            <div class="about-badge">
+                                <div class="icon">🤖</div>
+                                <div class="text">
+                                    <h5>+50 Agentes</h5>
+                                    <p>Desenvolvidos</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="about-visual">
-                        <div class="about-card">
-                            <h4>🎯 Foco em Resultados</h4>
-                            <p>Cada solução é medida pelo impacto real no seu negócio.</p>
-                        </div>
-                        <div class="about-card">
-                            <h4>🔧 Tecnologia de Ponta</h4>
-                            <p>Utilizamos os modelos de IA mais avançados do mercado.</p>
-                        </div>
-                        <div class="about-card">
-                            <h4>🤝 Parceria Contínua</h4>
-                            <p>Acompanhamento e evolução constante das soluções.</p>
+                    <div class="about-content animate-on-scroll">
+                        <h2>Quem está por trás da <span>Etter IA</span></h2>
+                        <p>
+                            Me chamo Enzo Vaccaro. Comecei a programar aos 14 anos e desde então 
+                            desenvolvo soluções tecnológicas para resolver problemas reais de 
+                            empresas brasileiras.
+                        </p>
+                        <p>
+                            Tive a oportunidade de estudar e trabalhar no Vale do Silício, onde 
+                            aprendi com as melhores empresas de tecnologia do mundo. Trouxe esse 
+                            conhecimento para o Brasil com um objetivo: tornar a inteligência 
+                            artificial acessível para negócios de todos os tamanhos.
+                        </p>
+                        <p>
+                            A Etter IA nasceu dessa visão. Não vendemos ferramentas genéricas — 
+                            desenvolvemos soluções sob medida que realmente funcionam no dia a dia 
+                            da sua empresa.
+                        </p>
+
+                        <div class="about-highlights">
+                            <div class="about-highlight">
+                                <div class="about-highlight-icon">🎯</div>
+                                <div>
+                                    <h4>Foco em Resultados</h4>
+                                    <p>Cada projeto é medido pelo impacto real no negócio</p>
+                                </div>
+                            </div>
+                            <div class="about-highlight">
+                                <div class="about-highlight-icon">🔧</div>
+                                <div>
+                                    <h4>100% Personalizado</h4>
+                                    <p>Nada de templates — tudo feito sob medida</p>
+                                </div>
+                            </div>
+                            <div class="about-highlight">
+                                <div class="about-highlight-icon">🚀</div>
+                                <div>
+                                    <h4>Tecnologia de Ponta</h4>
+                                    <p>Modelos de IA mais avançados do mercado</p>
+                                </div>
+                            </div>
+                            <div class="about-highlight">
+                                <div class="about-highlight-icon">🤝</div>
+                                <div>
+                                    <h4>Suporte Contínuo</h4>
+                                    <p>Acompanhamento e evolução das soluções</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1092,30 +2086,31 @@
         <section class="process" id="process">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>Como Trabalhamos</h2>
+                    <div class="section-badge">Nosso Processo</div>
+                    <h2>Do problema à solução em 4 etapas</h2>
                     <p>Um processo simples e transparente do início ao resultado.</p>
                 </div>
 
-                <div class="process-steps animate-on-scroll">
+                <div class="process-timeline animate-on-scroll">
                     <div class="process-step">
                         <div class="step-number">1</div>
                         <h4>Diagnóstico</h4>
-                        <p>Entendemos seus processos e identificamos oportunidades de automação.</p>
+                        <p>Entendemos seu negócio, processos e identificamos onde a IA pode gerar mais impacto.</p>
                     </div>
                     <div class="process-step">
                         <div class="step-number">2</div>
                         <h4>Proposta</h4>
-                        <p>Apresentamos uma solução personalizada com escopo e investimento claros.</p>
+                        <p>Apresentamos uma solução personalizada com escopo claro, prazo e investimento definidos.</p>
                     </div>
                     <div class="process-step">
                         <div class="step-number">3</div>
                         <h4>Desenvolvimento</h4>
-                        <p>Criamos e treinamos os agentes com sua base de conhecimento.</p>
+                        <p>Criamos e treinamos os agentes com sua base de conhecimento e processos.</p>
                     </div>
                     <div class="process-step">
                         <div class="step-number">4</div>
                         <h4>Ativação</h4>
-                        <p>Integramos, testamos e colocamos a solução em produção.</p>
+                        <p>Integramos, testamos e colocamos a solução em produção com acompanhamento.</p>
                     </div>
                 </div>
             </div>
@@ -1125,18 +2120,18 @@
         <section class="contact" id="contact">
             <div class="container">
                 <div class="contact-content animate-on-scroll">
-                    <h2>Vamos Conversar?</h2>
+                    <h2>Vamos transformar seu negócio?</h2>
                     <p>
-                        Agende uma conversa sem compromisso para entendermos como 
-                        a IA pode transformar seu negócio.
+                        Agende uma conversa sem compromisso. Vou entender seu cenário e mostrar 
+                        como a IA pode resolver seus desafios específicos.
                     </p>
 
                     <div class="contact-methods">
-                        <a href="https://wa.me/5517991563451" target="_blank" class="contact-method">
+                        <a href="https://wa.me/5517991563451?text=Olá Enzo! Vim pelo site da Etter IA e gostaria de saber mais sobre as soluções de automação." target="_blank" class="contact-method">
                             <div class="icon">💬</div>
                             <div class="info">
                                 <h4>WhatsApp</h4>
-                                <p>Resposta rápida</p>
+                                <p>Resposta em minutos</p>
                             </div>
                         </a>
                         <a href="mailto:contato@etteria.com.br" class="contact-method">
@@ -1148,9 +2143,9 @@
                         </a>
                     </div>
 
-                    <a href="https://wa.me/5517991563451?text=Olá! Gostaria de saber mais sobre as soluções de IA da Etter." target="_blank" class="btn-primary contact-cta">
+                    <a href="https://wa.me/5517991563451?text=Olá Enzo! Vim pelo site da Etter IA e quero agendar uma conversa para entender como a IA pode ajudar meu negócio." target="_blank" class="btn-primary contact-cta">
                         Agendar Conversa Gratuita
-                        <span>→</span>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1159,23 +2154,37 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">EtterIA</div>
-        <p class="footer-text">© 2026 Etter IA — Automação Inteligente para Negócios</p>
+        <div class="footer-content">
+            <div class="footer-logo">EtterIA</div>
+            <p class="footer-text">© 2026 Etter IA — Automação Inteligente para Negócios</p>
+            <div class="footer-links">
+                <a href="#services">Soluções</a>
+                <a href="#cases">Cases</a>
+                <a href="#about">Sobre</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </div>
     </footer>
 
     <!-- Scripts -->
     <script>
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
+            const currentScroll = window.scrollY;
+            
+            if (currentScroll > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+
+            lastScroll = currentScroll;
         });
 
-        // Animate on scroll
+        // Animate on scroll with Intersection Observer
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1183,9 +2192,12 @@
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    // Add staggered delay based on element position
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
                 }
             });
         }, observerOptions);
@@ -1200,9 +2212,13 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerOffset = 100;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -1210,15 +2226,31 @@
 
         // Parallax effect for floating cards
         document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.floating-card');
-            const x = (window.innerWidth / 2 - e.clientX) / 50;
-            const y = (window.innerHeight / 2 - e.clientY) / 50;
+            const cards = document.querySelectorAll('.float-card, .about-badge');
+            const x = (window.innerWidth / 2 - e.clientX) / 40;
+            const y = (window.innerHeight / 2 - e.clientY) / 40;
             
             cards.forEach((card, index) => {
-                const factor = (index + 1) * 0.5;
+                const factor = (index + 1) * 0.4;
                 card.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
             });
         });
+
+        // Chat animation
+        const chatMessages = document.querySelectorAll('.chat-message');
+        const typingIndicator = document.querySelector('.typing-indicator');
+        
+        chatMessages.forEach((msg, i) => {
+            msg.style.animationDelay = `${i * 0.8}s`;
+        });
+
+        // Cycle chat messages
+        let currentMessage = 0;
+        const messages = [
+            { user: "Olá, quero saber sobre o plano mensal", agent: "Olá! 👋 O plano mensal inclui acompanhamento nutricional completo, 4 consultas e acesso ao app. Posso agendar uma consulta gratuita?" },
+            { user: "Quanto custa para criar um app?", agent: "Depende da complexidade! Um app simples começa em R$3.000. Me conta mais sobre sua ideia que faço um orçamento personalizado." },
+            { user: "Vocês fazem chatbot para WhatsApp?", agent: "Sim! Criamos agentes de IA integrados com WhatsApp Business API. Eles respondem 24/7, agendam e qualificam leads automaticamente." }
+        ];
     </script>
 </body>
 </html>
