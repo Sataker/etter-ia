@@ -885,7 +885,7 @@
         }
 
         .case-image {
-            height: 200px;
+            height: 220px;
             background: var(--bg-secondary);
             display: flex;
             align-items: center;
@@ -895,6 +895,17 @@
             color: var(--accent-cyan);
         }
 
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .case-card:hover .case-image img {
+            transform: scale(1.08);
+        }
+
         .case-image::before {
             content: '';
             position: absolute;
@@ -902,8 +913,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--accent-gradient);
-            opacity: 0.1;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+            opacity: 0.7;
         }
 
         .case-badge {
@@ -2056,15 +2068,10 @@
                 </div>
 
                 <div class="cases-grid">
+                    <!-- Case 1: Nutricionista -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                                <line x1="6" y1="1" x2="6" y2="4"></line>
-                                <line x1="10" y1="1" x2="10" y2="4"></line>
-                                <line x1="14" y1="1" x2="14" y2="4"></line>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop" alt="Comida saudável e app de nutrição" loading="lazy">
                             <span class="case-badge">Aplicativo</span>
                         </div>
                         <div class="case-content">
@@ -2089,14 +2096,10 @@
                         </div>
                     </div>
 
+                    <!-- Case 2: Barbearia -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <circle cx="6" cy="6" r="3"></circle>
-                                <path d="M6 9v12"></path>
-                                <path d="M13 6a3 3 0 1 0 6 0 3 3 0 1 0-6 0"></path>
-                                <path d="M16 9v12"></path>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&h=400&fit=crop" alt="Interior de barbearia moderna" loading="lazy">
                             <span class="case-badge">Agendamento</span>
                         </div>
                         <div class="case-content">
@@ -2121,11 +2124,10 @@
                         </div>
                     </div>
 
+                    <!-- Case 3: E-commerce -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Atendimento ao cliente e-commerce" loading="lazy">
                             <span class="case-badge">Atendimento</span>
                         </div>
                         <div class="case-content">
@@ -2150,13 +2152,10 @@
                         </div>
                     </div>
 
+                    <!-- Case 4: Personal Trainer -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <path d="M6.5 6.5m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                                <path d="M2.5 21v-1a7 7 0 0 1 7 -7"></path>
-                                <path d="M17.5 15l4.5 4.5m0 -4.5l-4.5 4.5"></path>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop" alt="Academia e treino fitness" loading="lazy">
                             <span class="case-badge">IA Fitness</span>
                         </div>
                         <div class="case-content">
@@ -2181,11 +2180,10 @@
                         </div>
                     </div>
 
+                    <!-- Case 5: Clínica Médica -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop" alt="Recepção de clínica médica" loading="lazy">
                             <span class="case-badge">Saúde</span>
                         </div>
                         <div class="case-content">
@@ -2210,13 +2208,10 @@
                         </div>
                     </div>
 
+                    <!-- Case 6: Consultoria -->
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
-                                <line x1="18" y1="20" x2="18" y2="10"></line>
-                                <line x1="12" y1="20" x2="12" y2="4"></line>
-                                <line x1="6" y1="20" x2="6" y2="14"></line>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Dashboard de analytics e relatórios" loading="lazy">
                             <span class="case-badge">Automação</span>
                         </div>
                         <div class="case-content">
