@@ -46,6 +46,27 @@
             overflow-x: hidden;
         }
 
+        /* SVG Icons */
+        .icon-svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .icon-svg.lg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-svg.xl {
+            width: 40px;
+            height: 40px;
+        }
+
         /* Animated Background */
         .bg-effects {
             position: fixed;
@@ -182,16 +203,6 @@
             background-clip: text;
         }
 
-        .logo-badge {
-            font-size: 0.65rem;
-            font-weight: 600;
-            background: var(--accent-gradient);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            color: white;
-            letter-spacing: 0.05em;
-        }
-
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -323,8 +334,7 @@
             animation: fadeInUp 0.8s ease;
         }
 
-        .hero-badge::before {
-            content: '';
+        .hero-badge .pulse-dot {
             width: 8px;
             height: 8px;
             background: var(--accent-cyan);
@@ -353,18 +363,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             position: relative;
-        }
-
-        .hero h1 .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--accent-gradient);
-            border-radius: 2px;
-            opacity: 0.3;
         }
 
         .hero-description {
@@ -418,14 +416,6 @@
         .btn-primary:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 50px rgba(0, 102, 255, 0.5);
-        }
-
-        .btn-primary .arrow {
-            transition: transform 0.3s ease;
-        }
-
-        .btn-primary:hover .arrow {
-            transform: translateX(5px);
         }
 
         .btn-secondary {
@@ -497,7 +487,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
         }
 
         .agent-info h4 {
@@ -520,8 +509,7 @@
             font-weight: 500;
         }
 
-        .agent-status::before {
-            content: '';
+        .agent-status .status-dot {
             width: 8px;
             height: 8px;
             background: var(--success);
@@ -634,7 +622,7 @@
             50% { transform: translateY(-15px); }
         }
 
-        .float-card .icon {
+        .float-card .icon-box {
             width: 44px;
             height: 44px;
             background: var(--accent-gradient);
@@ -642,7 +630,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            color: white;
         }
 
         .float-card .info h5 {
@@ -791,15 +779,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
             margin-bottom: 1.75rem;
             transition: all 0.4s ease;
             position: relative;
             z-index: 1;
+            color: var(--accent-cyan);
         }
 
         .service-card:hover .service-icon {
             background: var(--accent-gradient);
+            color: white;
             transform: scale(1.1) rotate(5deg);
             box-shadow: 0 15px 40px rgba(0, 102, 255, 0.3);
         }
@@ -841,11 +830,11 @@
             border-bottom: none;
         }
 
-        .service-features li::before {
-            content: '✓';
+        .service-features li svg {
             color: var(--success);
-            font-weight: 700;
-            font-size: 0.85rem;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
         }
 
         /* Featured Service */
@@ -859,7 +848,6 @@
         .service-card.featured .service-icon {
             width: 80px;
             height: 80px;
-            font-size: 2.25rem;
         }
 
         .service-card.featured h3 {
@@ -902,9 +890,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
             position: relative;
             overflow: hidden;
+            color: var(--accent-cyan);
         }
 
         .case-image::before {
@@ -1131,7 +1119,7 @@
             animation-delay: 2s;
         }
 
-        .about-badge .icon {
+        .about-badge .badge-icon {
             width: 44px;
             height: 44px;
             background: var(--accent-gradient);
@@ -1139,7 +1127,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            color: white;
         }
 
         .about-badge .text h5 {
@@ -1195,8 +1183,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
             flex-shrink: 0;
+            color: var(--accent-cyan);
         }
 
         .about-highlight h4 {
@@ -1273,26 +1261,11 @@
             position: relative;
         }
 
-        .step-number::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: var(--accent-gradient);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.4s ease;
-        }
-
         .process-step:hover .step-number {
             background: var(--accent-gradient);
             color: white;
             transform: scale(1.1);
             box-shadow: 0 0 50px rgba(0, 102, 255, 0.5);
-        }
-
-        .process-step:hover .step-number::before {
-            opacity: 0.3;
         }
 
         .process-step h4 {
@@ -1344,7 +1317,7 @@
             letter-spacing: -0.03em;
         }
 
-        .contact > .contact-content > p:first-of-type {
+        .contact-description {
             color: var(--text-secondary);
             font-size: 1.2rem;
             margin-bottom: 3.5rem;
@@ -1379,7 +1352,7 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
 
-        .contact-method .icon {
+        .contact-method .icon-box {
             width: 60px;
             height: 60px;
             background: var(--accent-gradient);
@@ -1387,7 +1360,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            color: white;
         }
 
         .contact-method .info h4 {
@@ -1502,9 +1475,18 @@
         }
 
         @media (max-width: 992px) {
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .hero {
+                padding-top: 6rem;
+            }
+
             .hero-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 3rem;
             }
 
             .hero-content {
@@ -1522,10 +1504,13 @@
             .about-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 3rem;
             }
 
             .about-image {
                 order: -1;
+                max-width: 400px;
+                margin: 0 auto;
             }
 
             .about-badges {
@@ -1550,15 +1535,41 @@
             .process-timeline::after {
                 display: none;
             }
+
+            .trusted-logos {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
             .nav-links {
                 display: none;
             }
 
             .mobile-menu-btn {
                 display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
             }
 
             .services-grid,
@@ -1570,9 +1581,45 @@
                 grid-column: span 1;
             }
 
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-number {
+                font-size: 3rem;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+            }
+
+            .about-photo {
+                height: 350px;
+            }
+
             .contact-methods {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .contact-method {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .contact-cta {
+                padding: 1.25rem 2.5rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 350px;
             }
 
             .footer-content {
@@ -1584,6 +1631,42 @@
             .footer-links {
                 flex-wrap: wrap;
                 justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .hero {
+                padding-top: 5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.875rem;
+            }
+
+            .service-card {
+                padding: 1.75rem;
+            }
+
+            .case-content {
+                padding: 1.5rem;
+            }
+
+            .result-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .process-step h4 {
+                font-size: 1.1rem;
+            }
+
+            .step-number {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -1613,7 +1696,13 @@
                 <li><a href="#contact">Contato</a></li>
             </ul>
             <a href="#contact" class="nav-cta">Agendar Conversa</a>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -1625,6 +1714,7 @@
                 <div class="hero-grid">
                     <div class="hero-content">
                         <div class="hero-badge">
+                            <span class="pulse-dot"></span>
                             Automação com Inteligência Artificial
                         </div>
                         <h1>
@@ -1638,7 +1728,10 @@
                         <div class="hero-cta">
                             <a href="#contact" class="btn-primary">
                                 Falar com Especialista
-                                <span class="arrow">→</span>
+                                <svg class="icon-svg" viewBox="0 0 24 24">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
                             </a>
                             <a href="#cases" class="btn-secondary">
                                 Ver Cases de Sucesso
@@ -1646,7 +1739,7 @@
                         </div>
 
                         <div class="trusted-by">
-                            <p>Empresas que confiam na Etter IA</p>
+                            <p>Projetos desenvolvidos para</p>
                             <div class="trusted-logos">
                                 <span>Nutricionistas</span>
                                 <span>Personal Trainers</span>
@@ -1660,19 +1753,27 @@
                         <div class="hero-visual-container">
                             <div class="agent-demo">
                                 <div class="agent-demo-header">
-                                    <div class="agent-avatar">🤖</div>
+                                    <div class="agent-avatar">
+                                        <svg class="icon-svg lg" viewBox="0 0 24 24" stroke="white">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                        </svg>
+                                    </div>
                                     <div class="agent-info">
                                         <h4>Agente de Atendimento</h4>
                                         <p>Respondendo em tempo real</p>
                                     </div>
-                                    <div class="agent-status">Online</div>
+                                    <div class="agent-status">
+                                        <span class="status-dot"></span>
+                                        Online
+                                    </div>
                                 </div>
                                 <div class="chat-messages">
                                     <div class="chat-message user" style="animation-delay: 0.2s;">
                                         Olá, quero saber sobre o plano mensal
                                     </div>
                                     <div class="chat-message agent" style="animation-delay: 0.8s;">
-                                        Olá! 👋 O plano mensal inclui acompanhamento nutricional completo, 4 consultas e acesso ao app. Posso agendar uma consulta gratuita para você conhecer melhor?
+                                        Olá! O plano mensal inclui acompanhamento nutricional completo, 4 consultas e acesso ao app. Posso agendar uma consulta gratuita para você?
                                     </div>
                                     <div class="chat-message user" style="animation-delay: 1.4s;">
                                         Sim, quero agendar
@@ -1688,14 +1789,24 @@
 
                         <div class="floating-elements">
                             <div class="float-card">
-                                <div class="icon">📊</div>
+                                <div class="icon-box">
+                                    <svg class="icon-svg" viewBox="0 0 24 24" stroke="white">
+                                        <line x1="12" y1="20" x2="12" y2="10"></line>
+                                        <line x1="18" y1="20" x2="18" y2="4"></line>
+                                        <line x1="6" y1="20" x2="6" y2="16"></line>
+                                    </svg>
+                                </div>
                                 <div class="info">
                                     <h5>+340% Conversão</h5>
                                     <p>Em 30 dias</p>
                                 </div>
                             </div>
                             <div class="float-card">
-                                <div class="icon">⚡</div>
+                                <div class="icon-box">
+                                    <svg class="icon-svg" viewBox="0 0 24 24" stroke="white">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                    </svg>
+                                </div>
                                 <div class="info">
                                     <h5>Resposta em 3s</h5>
                                     <p>24 horas por dia</p>
@@ -1719,72 +1830,216 @@
 
                 <div class="services-grid">
                     <div class="service-card featured animate-on-scroll">
-                        <div class="service-icon">🤖</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
                         <h3>Agentes de IA para Atendimento</h3>
                         <p>Chatbots inteligentes que entendem contexto, respondem como humanos e 
                         trabalham 24 horas. Integrados com WhatsApp, Instagram e site.</p>
                         <ul class="service-features">
-                            <li>Respostas instantâneas e contextuais</li>
-                            <li>Integração WhatsApp Business API</li>
-                            <li>Agendamento automático de reuniões</li>
-                            <li>Qualificação inteligente de leads</li>
-                            <li>Escalamento para humano quando necessário</li>
-                            <li>Relatórios de performance em tempo real</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Respostas instantâneas e contextuais
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Integração WhatsApp Business API
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Agendamento automático de reuniões
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Qualificação inteligente de leads
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Escalamento para humano quando necessário
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Relatórios de performance em tempo real
+                            </li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📱</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg>
+                        </div>
                         <h3>Aplicativos Personalizados</h3>
                         <p>Apps mobile e web desenvolvidos do zero para resolver problemas específicos do seu negócio.</p>
                         <ul class="service-features">
-                            <li>Design personalizado</li>
-                            <li>Integração com IA</li>
-                            <li>Painel administrativo</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Design personalizado
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Integração com IA
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Painel administrativo
+                            </li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📈</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <line x1="12" y1="20" x2="12" y2="10"></line>
+                                <line x1="18" y1="20" x2="18" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="16"></line>
+                            </svg>
+                        </div>
                         <h3>Automação de Vendas</h3>
                         <p>Sistemas que qualificam leads, enviam propostas e fazem follow-up automaticamente.</p>
                         <ul class="service-features">
-                            <li>Funil automatizado</li>
-                            <li>CRM integrado</li>
-                            <li>Propostas personalizadas</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Funil automatizado
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                CRM integrado
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Propostas personalizadas
+                            </li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🏋️</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                <line x1="6" y1="1" x2="6" y2="4"></line>
+                                <line x1="10" y1="1" x2="10" y2="4"></line>
+                                <line x1="14" y1="1" x2="14" y2="4"></line>
+                            </svg>
+                        </div>
                         <h3>IA de Treino e Dieta</h3>
                         <p>Agentes especializados que criam planos personalizados e acompanham o progresso.</p>
                         <ul class="service-features">
-                            <li>Planos adaptativos</li>
-                            <li>Tracking automático</li>
-                            <li>Lembretes inteligentes</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Planos adaptativos
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Tracking automático
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Lembretes inteligentes
+                            </li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📋</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
                         <h3>Relatórios Automatizados</h3>
                         <p>Dashboards e relatórios gerados automaticamente com insights acionáveis.</p>
                         <ul class="service-features">
-                            <li>Dados em tempo real</li>
-                            <li>Alertas automáticos</li>
-                            <li>Análise preditiva</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Dados em tempo real
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Alertas automáticos
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Análise preditiva
+                            </li>
                         </ul>
                     </div>
 
                     <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🔄</div>
+                        <div class="service-icon">
+                            <svg class="icon-svg xl" viewBox="0 0 24 24">
+                                <polyline points="16 3 21 3 21 8"></polyline>
+                                <line x1="4" y1="20" x2="21" y2="3"></line>
+                                <polyline points="21 16 21 21 16 21"></polyline>
+                                <line x1="15" y1="15" x2="21" y2="21"></line>
+                                <line x1="4" y1="4" x2="9" y2="9"></line>
+                            </svg>
+                        </div>
                         <h3>Integrações de Sistemas</h3>
                         <p>Conectamos suas ferramentas para eliminar trabalho manual e erros.</p>
                         <ul class="service-features">
-                            <li>APIs e webhooks</li>
-                            <li>Sincronização automática</li>
-                            <li>Fluxos personalizados</li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                APIs e webhooks
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Sincronização automática
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Fluxos personalizados
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -1803,7 +2058,13 @@
                 <div class="cases-grid">
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            🥗
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                <line x1="6" y1="1" x2="6" y2="4"></line>
+                                <line x1="10" y1="1" x2="10" y2="4"></line>
+                                <line x1="14" y1="1" x2="14" y2="4"></line>
+                            </svg>
                             <span class="case-badge">Aplicativo</span>
                         </div>
                         <div class="case-content">
@@ -1830,7 +2091,12 @@
 
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            💇
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <circle cx="6" cy="6" r="3"></circle>
+                                <path d="M6 9v12"></path>
+                                <path d="M13 6a3 3 0 1 0 6 0 3 3 0 1 0-6 0"></path>
+                                <path d="M16 9v12"></path>
+                            </svg>
                             <span class="case-badge">Agendamento</span>
                         </div>
                         <div class="case-content">
@@ -1857,7 +2123,9 @@
 
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            💬
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
                             <span class="case-badge">Atendimento</span>
                         </div>
                         <div class="case-content">
@@ -1884,7 +2152,11 @@
 
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            🏋️
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <path d="M6.5 6.5m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M2.5 21v-1a7 7 0 0 1 7 -7"></path>
+                                <path d="M17.5 15l4.5 4.5m0 -4.5l-4.5 4.5"></path>
+                            </svg>
                             <span class="case-badge">IA Fitness</span>
                         </div>
                         <div class="case-content">
@@ -1911,7 +2183,9 @@
 
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            🏥
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
                             <span class="case-badge">Saúde</span>
                         </div>
                         <div class="case-content">
@@ -1938,7 +2212,11 @@
 
                     <div class="case-card animate-on-scroll">
                         <div class="case-image">
-                            📊
+                            <svg class="icon-svg" viewBox="0 0 24 24" style="width: 64px; height: 64px;">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
                             <span class="case-badge">Automação</span>
                         </div>
                         <div class="case-content">
@@ -2001,9 +2279,8 @@
                 <div class="about-grid">
                     <div class="about-image animate-on-scroll">
                         <div class="about-photo-container">
-                            <!-- PLACEHOLDER: Substituir pela foto do Vale do Silício -->
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&crop=face" 
-                                 alt="Enzo Vaccaro - Fundador Etter IA" 
+                            <img src="https://enzovaccaroai.netlify.app/enzo-sf.jpg" 
+                                 alt="Enzo Vaccaro na Golden Gate Bridge, San Francisco" 
                                  class="about-photo">
                             <div class="about-photo-overlay">
                                 <h4>Enzo Vaccaro</h4>
@@ -2012,68 +2289,98 @@
                         </div>
                         <div class="about-badges">
                             <div class="about-badge">
-                                <div class="icon">🇺🇸</div>
+                                <div class="badge-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24" stroke="white">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
                                 <div class="text">
                                     <h5>Vale do Silício</h5>
-                                    <p>Experiência internacional</p>
+                                    <p>2 meses em San Francisco</p>
                                 </div>
                             </div>
                             <div class="about-badge">
-                                <div class="icon">🤖</div>
+                                <div class="badge-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24" stroke="white">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
                                 <div class="text">
-                                    <h5>+50 Agentes</h5>
-                                    <p>Desenvolvidos</p>
+                                    <h5>19+ Agentes</h5>
+                                    <p>Em produção</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="about-content animate-on-scroll">
-                        <h2>Quem está por trás da <span>Etter IA</span></h2>
+                        <h2>Quem é <span>Enzo Vaccaro</span>?</h2>
                         <p>
-                            Me chamo Enzo Vaccaro. Comecei a programar aos 14 anos e desde então 
-                            desenvolvo soluções tecnológicas para resolver problemas reais de 
-                            empresas brasileiras.
+                            Sempre fui fascinado por tecnologia, mas foi quando descobri a 
+                            Inteligência Artificial e automação que tudo mudou. Me apaixonei 
+                            pela possibilidade de criar sistemas que trabalham de forma autônoma.
                         </p>
                         <p>
-                            Tive a oportunidade de estudar e trabalhar no Vale do Silício, onde 
-                            aprendi com as melhores empresas de tecnologia do mundo. Trouxe esse 
-                            conhecimento para o Brasil com um objetivo: tornar a inteligência 
-                            artificial acessível para negócios de todos os tamanhos.
+                            No ano passado, tive uma oportunidade única: passar <strong>2 meses em 
+                            San Francisco, no coração do Vale do Silício</strong>. Foi uma experiência 
+                            transformadora que moldou completamente minha visão sobre IA, automação 
+                            e o mercado internacional.
                         </p>
                         <p>
-                            A Etter IA nasceu dessa visão. Não vendemos ferramentas genéricas — 
-                            desenvolvemos soluções sob medida que realmente funcionam no dia a dia 
-                            da sua empresa.
+                            Hoje desenvolvo sistemas de agentes inteligentes que operam 24/7 para 
+                            empresas e profissionais que querem escalar sem aumentar a equipe.
                         </p>
 
                         <div class="about-highlights">
                             <div class="about-highlight">
-                                <div class="about-highlight-icon">🎯</div>
+                                <div class="about-highlight-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                </div>
                                 <div>
-                                    <h4>Foco em Resultados</h4>
-                                    <p>Cada projeto é medido pelo impacto real no negócio</p>
+                                    <h4>IA de Ponta</h4>
+                                    <p>Técnicas avançadas de criação e orquestração de agentes</p>
                                 </div>
                             </div>
                             <div class="about-highlight">
-                                <div class="about-highlight-icon">🔧</div>
+                                <div class="about-highlight-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
                                 <div>
-                                    <h4>100% Personalizado</h4>
-                                    <p>Nada de templates — tudo feito sob medida</p>
+                                    <h4>Visão Global</h4>
+                                    <p>Automação em escala com foco em impacto e eficiência</p>
                                 </div>
                             </div>
                             <div class="about-highlight">
-                                <div class="about-highlight-icon">🚀</div>
+                                <div class="about-highlight-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg>
+                                </div>
                                 <div>
-                                    <h4>Tecnologia de Ponta</h4>
-                                    <p>Modelos de IA mais avançados do mercado</p>
+                                    <h4>Projetos Elite</h4>
+                                    <p>Trabalho com fisiculturistas e profissionais de alto nível</p>
                                 </div>
                             </div>
                             <div class="about-highlight">
-                                <div class="about-highlight-icon">🤝</div>
+                                <div class="about-highlight-icon">
+                                    <svg class="icon-svg" viewBox="0 0 24 24">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
                                 <div>
-                                    <h4>Suporte Contínuo</h4>
-                                    <p>Acompanhamento e evolução das soluções</p>
+                                    <h4>100% Local</h4>
+                                    <p>Seus dados ficam seguros, nada vai para nuvens de terceiros</p>
                                 </div>
                             </div>
                         </div>
@@ -2121,21 +2428,30 @@
             <div class="container">
                 <div class="contact-content animate-on-scroll">
                     <h2>Vamos transformar seu negócio?</h2>
-                    <p>
+                    <p class="contact-description">
                         Agende uma conversa sem compromisso. Vou entender seu cenário e mostrar 
                         como a IA pode resolver seus desafios específicos.
                     </p>
 
                     <div class="contact-methods">
                         <a href="https://wa.me/5517991563451?text=Olá Enzo! Vim pelo site da Etter IA e gostaria de saber mais sobre as soluções de automação." target="_blank" class="contact-method">
-                            <div class="icon">💬</div>
+                            <div class="icon-box">
+                                <svg class="icon-svg lg" viewBox="0 0 24 24" stroke="white">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                            </div>
                             <div class="info">
                                 <h4>WhatsApp</h4>
                                 <p>Resposta em minutos</p>
                             </div>
                         </a>
                         <a href="mailto:contato@etteria.com.br" class="contact-method">
-                            <div class="icon">✉️</div>
+                            <div class="icon-box">
+                                <svg class="icon-svg lg" viewBox="0 0 24 24" stroke="white">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
                             <div class="info">
                                 <h4>Email</h4>
                                 <p>contato@etteria.com.br</p>
@@ -2145,7 +2461,10 @@
 
                     <a href="https://wa.me/5517991563451?text=Olá Enzo! Vim pelo site da Etter IA e quero agendar uma conversa para entender como a IA pode ajudar meu negócio." target="_blank" class="btn-primary contact-cta">
                         Agendar Conversa Gratuita
-                        <span class="arrow">→</span>
+                        <svg class="icon-svg" viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -2170,18 +2489,13 @@
     <script>
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.scrollY;
-            
-            if (currentScroll > 50) {
+            if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-
-            lastScroll = currentScroll;
         });
 
         // Animate on scroll with Intersection Observer
@@ -2194,7 +2508,6 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // Add staggered delay based on element position
                     setTimeout(() => {
                         entry.target.classList.add('visible');
                     }, index * 100);
@@ -2235,22 +2548,6 @@
                 card.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
             });
         });
-
-        // Chat animation
-        const chatMessages = document.querySelectorAll('.chat-message');
-        const typingIndicator = document.querySelector('.typing-indicator');
-        
-        chatMessages.forEach((msg, i) => {
-            msg.style.animationDelay = `${i * 0.8}s`;
-        });
-
-        // Cycle chat messages
-        let currentMessage = 0;
-        const messages = [
-            { user: "Olá, quero saber sobre o plano mensal", agent: "Olá! 👋 O plano mensal inclui acompanhamento nutricional completo, 4 consultas e acesso ao app. Posso agendar uma consulta gratuita?" },
-            { user: "Quanto custa para criar um app?", agent: "Depende da complexidade! Um app simples começa em R$3.000. Me conta mais sobre sua ideia que faço um orçamento personalizado." },
-            { user: "Vocês fazem chatbot para WhatsApp?", agent: "Sim! Criamos agentes de IA integrados com WhatsApp Business API. Eles respondem 24/7, agendam e qualificam leads automaticamente." }
-        ];
     </script>
 </body>
 </html>
