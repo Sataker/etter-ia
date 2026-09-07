@@ -44,4 +44,7 @@ Ao mudar preço ou prazo, atualize também `src/pages/llms.txt.ts` e o guia
 
 ## Deploy
 
-Push na branch conectada na Vercel. Build: `npm run build`, saída `dist/`.
+Vercel, projeto `etter-ia`, ligado a este repositório. Push na branch `master`
+gera deploy de produção; qualquer outra branch gera preview.
+
+Build: `npm run build`, saída `dist/`. Framework detectado automaticamente (Astro).
