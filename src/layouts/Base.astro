@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE, langFromUrl, pathWithoutLocale, localePath, type Lang } from '../lib/site';
+import { altPath } from '../lib/altpath';
 
 interface Props {
   title: string;
@@ -21,10 +22,16 @@ const lang: Lang = langFromUrl(Astro.url);
 const bare = pathWithoutLocale(Astro.url);
 
 const canonical = new URL(localePath(lang, bare), SITE.url).href;
+
+// O caminho equivalente no outro idioma: os segmentos e os slugs são diferentes.
+const otherBare = await altPath(lang, bare);
+const ptBare = lang === 'pt' ? bare : otherBare;
+const enBare = lang === 'en' ? bare : otherBare;
+
 const alternates = [
-  { hreflang: 'pt-BR', href: new URL(localePath('pt', bare), SITE.url).href },
-  { hreflang: 'en', href: new URL(localePath('en', bare), SITE.url).href },
-  { hreflang: 'x-default', href: new URL(localePath('pt', bare), SITE.url).href },
+  { hreflang: 'pt-BR', href: new URL(localePath('pt', ptBare), SITE.url).href },
+  { hreflang: 'en', href: new URL(localePath('en', enBare), SITE.url).href },
+  { hreflang: 'x-default', href: new URL(localePath('pt', ptBare), SITE.url).href },
 ];
 
 const htmlLang = lang === 'pt' ? 'pt-BR' : 'en';
@@ -123,7 +130,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
       {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
     </a>
 
-    <Header lang={lang} />
+    <Header lang={lang} altBare={otherBare} />
     <main id="conteudo"><slot /></main>
     <Footer lang={lang} updated={updated} />
   </body>

@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: implantar-agente-ia-4-semanas
+slug: ai-agent-rollout-four-weeks
 order: 3
 question: How do I build an AI agent for WhatsApp in my company?
 title: How to roll out an AI agent in four weeks

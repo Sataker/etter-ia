@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import { localePath } from '../lib/site';
+import { SEG } from '../lib/routes';
+
+// Uma 404 só: a Vercel serve este arquivo para qualquer rota inexistente,
+// inclusive sob /en. Por isso o texto é bilíngue, sem depender do idioma da URL.
+const links = [
+  { pt: 'Soluções', en: 'Services', path: SEG.pt.services },
+  { pt: 'Setores', en: 'Industries', path: SEG.pt.industries },
+  { pt: 'Cases', en: 'Cases', path: SEG.pt.cases },
+  { pt: 'Guias', en: 'Guides', path: SEG.pt.guides },
+];
+---
+
+<Base
+  title="Página não encontrada"
+  description="Esta página não existe. Veja as soluções, cases e guias da Etter."
+  noindex
+>
+  <section class="py-24 md:py-32">
+    <div class="shell">
+      <div class="max-w-[60ch]">
+        <p class="font-mono text-[0.78rem] text-signal">404</p>
+        <h1 class="mt-3 text-[length:var(--text-h2)] leading-[1.06]">Esta página não existe</h1>
+        <p class="mt-5 text-[1.02rem] leading-relaxed text-ash">
+          O endereço pode ter mudado ou o link estar incompleto. Os caminhos abaixo continuam valendo.
+        </p>
+        <p class="mt-2 text-[0.95rem] leading-relaxed text-ash">
+          <span lang="en">This page doesn't exist. The links below still work.</span>
+        </p>
+
+        <nav class="mt-9 flex flex-wrap gap-3" aria-label="Seções principais">
+          <a
+            href="/"
+            class="rounded-full bg-ink px-5 py-2.5 text-[0.94rem] font-medium text-paper transition-colors hover:bg-signal"
+          >
+            Início
+          </a>
+          {
+            links.map((l) => (
+              <a
+                href={localePath('pt', l.path)}
+                class="rounded-full border border-rule px-5 py-2.5 text-[0.94rem] transition-colors hover:border-signal hover:text-signal"
+              >
+                {l.pt}
+              </a>
+            ))
+          }
+          <a
+            href="/en"
+            class="rounded-full border border-rule px-5 py-2.5 text-[0.94rem] transition-colors hover:border-signal hover:text-signal"
+            hreflang="en"
+            lang="en"
+          >
+            English
+          </a>
+        </nav>
+      </div>
+    </div>
+  </section>
+</Base>

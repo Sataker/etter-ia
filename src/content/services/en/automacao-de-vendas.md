@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: automacao-de-vendas
+slug: sales-automation
 order: 3
 title: Sales automation
 seoTitle: 'AI sales automation — lead qualification and automatic follow-up'

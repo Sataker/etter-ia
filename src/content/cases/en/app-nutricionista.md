@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: app-nutricionista
+slug: nutritionist-app
 order: 1
 sector: Nutrition
 kind: Application

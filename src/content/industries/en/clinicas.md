@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: clinicas
+slug: clinics
 order: 3
 audience: Medical and dental clinics
 title: AI for clinics and practices

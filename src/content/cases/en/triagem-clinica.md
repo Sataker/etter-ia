@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: triagem-clinica
+slug: clinic-triage
 order: 5
 sector: Healthcare
 kind: Triage

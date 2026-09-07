@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: servicos-automacao-ia-empresas
+slug: ai-automation-services
 order: 6
 question: What kinds of AI automation can a company hire?
 title: What you can actually hire in AI automation

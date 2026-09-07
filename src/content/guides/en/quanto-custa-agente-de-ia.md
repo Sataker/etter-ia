@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: quanto-custa-agente-de-ia
+slug: how-much-ai-agent-costs
 order: 1
 question: How much does an AI customer service agent cost in Brazil?
 title: How much an AI customer service agent costs

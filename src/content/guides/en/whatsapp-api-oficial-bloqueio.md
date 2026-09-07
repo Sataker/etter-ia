@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: whatsapp-api-oficial-bloqueio
+slug: whatsapp-automation-without-bans
 order: 4
 question: Can automating WhatsApp get my number banned?
 title: Automating WhatsApp without getting banned

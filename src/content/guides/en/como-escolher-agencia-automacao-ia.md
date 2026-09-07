@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: como-escolher-agencia-automacao-ia
+slug: how-to-choose-ai-automation-agency
 order: 5
 question: How do I choose an AI automation agency?
 title: How to choose who automates your business

@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: relatorios-consultoria
+slug: consultancy-reports
 order: 6
 sector: Consulting
 kind: Automation

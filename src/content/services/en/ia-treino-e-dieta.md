@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: ia-treino-e-dieta
+slug: training-nutrition-ai
 order: 4
 title: Training and nutrition AI
 seoTitle: 'AI for personal trainers and nutritionists — plans and follow-up'

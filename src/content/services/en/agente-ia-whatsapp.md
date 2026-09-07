@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: agente-ia-whatsapp
+slug: ai-agent-whatsapp
 order: 1
 featured: true
 title: AI agents for customer service

@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: nutricionista
+slug: nutritionists
 order: 1
 audience: Nutritionists and nutrition clinics
 title: AI for nutritionists

@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: ia-suporte-ecommerce
+slug: ecommerce-support-ai
 order: 3
 sector: E-commerce
 kind: Support

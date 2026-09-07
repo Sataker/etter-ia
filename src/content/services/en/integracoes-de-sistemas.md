@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: integracoes-de-sistemas
+slug: systems-integration
 order: 6
 title: Systems integration
 seoTitle: 'Systems and API integration — end manual re-entry'

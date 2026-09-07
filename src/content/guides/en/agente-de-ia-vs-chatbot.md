@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: agente-de-ia-vs-chatbot
+slug: ai-agent-vs-chatbot
 order: 2
 question: What is the difference between an AI agent and a chatbot?
 title: An AI agent and a chatbot are not the same thing

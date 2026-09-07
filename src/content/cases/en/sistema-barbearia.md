@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: sistema-barbearia
+slug: barbershop-scheduling
 order: 2
 sector: Beauty
 kind: Scheduling

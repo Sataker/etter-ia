@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: ia-treino-personal
+slug: personal-trainer-ai
 order: 4
 sector: Personal training
 kind: Fitness AI

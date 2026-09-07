@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: personal-trainer
+slug: personal-trainers
 order: 5
 audience: Personal trainers and coaching services
 title: AI for personal trainers

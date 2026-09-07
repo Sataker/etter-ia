@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: aplicativos-sob-medida
+slug: custom-applications
 order: 2
 title: Custom applications
 seoTitle: 'Custom application development with AI built in'

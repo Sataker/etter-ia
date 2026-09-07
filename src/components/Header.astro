@@ -1,14 +1,15 @@
 ---
-import { localePath, pathWithoutLocale, WA_DEFAULT, type Lang } from '../lib/site';
+import { localePath, WA_DEFAULT, type Lang } from '../lib/site';
 import { NAV, UI } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Caminho equivalente no outro idioma, sem prefixo. Vem do Base. */
+  altBare: string;
 }
-const { lang } = Astro.props;
+const { lang, altBare } = Astro.props;
 const t = UI[lang];
 const other: Lang = lang === 'pt' ? 'en' : 'pt';
-const bare = pathWithoutLocale(Astro.url);
 const current = Astro.url.pathname;
 ---
 
@@ -43,7 +44,7 @@ const current = Astro.url.pathname;
 
     <div class="flex items-center gap-4">
       <a
-        href={localePath(other, bare)}
+        href={localePath(other, altBare)}
         class="hidden text-[0.82rem] text-ash transition-colors hover:text-ink sm:block"
         hreflang={other === 'pt' ? 'pt-BR' : 'en'}
       >
@@ -81,7 +82,7 @@ const current = Astro.url.pathname;
           </a>
         ))
       }
-      <a href={localePath(other, bare)} class="py-3 text-[0.95rem] text-ash">{t.langSwitch}</a>
+      <a href={localePath(other, altBare)} class="py-3 text-[0.95rem] text-ash">{t.langSwitch}</a>
     </div>
   </nav>
 </header>

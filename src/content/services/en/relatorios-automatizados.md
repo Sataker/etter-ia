@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: relatorios-automatizados
+slug: automated-reporting
 order: 5
 title: Automated reporting
 seoTitle: 'Automated reports and dashboards powered by AI'

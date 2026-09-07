@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: barbearia
+slug: barbershops
 order: 2
 audience: Barbershops, salons and beauty studios
 title: AI for barbershops and salons
