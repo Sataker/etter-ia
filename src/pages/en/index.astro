@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Home from '../../components/Home.astro';
+
+const lang = 'en' as const;
+const by = (a: any, b: any) => a.data.order - b.data.order;
+const f = (e: any) => e.data.lang === lang;
+
+const services = (await getCollection('services', f)).sort(by);
+const cases = (await getCollection('cases', f)).sort(by);
+const industries = (await getCollection('industries', f)).sort(by);
+const guides = (await getCollection('guides', f)).sort(by);
+
+const faq = [
+  {
+    q: 'What does Etter do?',
+    a: 'Etter builds AI automation for Brazilian companies: AI agents for WhatsApp customer service, custom applications and platforms, automated dashboards and reports, systems integration and sales automation. Work is remote, across Brazil.',
+  },
+  {
+    q: 'How much does Etter charge?',
+    a: 'An AI customer service agent costs on average R$1,000 per month. The customer service platform with CRM is R$600 per month. Custom development — applications, dashboards and platforms — is quoted per project, with scope and timeline fixed before work starts.',
+  },
+  {
+    q: 'What kind of company does Etter work with?',
+    a: 'Small and medium companies and independent professionals with a running operation: clinics, nutritionists, personal trainers, barbershops and salons, online stores and consultancies. The criterion is not size, it is having a repetitive process with enough volume to automate.',
+  },
+  {
+    q: 'How long until the solution is live?',
+    a: 'A customer service agent takes two to four weeks. Custom applications take six to twelve weeks to a first production version, with navigable partial deliveries from the early weeks.',
+  },
+  {
+    q: 'Is my company data safe?',
+    a: 'Yes. Source code and database belong to the client, with no platform lock-in. When a project requires it, the system runs on dedicated infrastructure without passing through third-party clouds.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@type': 'OfferCatalog',
+    name: 'AI automation services',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.data.title,
+        description: s.data.answer,
+        provider: { '@id': 'https://etter.app.br/#organization' },
+        areaServed: { '@type': 'Country', name: 'Brasil' },
+      },
+    })),
+  },
+];
+---
+
+<Base
+  title="Etter — AI automation for companies: agents, applications and dashboards"
+  description="Brazilian AI automation agency. AI agents for WhatsApp customer service, custom applications, dashboards and systems integration. Remote work across Brazil."
+  updated="2026-09-07"
+  schema={schema}
+>
+  <Home lang={lang} services={services} cases={cases} industries={industries} guides={guides} faq={faq} />
+</Base>

@@ -1,0 +1,62 @@
+---
+import CtaBlock from './CtaBlock.astro';
+import { localePath, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  lead: string;
+  answer: string;
+  basePath: string;
+  entries: any[];
+  /** 'card' para serviços e setores, 'row' para cases e guias. */
+  variant?: 'card' | 'row';
+}
+const { lang, title, lead, answer, basePath, entries, variant = 'card' } = Astro.props;
+---
+
+<header class="pt-12 pb-10 md:pt-16">
+  <div class="shell"><div class="max-w-[70ch]">
+    <h1 class="text-[length:var(--text-h2)] leading-[1.06]">{title}</h1>
+    <p class="mt-5 text-[1.06rem] leading-relaxed text-ink-soft">{lead}</p>
+    <p class="mt-6 border-l-2 border-signal pl-5 text-[1rem] leading-relaxed text-ash">{answer}</p>
+  </div></div>
+</header>
+
+<section class="shell pb-4">
+  {
+    variant === 'card' ? (
+      <div class="grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2">
+        {entries.map((e) => (
+          <a href={localePath(lang, `${basePath}/${e.data.slug}`)} class="group bg-paper p-7 transition-colors hover:bg-paper-2">
+            <h2 class="text-[1.1rem] font-semibold group-hover:text-signal">{e.data.title}</h2>
+            <p class="mt-2.5 text-[0.95rem] leading-relaxed text-ash">
+              {e.data.summary ?? e.data.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="border-t border-rule">
+        {entries.map((e) => (
+          <a
+            href={localePath(lang, `${basePath}/${e.data.slug}`)}
+            class="group grid gap-3 border-b border-rule py-6 md:grid-cols-[1.2fr_1.6fr] md:gap-10"
+          >
+            <div>
+              {(e.data.sector || e.data.readingTime) && (
+                <p class="font-mono text-[0.74rem] text-ash">{e.data.sector ?? e.data.readingTime}</p>
+              )}
+              <h2 class="mt-1.5 text-[1.08rem] font-semibold group-hover:text-signal">
+                {e.data.question ?? e.data.title}
+              </h2>
+            </div>
+            <p class="text-[0.95rem] leading-relaxed text-ash">{e.data.description}</p>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</section>
+
+<CtaBlock lang={lang} />

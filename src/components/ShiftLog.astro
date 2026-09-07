@@ -1,0 +1,61 @@
+---
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+/** Registro de um turno noturno real de agente: o que o produto faz, sem adjetivo. */
+const ENTRIES: Record<Lang, { time: string; text: string }[]> = {
+  pt: [
+    { time: '23:41', text: 'dúvida sobre plano mensal respondida' },
+    { time: '01:07', text: 'pedido #4471 rastreado, cliente avisado' },
+    { time: '02:19', text: 'lead qualificado e marcado como quente' },
+    { time: '03:52', text: 'consulta agendada para 14/09, 09h' },
+    { time: '04:30', text: 'no-show previsto, confirmação reenviada' },
+    { time: '06:03', text: 'relatório da noite enviado ao dono' },
+  ],
+  en: [
+    { time: '23:41', text: 'monthly plan question answered' },
+    { time: '01:07', text: 'order #4471 tracked, customer notified' },
+    { time: '02:19', text: 'lead qualified and flagged as hot' },
+    { time: '03:52', text: 'appointment booked for Sep 14, 9am' },
+    { time: '04:30', text: 'likely no-show, confirmation resent' },
+    { time: '06:03', text: 'overnight report sent to the owner' },
+  ],
+};
+
+const entries = ENTRIES[lang];
+const label = lang === 'pt' ? 'turno da noite' : 'night shift';
+const summary =
+  lang === 'pt' ? '47 ações, nenhum humano acordado' : '47 actions, nobody awake';
+---
+
+<figure
+  class="min-w-0 overflow-hidden rounded-lg border border-rule bg-paper-2/60 p-5 sm:p-6"
+  aria-label={lang === 'pt' ? 'Registro de operação de um agente durante a madrugada' : 'Log of an agent operating overnight'}
+>
+  <figcaption class="mb-4 flex items-center gap-2 font-mono text-[0.75rem] text-ash">
+    <span class="h-1.5 w-1.5 rounded-full bg-signal dot-live" aria-hidden="true"></span>
+    {label}
+  </figcaption>
+
+  <ol class="-mx-1 space-y-2.5 overflow-x-auto px-1 font-mono text-[0.72rem] leading-relaxed sm:text-[0.85rem]">
+    {
+      entries.map((entry, i) => (
+        <li class="log-line flex gap-3 whitespace-nowrap" style={`animation-delay:${320 + i * 260}ms`}>
+          <span class="tnum shrink-0 text-signal">{entry.time}</span>
+          <span class="text-ink-soft">{entry.text}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p
+    class="log-line mt-5 border-t border-rule pt-4 font-mono text-[0.78rem] text-ash"
+    style={`animation-delay:${320 + entries.length * 260}ms`}
+  >
+    {summary}
+  </p>
+</figure>

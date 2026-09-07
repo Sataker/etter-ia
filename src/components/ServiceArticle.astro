@@ -1,0 +1,57 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import { SEG, LABEL } from '../lib/routes';
+import { SITE } from '../lib/site';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  entry: any;
+}
+const { lang, entry } = Astro.props;
+const d = entry.data;
+const pt = lang === 'pt';
+---
+
+<ArticlePage
+  lang={lang}
+  title={d.title}
+  answer={d.answer}
+  backLabel={LABEL[lang].services}
+  backPath={SEG[lang].services}
+  faq={d.faq}
+  updated={d.updated}
+>
+  <slot />
+
+  <div slot="extra">
+    <section class="rule-top py-14">
+      <div class="shell grid gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="text-[1.3rem] font-semibold">{pt ? 'O que está incluso' : "What's included"}</h2>
+          <ul class="mt-5 space-y-3 text-[0.98rem] text-ink-soft">
+            {d.bullets.map((b: string) => (
+              <li class="flex gap-3">
+                <span class="mt-[0.62em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {d.deliverables.length > 0 && (
+          <div>
+            <h2 class="text-[1.3rem] font-semibold">{pt ? 'O que você recebe' : 'What you get'}</h2>
+            <ul class="mt-5 space-y-3 text-[0.98rem] text-ink-soft">
+              {d.deliverables.map((b: string) => (
+                <li class="flex gap-3">
+                  <span class="mt-[0.62em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+</ArticlePage>

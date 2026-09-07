@@ -1,0 +1,54 @@
+---
+import Prose from './Prose.astro';
+import Faq from './Faq.astro';
+import CtaBlock from './CtaBlock.astro';
+import { localePath, type Lang } from '../lib/site';
+import { UI } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  eyebrow?: string;
+  title: string;
+  /** A resposta citável. Fica no topo, antes de qualquer venda. */
+  answer: string;
+  backLabel: string;
+  backPath: string;
+  faq?: { q: string; a: string }[];
+  updated: string;
+  meta?: string;
+}
+const { lang, eyebrow, title, answer, backLabel, backPath, faq = [], updated, meta } = Astro.props;
+const t = UI[lang];
+---
+
+<article>
+  <header class="pt-12 pb-10 md:pt-16">
+    <div class="shell"><div class="max-w-[68ch]">
+      <a href={localePath(lang, backPath)} class="font-mono text-[0.76rem] text-ash link-underline">
+        {t.backTo} {backLabel.toLowerCase()}
+      </a>
+
+      {eyebrow && <p class="mt-6 font-mono text-[0.76rem] text-signal">{eyebrow}</p>}
+
+      <h1 class="mt-3 text-[length:var(--text-h2)] leading-[1.06]">{title}</h1>
+
+      <!-- Bloco de resposta: o trecho desenhado para ser citado inteiro. -->
+      <p class="mt-7 border-l-2 border-signal pl-5 text-[1.08rem] leading-relaxed text-ink-soft">
+        {answer}
+      </p>
+
+      <p class="mt-6 font-mono text-[0.74rem] text-ash">
+        {t.updated} {updated}{meta ? ` · ${meta}` : ''}
+      </p>
+    </div></div>
+  </header>
+
+  <div class="shell pb-8">
+    <Prose><slot /></Prose>
+  </div>
+
+  <slot name="extra" />
+
+  <Faq lang={lang} items={faq} />
+  <CtaBlock lang={lang} />
+</article>

@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/archivo/index.css';
+@import '@fontsource/jetbrains-mono/400.css';
+
+/* ---------------------------------------------------------------
+   Etter — design tokens
+   Conceito: "turno da noite". Documento operacional, não landing page.
+   Papel cinza-frio, tinta verde-preta, um único acento (verde-sinal).
+--------------------------------------------------------------- */
+@theme {
+  --color-paper: #edeeec;
+  --color-paper-2: #e4e6e3;
+  --color-ink: #10201d;
+  --color-ink-soft: #1c302c;
+  --color-ash: #5a6663;
+  --color-rule: #cfd3cf;
+  --color-signal: #1b6b45;
+  --color-signal-soft: #dfeae3;
+
+  --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-display: clamp(2.6rem, 6.2vw, 4.6rem);
+  --text-h2: clamp(1.75rem, 3.4vw, 2.75rem);
+  --text-h3: clamp(1.15rem, 1.8vw, 1.4rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Números de prova alinham em coluna. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Coluna do documento. Todo bloco de conteúdo vive aqui. */
+  .shell {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Filete que separa seções — a única "decoração" do site. */
+  .rule-top {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-color: var(--color-rule);
+    text-underline-offset: 0.28em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.15s ease;
+  }
+
+  .link-underline:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Uma orquestração só: o log do turno preenche linha a linha no load. */
+@keyframes log-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.log-line {
+  opacity: 0;
+  animation: log-in 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes pulse-signal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.dot-live {
+  animation: pulse-signal 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .log-line,
+  .dot-live {
+    animation: none;
+    opacity: 1;
+  }
+}

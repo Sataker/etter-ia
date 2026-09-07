@@ -1,0 +1,38 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import { SEG, LABEL } from '../lib/routes';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  entry: any;
+}
+const { lang, entry } = Astro.props;
+const d = entry.data;
+---
+
+<ArticlePage
+  lang={lang}
+  eyebrow={`${d.sector} · ${d.kind}`}
+  title={d.title}
+  answer={d.answer}
+  backLabel={LABEL[lang].cases}
+  backPath={SEG[lang].cases}
+  faq={d.faq}
+  updated={d.updated}
+>
+  <slot />
+
+  <div slot="extra">
+    <section class="rule-top py-14">
+      <div class="shell flex flex-wrap gap-12">
+        {d.metrics.map((m: { value: string; label: string }) => (
+          <div>
+            <p class="tnum text-[2.4rem] font-semibold leading-none tracking-tight">{m.value}</p>
+            <p class="mt-2 text-[0.86rem] text-ash">{m.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</ArticlePage>

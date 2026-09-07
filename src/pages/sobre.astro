@@ -1,0 +1,171 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import Faq from '../components/Faq.astro';
+import enzo from '../assets/enzo-sf.jpg';
+import { SITE } from '../lib/site';
+
+const lang = 'pt' as const;
+const updated = '2026-09-07';
+
+const answer =
+  'A Etter é conduzida por Enzo Vaccaro, desenvolvedor brasileiro especializado em agentes de inteligência artificial e automação de processos. Passou dois meses em San Francisco, no Vale do Silício, e mantém hoje mais de 19 agentes de IA em produção para empresas e profissionais brasileiros. O atendimento é direto com quem desenvolve, sem camada comercial.';
+
+const faq = [
+  {
+    q: 'Quem está por trás da Etter?',
+    a: 'Enzo Vaccaro, desenvolvedor especializado em agentes de IA e automação. Ele conduz o diagnóstico, o desenvolvimento e o acompanhamento — o cliente fala direto com quem constrói, não com um intermediário comercial.',
+  },
+  {
+    q: 'A Etter atende empresas de qual porte?',
+    a: 'Pequenas e médias empresas e profissionais autônomos com operação em funcionamento. O critério não é faturamento, é ter um processo repetitivo com volume suficiente para que a automação se pague.',
+  },
+  {
+    q: 'A Etter atende fora do Brasil?',
+    a: 'O foco é o mercado brasileiro, com atendimento remoto para todo o país. Projetos internacionais são avaliados caso a caso, em inglês.',
+  },
+  {
+    q: 'Os dados ficam em nuvem de terceiros?',
+    a: 'Depende do projeto e da exigência do cliente. Quando o sigilo é crítico — dado de saúde, por exemplo — a operação roda em infraestrutura própria, sem trafegar por nuvem de terceiros. Código e base de dados são sempre do cliente.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'AboutPage',
+    name: 'Sobre a Etter',
+    description: answer,
+  },
+  {
+    '@type': 'Person',
+    '@id': `${SITE.url}/#enzo`,
+    name: 'Enzo Vaccaro',
+    jobTitle: 'Desenvolvedor de agentes de IA e automação',
+    worksFor: { '@id': `${SITE.url}/#organization` },
+    knowsAbout: [
+      'Agentes de inteligência artificial',
+      'Automação de processos',
+      'WhatsApp Business API',
+      'Desenvolvimento de aplicativos',
+      'Integração de sistemas',
+    ],
+    email: SITE.email,
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Sobre a Etter — quem desenvolve os agentes de IA"
+  description="Etter é conduzida por Enzo Vaccaro, desenvolvedor de agentes de IA e automação, com mais de 19 agentes em produção e dois meses de imersão no Vale do Silício."
+  updated={updated}
+  schema={schema}
+  breadcrumbs={[{ name: 'Sobre', path: 'sobre' }]}
+>
+  <header class="pt-12 pb-10 md:pt-16">
+    <div class="shell grid gap-10 md:grid-cols-[1.3fr_1fr] md:items-start md:gap-14">
+      <div class="max-w-[62ch]">
+        <h1 class="text-[length:var(--text-h2)] leading-[1.06]">Você fala com quem constrói</h1>
+        <p class="mt-7 border-l-2 border-signal pl-5 text-[1.08rem] leading-relaxed text-ink-soft">{answer}</p>
+        <p class="mt-6 font-mono text-[0.74rem] text-ash">Revisado em {updated}</p>
+      </div>
+
+      <figure>
+        <Image
+          src={enzo}
+          alt="Enzo Vaccaro na Golden Gate Bridge, em San Francisco"
+          widths={[360, 640]}
+          sizes="(max-width: 768px) 100vw, 360px"
+          class="w-full rounded-lg"
+          loading="eager"
+        />
+        <figcaption class="mt-3 font-mono text-[0.72rem] text-ash">
+          San Francisco, Vale do Silício — dois meses de imersão
+        </figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <Section title="Como isso começou">
+    <div class="mt-8 grid max-w-none gap-10 md:grid-cols-2">
+      <div class="max-w-[60ch] space-y-4 text-[1.02rem] leading-relaxed text-ink-soft">
+        <p>
+          A virada não foi descobrir inteligência artificial — foi perceber que dava para construir sistemas que
+          continuam trabalhando depois que você fecha o notebook. Automação deixa de ser economia de tempo e passa a
+          ser capacidade nova: a empresa atende num horário em que ninguém está lá.
+        </p>
+        <p>
+          Os dois meses em San Francisco mudaram menos a parte técnica e mais o padrão de exigência. Lá, o que
+          diferencia um projeto que funciona de um que impressiona na demonstração é a operação depois da entrega —
+          quem ajusta quando o sistema erra, e em quanto tempo.
+        </p>
+        <p>
+          Hoje são mais de 19 agentes em produção para clínicas, nutricionistas, personal trainers, barbearias,
+          e-commerces e consultorias no Brasil.
+        </p>
+      </div>
+
+      <dl class="grid grid-cols-2 gap-px self-start overflow-hidden rounded-lg border border-rule bg-rule">
+        <div class="bg-paper p-6">
+          <dt class="text-[0.8rem] text-ash">Agentes em produção</dt>
+          <dd class="tnum mt-1.5 text-[1.9rem] font-semibold leading-none">19+</dd>
+        </div>
+        <div class="bg-paper p-6">
+          <dt class="text-[0.8rem] text-ash">Vale do Silício</dt>
+          <dd class="tnum mt-1.5 text-[1.9rem] font-semibold leading-none">2 meses</dd>
+        </div>
+        <div class="bg-paper p-6">
+          <dt class="text-[0.8rem] text-ash">Atendimento</dt>
+          <dd class="mt-1.5 text-[1.9rem] font-semibold leading-none">Brasil</dd>
+        </div>
+        <div class="bg-paper p-6">
+          <dt class="text-[0.8rem] text-ash">Intermediário comercial</dt>
+          <dd class="mt-1.5 text-[1.9rem] font-semibold leading-none">Nenhum</dd>
+        </div>
+      </dl>
+    </div>
+  </Section>
+
+  <Section title="Como eu trabalho">
+    <ul class="mt-8 grid max-w-none gap-8 md:grid-cols-2">
+      <li>
+        <h3 class="text-[1.08rem] font-semibold">Escopo fechado antes de começar</h3>
+        <p class="mt-2 max-w-[52ch] text-[0.98rem] leading-relaxed text-ash">
+          Prazo e valor definidos na proposta. Orçamento que cresce a cada conversa é sinal de diagnóstico mal feito.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-[1.08rem] font-semibold">O código é seu</h3>
+        <p class="mt-2 max-w-[52ch] text-[0.98rem] leading-relaxed text-ash">
+          Código-fonte e base de dados pertencem ao cliente. Sem aprisionamento em plataforma.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-[1.08rem] font-semibold">Recuso projeto que não vai funcionar</h3>
+        <p class="mt-2 max-w-[52ch] text-[0.98rem] leading-relaxed text-ash">
+          Quando o volume não justifica ou o processo ainda muda toda semana, o certo é dizer isso antes — não
+          descobrir junto, seis meses depois.
+        </p>
+      </li>
+      <li>
+        <h3 class="text-[1.08rem] font-semibold">A entrega não é o fim</h3>
+        <p class="mt-2 max-w-[52ch] text-[0.98rem] leading-relaxed text-ash">
+          Automação sem manutenção envelhece: muda preço, muda política, e a resposta automática fica errada. O ajuste
+          contínuo faz parte.
+        </p>
+      </li>
+    </ul>
+  </Section>
+
+  <Faq lang={lang} items={faq} />
+  <CtaBlock lang={lang} />
+</Base>

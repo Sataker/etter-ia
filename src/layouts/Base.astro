@@ -1,0 +1,130 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, langFromUrl, pathWithoutLocale, localePath, type Lang } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Data da última revisão — sinal de frescor que motores generativos usam. */
+  updated?: string;
+  /** JSON-LD extra da página (FAQPage, Service, Article...). */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Trilha de navegação: [{ name, path }] sem prefixo de idioma. */
+  breadcrumbs?: { name: string; path: string }[];
+  noindex?: boolean;
+}
+
+const { title, description, updated, schema, breadcrumbs, noindex = false } = Astro.props;
+const lang: Lang = langFromUrl(Astro.url);
+const bare = pathWithoutLocale(Astro.url);
+
+const canonical = new URL(localePath(lang, bare), SITE.url).href;
+const alternates = [
+  { hreflang: 'pt-BR', href: new URL(localePath('pt', bare), SITE.url).href },
+  { hreflang: 'en', href: new URL(localePath('en', bare), SITE.url).href },
+  { hreflang: 'x-default', href: new URL(localePath('pt', bare), SITE.url).href },
+];
+
+const htmlLang = lang === 'pt' ? 'pt-BR' : 'en';
+const fullTitle = /^Etter\b/.test(title) ? title : `${title} | Etter`;
+
+// Identidade da organização: repetida em toda página para que qualquer uma
+// isolada já diga o que a empresa é, faz e onde atende.
+const organization = {
+  '@type': 'ProfessionalService',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.name,
+  alternateName: 'Etter',
+  url: SITE.url,
+  email: SITE.email,
+  telephone: `+${SITE.whatsapp}`,
+  foundingDate: SITE.founded,
+  description:
+    lang === 'pt'
+      ? 'Agência brasileira de automação com inteligência artificial. Desenvolve agentes de IA para atendimento no WhatsApp, aplicativos sob medida e automação de vendas para pequenas e médias empresas.'
+      : 'Brazilian AI automation agency. Builds AI agents for WhatsApp customer service, custom applications and sales automation for small and medium businesses.',
+  founder: { '@type': 'Person', name: SITE.founder },
+  areaServed: { '@type': 'Country', name: 'Brasil' },
+  availableLanguage: ['pt-BR', 'en'],
+  serviceType: [
+    'Agentes de IA para atendimento',
+    'Automação de WhatsApp',
+    'Desenvolvimento de aplicativos sob medida',
+    'Automação de vendas',
+    'Integração de sistemas',
+  ],
+  sameAs: [`https://wa.me/${SITE.whatsapp}`],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  inLanguage: htmlLang,
+  publisher: { '@id': `${SITE.url}/#organization` },
+};
+
+const crumbs = breadcrumbs?.length
+  ? {
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(localePath(lang, c.path), SITE.url).href,
+      })),
+    }
+  : null;
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const graph = [organization, website, ...(crumbs ? [crumbs] : []), ...extra];
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', SITE.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {updated && <meta name="last-modified" content={updated} />}
+    <meta name="theme-color" content="#10201d" />
+    <meta name="application-name" content={SITE.name} />
+    <meta name="author" content={SITE.founder} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+
+  <body>
+    <a
+      href="#conteudo"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+    >
+      {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
+    </a>
+
+    <Header lang={lang} />
+    <main id="conteudo"><slot /></main>
+    <Footer lang={lang} updated={updated} />
+  </body>
+</html>

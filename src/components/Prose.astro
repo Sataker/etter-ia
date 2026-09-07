@@ -1,0 +1,54 @@
+---
+// Tipografia do corpo de texto longo. Linha curta, hierarquia por peso e espaço.
+---
+
+<div class="prose-etter max-w-[68ch]"><slot /></div>
+
+<style is:global>
+  .prose-etter > * + * {
+    margin-top: 1.15em;
+  }
+  .prose-etter p,
+  .prose-etter li {
+    font-size: 1.02rem;
+    line-height: 1.72;
+    color: var(--color-ink-soft);
+  }
+  .prose-etter h2 {
+    margin-top: 2.4em;
+    font-size: 1.42rem;
+    letter-spacing: -0.02em;
+  }
+  .prose-etter h3 {
+    margin-top: 2em;
+    font-size: 1.1rem;
+  }
+  .prose-etter strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .prose-etter ul {
+    padding-left: 1.1rem;
+    list-style: none;
+  }
+  .prose-etter li {
+    position: relative;
+  }
+  .prose-etter ul > li::before {
+    content: '';
+    position: absolute;
+    left: -1.1rem;
+    top: 0.78em;
+    width: 0.32rem;
+    height: 1px;
+    background: var(--color-signal);
+  }
+  .prose-etter li + li {
+    margin-top: 0.5em;
+  }
+  .prose-etter a {
+    color: var(--color-signal);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+</style>

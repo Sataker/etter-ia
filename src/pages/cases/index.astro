@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import IndexList from '../../components/IndexList.astro';
+import { hub } from '../../lib/hubs';
+import { SEG, LABEL } from '../../lib/routes';
+
+const lang = 'pt' as const;
+const h = hub('cases', lang);
+const entries = (await getCollection('cases', (e) => e.data.lang === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const schema = {
+  '@type': 'CollectionPage',
+  name: h.title,
+  description: h.answer,
+  hasPart: entries.map((e) => ({
+    '@type': 'WebPage',
+    name: e.data.title,
+    description: e.data.description,
+    url: new URL(`/${SEG[lang].cases}/${e.data.slug}`, 'https://etter.app.br').href,
+  })),
+};
+---
+
+<Base title={h.seoTitle} description={h.description} updated="2026-09-07" schema={schema}
+  breadcrumbs={[{ name: LABEL[lang].cases, path: SEG[lang].cases }]}>
+  <IndexList lang={lang} title={h.title} lead={h.lead} answer={h.answer}
+    basePath={SEG[lang].cases} entries={entries} variant="row" />
+</Base>

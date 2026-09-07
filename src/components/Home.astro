@@ -1,0 +1,247 @@
+---
+import ShiftLog from './ShiftLog.astro';
+import Section from './Section.astro';
+import Faq from './Faq.astro';
+import CtaBlock from './CtaBlock.astro';
+import { localePath, WA_DEFAULT, type Lang } from '../lib/site';
+import { UI } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  services: any[];
+  cases: any[];
+  industries: any[];
+  guides: any[];
+  faq: { q: string; a: string }[];
+}
+const { lang, services, cases, industries, guides, faq } = Astro.props;
+const t = UI[lang];
+const pt = lang === 'pt';
+
+const paths = pt
+  ? { s: 'solucoes', i: 'setores', c: 'cases', g: 'guias', a: 'sobre' }
+  : { s: 'services', i: 'industries', c: 'cases', g: 'guides', a: 'about' };
+
+const copy = pt
+  ? {
+      headline: ['Seu negócio', 'não dorme.', 'Seus atendentes, sim.'],
+      lead: 'A Etter constrói agentes de inteligência artificial, aplicativos e dashboards que assumem o trabalho repetitivo da sua empresa — no WhatsApp, nos sistemas que você já usa, a qualquer hora.',
+      proof: 'Automação em produção para clínicas, nutricionistas, barbearias, e-commerces, personal trainers e consultorias.',
+      servicesTitle: 'O que a Etter constrói',
+      servicesLead:
+        'Cinco frentes, um critério: só entra em automação o processo que se repete e segue regra clara. O resto continua humano.',
+      casesTitle: 'O que já está rodando',
+      casesLead: 'Projetos em produção, com o número que o cliente mediu depois.',
+      industriesTitle: 'Por setor',
+      industriesLead: 'O gargalo de uma clínica não é o de um e-commerce. Cada setor tem sua página.',
+      guidesTitle: 'Respostas diretas',
+      guidesLead:
+        'Preço, prazo, limite e risco — escrito sem rodeio, inclusive quando a resposta é que não vale a pena automatizar.',
+      processTitle: 'Do problema à operação',
+      allServices: 'Ver todas as soluções',
+      allCases: 'Ver todos os cases',
+      allGuides: 'Ver todos os guias',
+    }
+  : {
+      headline: ['Your business', "doesn't sleep.", 'Your staff does.'],
+      lead: 'Etter builds AI agents, applications and dashboards that take over the repetitive work in your company — on WhatsApp, inside the systems you already use, at any hour.',
+      proof: 'Automation running in production for clinics, nutritionists, barbershops, online stores, personal trainers and consultancies.',
+      servicesTitle: 'What Etter builds',
+      servicesLead:
+        'Five areas, one rule: a process only gets automated if it repeats and follows clear logic. Everything else stays human.',
+      casesTitle: "What's already running",
+      casesLead: 'Projects in production, with the numbers the client measured afterwards.',
+      industriesTitle: 'By industry',
+      industriesLead: "A clinic's bottleneck isn't an online store's. Each industry has its own page.",
+      guidesTitle: 'Straight answers',
+      guidesLead:
+        "Price, timeline, limits and risk — written plainly, including when the answer is that automating isn't worth it.",
+      processTitle: 'From problem to operation',
+      allServices: 'All services',
+      allCases: 'All cases',
+      allGuides: 'All guides',
+    };
+
+const steps = pt
+  ? [
+      { n: '1', t: 'Diagnóstico', d: 'Leitura das conversas e do processo real, não do processo que está no papel.' },
+      { n: '2', t: 'Proposta', d: 'Escopo, prazo e valor fechados antes de começar. Sem orçamento aberto.' },
+      { n: '3', t: 'Desenvolvimento', d: 'Construção e treino com a base de conhecimento da empresa, validada por você.' },
+      { n: '4', t: 'Ativação', d: 'Entrada em operação assistida e ajuste contínuo enquanto o negócio muda.' },
+    ]
+  : [
+      { n: '1', t: 'Diagnosis', d: 'Reading the real conversations and the real process, not the one on paper.' },
+      { n: '2', t: 'Proposal', d: 'Scope, timeline and price closed before any work starts.' },
+      { n: '3', t: 'Development', d: "Built and trained on your company's knowledge base, validated by you." },
+      { n: '4', t: 'Activation', d: 'Assisted rollout and continuous tuning as the business changes.' },
+    ];
+
+const featured = services.find((s) => s.data.featured) ?? services[0];
+const rest = services.filter((s) => s.id !== featured?.id);
+---
+
+<!-- Hero: o log é a única ousadia da página. -->
+<section class="pt-14 pb-16 md:pt-20 md:pb-24">
+  <div class="shell grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
+    <div class="min-w-0">
+      <h1 class="text-[length:var(--text-display)] leading-[0.94] tracking-[-0.035em]">
+        {copy.headline[0]}<br />{copy.headline[1]}<br />
+        <span class="text-ash">{copy.headline[2]}</span>
+      </h1>
+      <p class="mt-7 max-w-[52ch] text-[1.06rem] leading-relaxed text-ink-soft">{copy.lead}</p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a
+          href={WA_DEFAULT[lang]}
+          target="_blank"
+          rel="noopener"
+          class="rounded-full bg-ink px-6 py-3.5 font-medium text-paper transition-colors hover:bg-signal"
+        >
+          {t.ctaLong}
+        </a>
+        <a href={localePath(lang, paths.c)} class="link-underline text-[0.98rem]">{copy.allCases}</a>
+      </div>
+
+      <p class="mt-10 max-w-[46ch] text-[0.88rem] leading-relaxed text-ash">{copy.proof}</p>
+    </div>
+
+    <ShiftLog lang={lang} />
+  </div>
+</section>
+
+<!-- Serviços -->
+<Section title={copy.servicesTitle} lead={copy.servicesLead} id={paths.s}>
+  {
+    featured && (
+      <a
+        href={localePath(lang, `${paths.s}/${featured.data.slug}`)}
+        class="group mt-12 block rounded-lg border border-rule bg-paper-2/40 p-7 transition-colors hover:border-signal md:p-9"
+      >
+        <div class="grid gap-6 md:grid-cols-[1fr_1.1fr] md:gap-10">
+          <div>
+            <h3 class="text-[length:var(--text-h3)] font-semibold group-hover:text-signal">{featured.data.title}</h3>
+            <p class="mt-3 max-w-[42ch] text-[0.98rem] leading-relaxed text-ash">{featured.data.summary}</p>
+          </div>
+          <ul class="space-y-2.5 text-[0.95rem] text-ink-soft">
+            {featured.data.bullets.slice(0, 4).map((b: string) => (
+              <li class="flex gap-3">
+                <span class="mt-[0.62em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </a>
+    )
+  }
+
+  <div class="mt-4 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
+    {
+      rest.map((s) => (
+        <a
+          href={localePath(lang, `${paths.s}/${s.data.slug}`)}
+          class="group bg-paper p-6 transition-colors hover:bg-paper-2"
+        >
+          <h3 class="text-[1.02rem] font-semibold group-hover:text-signal">{s.data.title}</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{s.data.summary}</p>
+        </a>
+      ))
+    }
+    <a
+      href={WA_DEFAULT[lang]}
+      target="_blank"
+      rel="noopener"
+      class="group bg-paper-2/60 p-6 transition-colors hover:bg-paper-2"
+    >
+      <h3 class="text-[1.02rem] font-semibold group-hover:text-signal">
+        {pt ? 'Não é nenhum desses?' : 'None of these?'}
+      </h3>
+      <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">
+        {
+          pt
+            ? 'Descreva o processo que mais consome tempo hoje. Se não der para automatizar, eu digo.'
+            : 'Describe the process that eats most of your time. If it cannot be automated, I will say so.'
+        }
+      </p>
+    </a>
+  </div>
+</Section>
+
+<!-- Cases -->
+<Section title={copy.casesTitle} lead={copy.casesLead} id={paths.c}>
+  <div class="mt-12 border-t border-rule">
+    {
+      cases.map((c) => (
+        <a
+          href={localePath(lang, `${paths.c}/${c.data.slug}`)}
+          class="group grid gap-4 border-b border-rule py-6 md:grid-cols-[1.5fr_1.5fr_1fr] md:items-center md:gap-8"
+        >
+          <div>
+            <p class="font-mono text-[0.74rem] text-ash">{c.data.sector}</p>
+            <h3 class="mt-1.5 text-[1.05rem] font-semibold group-hover:text-signal">{c.data.title}</h3>
+          </div>
+          <p class="text-[0.93rem] leading-relaxed text-ash">{c.data.description}</p>
+          <div class="flex gap-6">
+            {c.data.metrics.slice(0, 2).map((m: { value: string; label: string }) => (
+              <div>
+                <p class="tnum text-[1.35rem] font-semibold leading-none">{m.value}</p>
+                <p class="mt-1.5 text-[0.76rem] text-ash">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</Section>
+
+<!-- Setores -->
+<Section title={copy.industriesTitle} lead={copy.industriesLead} id={paths.i}>
+  <div class="mt-10 flex flex-wrap gap-3">
+    {
+      industries.map((i) => (
+        <a
+          href={localePath(lang, `${paths.i}/${i.data.slug}`)}
+          class="rounded-full border border-rule px-5 py-2.5 text-[0.94rem] transition-colors hover:border-signal hover:text-signal"
+        >
+          {i.data.title}
+        </a>
+      ))
+    }
+  </div>
+</Section>
+
+<!-- Processo: sequência real, por isso numerada. -->
+<Section title={copy.processTitle}>
+  <ol class="mt-12 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+    {
+      steps.map((s) => (
+        <li class="bg-paper p-6">
+          <span class="tnum font-mono text-[0.8rem] text-signal">{s.n}</span>
+          <h3 class="mt-3 text-[1.02rem] font-semibold">{s.t}</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{s.d}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<!-- Guias -->
+<Section title={copy.guidesTitle} lead={copy.guidesLead} id={paths.g}>
+  <div class="mt-10 border-t border-rule">
+    {
+      guides.map((g) => (
+        <a
+          href={localePath(lang, `${paths.g}/${g.data.slug}`)}
+          class="group flex flex-col gap-1 border-b border-rule py-5 md:flex-row md:items-baseline md:justify-between md:gap-8"
+        >
+          <h3 class="text-[1.02rem] font-medium group-hover:text-signal">{g.data.question}</h3>
+          <span class="shrink-0 font-mono text-[0.76rem] text-ash">{g.data.readingTime}</span>
+        </a>
+      ))
+    }
+  </div>
+</Section>
+
+<Faq lang={lang} items={faq} />
+<CtaBlock lang={lang} />

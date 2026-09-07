@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import IndustryArticle from '../../../components/IndustryArticle.astro';
+import { faqSchema, serviceSchema, articleSchema, caseSchema } from '../../../lib/schema';
+import { LABEL, SEG } from '../../../lib/routes';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('industries', (e) => e.data.lang === 'en');
+  return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const lang = 'en' as const;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const extra = [
+  'industries' === 'services' ? serviceSchema(d) : null,
+  'industries' === 'cases' ? caseSchema(d) : null,
+  'industries' === 'guides' || 'industries' === 'industries' ? articleSchema(d, lang, Astro.url.href) : null,
+  faqSchema(d.faq),
+].filter(Boolean) as Record<string, unknown>[];
+
+const relatedCase =
+  'industries' === 'industries' && d.caseRef
+    ? (await getCollection('cases', (e) => e.data.lang === lang && e.data.slug === d.caseRef))[0]
+    : undefined;
+---
+
+<Base title={d.seoTitle} description={d.description} updated={d.updated} schema={extra}
+  breadcrumbs={[{ name: LABEL[lang].industries, path: SEG[lang].industries }, { name: d.title, path: `${SEG[lang].industries}/${d.slug}` }]}>
+  <IndustryArticle lang={lang} entry={entry} relatedCase={relatedCase}>
+    <Content />
+  </IndustryArticle>
+</Base>

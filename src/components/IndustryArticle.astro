@@ -1,0 +1,76 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import { SEG, LABEL } from '../lib/routes';
+import { localePath, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  entry: any;
+  relatedCase?: any;
+}
+const { lang, entry, relatedCase } = Astro.props;
+const d = entry.data;
+const pt = lang === 'pt';
+---
+
+<ArticlePage
+  lang={lang}
+  eyebrow={d.audience}
+  title={d.title}
+  answer={d.answer}
+  backLabel={LABEL[lang].industries}
+  backPath={SEG[lang].industries}
+  faq={d.faq}
+  updated={d.updated}
+>
+  <slot />
+
+  <div slot="extra">
+    <section class="rule-top py-14">
+      <div class="shell grid gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="text-[1.3rem] font-semibold">{pt ? 'O que trava hoje' : 'What holds you back today'}</h2>
+          <ul class="mt-5 space-y-3 text-[0.98rem] text-ash">
+            {d.pains.map((b: string) => (
+              <li class="flex gap-3">
+                <span class="mt-[0.62em] h-px w-3 shrink-0 bg-rule" aria-hidden="true" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-[1.3rem] font-semibold">{pt ? 'O que a automação resolve' : 'What automation solves'}</h2>
+          <ul class="mt-5 space-y-3 text-[0.98rem] text-ink-soft">
+            {d.solutions.map((b: string) => (
+              <li class="flex gap-3">
+                <span class="mt-[0.62em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {relatedCase && (
+        <div class="shell mt-12">
+          <a
+            href={localePath(lang, `${SEG[lang].cases}/${relatedCase.data.slug}`)}
+            class="group block rounded-lg border border-rule bg-paper-2/40 p-7 transition-colors hover:border-signal"
+          >
+            <p class="font-mono text-[0.74rem] text-ash">{pt ? 'Case do setor' : 'Case in this industry'}</p>
+            <h3 class="mt-2 text-[1.15rem] font-semibold group-hover:text-signal">{relatedCase.data.title}</h3>
+            <div class="mt-5 flex flex-wrap gap-8">
+              {relatedCase.data.metrics.map((m: { value: string; label: string }) => (
+                <div>
+                  <p class="tnum text-[1.5rem] font-semibold leading-none">{m.value}</p>
+                  <p class="mt-1.5 text-[0.78rem] text-ash">{m.label}</p>
+                </div>
+              ))}
+            </div>
+          </a>
+        </div>
+      )}
+    </section>
+  </div>
+</ArticlePage>

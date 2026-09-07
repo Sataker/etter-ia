@@ -1,0 +1,24 @@
+---
+interface Props {
+  title?: string;
+  lead?: string;
+  id?: string;
+  divider?: boolean;
+  class?: string;
+}
+const { title, lead, id, divider = true, class: cls = '' } = Astro.props;
+---
+
+<section id={id} class:list={[divider && 'rule-top', 'py-16 md:py-24', cls]}>
+  <div class="shell">
+    {
+      (title || lead) && (
+        <header class="max-w-2xl">
+          {title && <h2 class="text-[length:var(--text-h2)] leading-[1.08]">{title}</h2>}
+          {lead && <p class="mt-4 text-[1.02rem] leading-relaxed text-ash">{lead}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

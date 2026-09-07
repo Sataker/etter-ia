@@ -1,0 +1,26 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import { SEG, LABEL } from '../lib/routes';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  entry: any;
+}
+const { lang, entry } = Astro.props;
+const d = entry.data;
+---
+
+<ArticlePage
+  lang={lang}
+  eyebrow={d.question}
+  title={d.title}
+  answer={d.answer}
+  backLabel={LABEL[lang].guides}
+  backPath={SEG[lang].guides}
+  faq={d.faq}
+  updated={d.updated}
+  meta={d.readingTime}
+>
+  <slot />
+</ArticlePage>

@@ -1,0 +1,41 @@
+---
+import { SITE, localePath, WA_DEFAULT, type Lang } from '../lib/site';
+import { NAV, UI } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  updated?: string;
+}
+const { lang, updated } = Astro.props;
+const t = UI[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="rule-top mt-24">
+  <div class="shell grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="max-w-sm">
+      <p class="text-[1.05rem] font-semibold">Etter</p>
+      <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{t.rights}</p>
+      <p class="mt-4 font-mono text-[0.78rem] text-ash">
+        {lang === 'pt' ? 'Atendimento remoto, Brasil inteiro' : 'Remote, across Brazil'}
+      </p>
+    </div>
+
+    <nav aria-label={lang === 'pt' ? 'Rodapé' : 'Footer'} class="flex flex-col gap-2.5 text-[0.92rem]">
+      {NAV[lang].map((i) => <a href={localePath(lang, i.path)} class="text-ash transition-colors hover:text-ink">{i.label}</a>)}
+    </nav>
+
+    <div class="flex flex-col gap-2.5 text-[0.92rem]">
+      <a href={WA_DEFAULT[lang]} target="_blank" rel="noopener" class="text-ash transition-colors hover:text-ink">
+        WhatsApp
+      </a>
+      <a href={`mailto:${SITE.email}`} class="text-ash transition-colors hover:text-ink">{SITE.email}</a>
+      <a href="/llms.txt" class="text-ash transition-colors hover:text-ink">llms.txt</a>
+    </div>
+  </div>
+
+  <div class="shell flex flex-col gap-1 border-t border-rule py-6 font-mono text-[0.75rem] text-ash sm:flex-row sm:justify-between">
+    <span>© {year} Etter — {SITE.founder}</span>
+    {updated && <span>{t.updated} {updated}</span>}
+  </div>
+</footer>

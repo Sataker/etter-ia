@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Home from '../components/Home.astro';
+
+const lang = 'pt' as const;
+const services = (await getCollection('services', (e) => e.data.lang === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const cases = (await getCollection('cases', (e) => e.data.lang === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const industries = (await getCollection('industries', (e) => e.data.lang === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const guides = (await getCollection('guides', (e) => e.data.lang === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const faq = [
+  {
+    q: 'O que a Etter faz?',
+    a: 'A Etter desenvolve automação com inteligência artificial para empresas brasileiras: agentes de IA para atendimento no WhatsApp, aplicativos e plataformas sob medida, dashboards e relatórios automatizados, integração entre sistemas e automação de vendas. O atendimento é remoto, para todo o Brasil.',
+  },
+  {
+    q: 'Quanto custa contratar a Etter?',
+    a: 'Agente de IA para atendimento custa em média R$1.000 por mês. A plataforma de atendimento com CRM sai por R$600 por mês. Desenvolvimento sob medida — aplicativos, dashboards e plataformas — é orçado por projeto, com escopo e prazo fechados antes de começar.',
+  },
+  {
+    q: 'Para que tipo de empresa a Etter trabalha?',
+    a: 'Pequenas e médias empresas e profissionais autônomos com operação em funcionamento: clínicas, nutricionistas, personal trainers, barbearias e salões, e-commerces e consultorias. O critério não é o tamanho, é ter um processo repetitivo com volume suficiente para automatizar.',
+  },
+  {
+    q: 'Em quanto tempo a solução entra no ar?',
+    a: 'Um agente de atendimento leva de duas a quatro semanas. Aplicativos sob medida levam de seis a doze semanas até a primeira versão em produção, com entregas parciais navegáveis desde as primeiras semanas.',
+  },
+  {
+    q: 'Os dados da minha empresa ficam seguros?',
+    a: 'Sim. Código e base de dados pertencem ao cliente, sem aprisionamento em plataforma. Quando o projeto exige, a operação roda em infraestrutura própria, sem trafegar por nuvem de terceiros.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@type': 'OfferCatalog',
+    name: 'Serviços de automação com IA',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.data.title,
+        description: s.data.answer,
+        provider: { '@id': 'https://etter.app.br/#organization' },
+        areaServed: { '@type': 'Country', name: 'Brasil' },
+      },
+    })),
+  },
+];
+---
+
+<Base
+  title="Etter — automação com IA para empresas: agentes, aplicativos e dashboards"
+  description="Agência brasileira de automação com inteligência artificial. Agentes de IA para atendimento no WhatsApp, aplicativos sob medida, dashboards e integração de sistemas. Atendimento remoto para todo o Brasil."
+  updated="2026-09-07"
+  schema={schema}
+>
+  <Home
+    lang={lang}
+    services={services}
+    cases={cases}
+    industries={industries}
+    guides={guides}
+    faq={faq}
+  />
+</Base>
