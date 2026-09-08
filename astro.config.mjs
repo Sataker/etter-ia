@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://etter.app.br',
+  site: 'https://www.etter.app.br',
   trailingSlash: 'never',
   i18n: {
     defaultLocale: 'pt',

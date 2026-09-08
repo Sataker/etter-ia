@@ -1,7 +1,8 @@
 export const SITE = {
   name: 'Etter IA',
   domain: 'etter.app.br',
-  url: 'https://etter.app.br',
+  /** Endereço canônico. Precisa bater com o domínio primário na Vercel. */
+  url: 'https://www.etter.app.br',
   founder: 'Enzo Vaccaro',
   email: 'enzo@etter.app.br',
   whatsapp: '5517997683220',

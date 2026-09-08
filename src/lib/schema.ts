@@ -1,6 +1,6 @@
-import type { Lang } from './site';
+import { SITE, type Lang } from './site';
 
-const ORG_ID = 'https://etter.app.br/#organization';
+const ORG_ID = `${SITE.url}/#organization`;
 
 export function faqSchema(faq: { q: string; a: string }[]) {
   if (!faq.length) return null;

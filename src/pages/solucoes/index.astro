@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import IndexList from '../../components/IndexList.astro';
 import { hub } from '../../lib/hubs';
 import { SEG, LABEL } from '../../lib/routes';
+import { SITE } from '../../lib/site';
 
 const lang = 'pt' as const;
 const h = hub('services', lang);
@@ -19,7 +20,7 @@ const schema = {
     '@type': 'WebPage',
     name: e.data.title,
     description: e.data.description,
-    url: new URL(`/${SEG[lang].services}/${e.data.slug}`, 'https://etter.app.br').href,
+    url: new URL(`/${SEG[lang].services}/${e.data.slug}`, SITE.url).href,
   })),
 };
 ---

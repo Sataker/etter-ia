@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Home from '../../components/Home.astro';
+import { SITE } from '../../lib/site';
 
 const lang = 'en' as const;
 const by = (a: any, b: any) => a.data.order - b.data.order;
@@ -53,7 +54,7 @@ const schema = [
         '@type': 'Service',
         name: s.data.title,
         description: s.data.answer,
-        provider: { '@id': 'https://etter.app.br/#organization' },
+        provider: { '@id': `${SITE.url}/#organization` },
         areaServed: { '@type': 'Country', name: 'Brasil' },
       },
     })),

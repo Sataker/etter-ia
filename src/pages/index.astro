@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Home from '../components/Home.astro';
+import { SITE } from '../lib/site';
 
 const lang = 'pt' as const;
 const services = (await getCollection('services', (e) => e.data.lang === lang)).sort(
@@ -58,7 +59,7 @@ const schema = [
         '@type': 'Service',
         name: s.data.title,
         description: s.data.answer,
-        provider: { '@id': 'https://etter.app.br/#organization' },
+        provider: { '@id': `${SITE.url}/#organization` },
         areaServed: { '@type': 'Country', name: 'Brasil' },
       },
     })),

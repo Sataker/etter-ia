@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { SITE } from '../lib/site';
 
 /**
  * Crawlers de IA liberados de propósito: sem isso o conteúdo não entra em
@@ -22,7 +23,7 @@ const AI_AGENTS = [
 ];
 
 export const GET: APIRoute = ({ site }) => {
-  const base = site?.href.replace(/\/$/, '') ?? 'https://etter.app.br';
+  const base = site?.href.replace(/\/$/, '') ?? SITE.url;
   const body = [
     'User-agent: *',
     'Allow: /',
