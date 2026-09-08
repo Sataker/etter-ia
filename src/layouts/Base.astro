@@ -122,15 +122,15 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     <meta name="twitter:card" content="summary_large_image" />
 
     {updated && <meta name="last-modified" content={updated} />}
-    <meta name="theme-color" content="#10201d" />
+    <meta name="theme-color" content="#edeeec" />
     <meta name="application-name" content={SITE.name} />
     <meta name="author" content={SITE.founder} />
 
     <!-- ?v= força o navegador a largar o ícone antigo que já tinha em cache -->
-    <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
-    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png?v=2" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/icon-512.png?v=3" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
