@@ -15,7 +15,7 @@ metrics:
   - value: "95%"
     label: Retenção
   - value: "-80%"
-    label: Tempo de montagem
+    label: Tempo para montar
 faq: []
 ---
 

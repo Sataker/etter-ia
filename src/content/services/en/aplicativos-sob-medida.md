@@ -7,7 +7,7 @@ seoTitle: 'Custom application development with AI built in'
 description: Mobile and web applications built from scratch for your specific process, with AI integrated and an admin panel of your own.
 answer: 'A custom application is built around a company''s specific process instead of forcing the process into off-the-shelf software. It makes sense when packaged tools do not cover the operation, or when the internal workflow is the competitive difference itself. Typical development takes six to twelve weeks.'
 updated: '2026-09-07'
-summary: When no ready-made system fits, the software gets built around the operation instead.
+summary: An application built around the way you work, for when no ready-made system fits.
 bullets:
   - Design and flow shaped for your operation, not for the whole market
   - AI integrated where it solves something, not as decoration

@@ -11,9 +11,9 @@ answer: Sistema implantado numa consultoria para coletar dados de múltiplas fon
 updated: '2026-09-07'
 metrics:
   - value: "8h → 10min"
-    label: Tempo de montagem
+    label: Tempo para montar
   - value: "100%"
-    label: Precisão conferida
+    label: Números conferidos
   - value: "Semanal"
     label: Entrega automática
 faq: []

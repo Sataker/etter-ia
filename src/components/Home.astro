@@ -25,15 +25,15 @@ const paths = pt
 const copy = pt
   ? {
       headline: ['Seu negócio', 'não dorme.', 'Seus atendentes, sim.'],
-      lead: 'A Etter constrói agentes de inteligência artificial, aplicativos e dashboards que assumem o trabalho repetitivo da sua empresa — no WhatsApp, nos sistemas que você já usa, a qualquer hora.',
+      lead: 'A Etter coloca um atendente de inteligência artificial no WhatsApp da sua empresa. Ele responde cliente, marca horário e resolve pedido sozinho, inclusive de madrugada. Também desenvolvemos aplicativos e painéis sob medida.',
       proof: 'Automação em produção para clínicas, nutricionistas, barbearias, e-commerces, personal trainers e consultorias.',
       servicesTitle: 'O que a Etter constrói',
       servicesLead:
-        'Cinco frentes, um critério: só entra em automação o processo que se repete e segue regra clara. O resto continua humano.',
+        'Seis serviços. O critério para todos é o mesmo: só vale automatizar o que se repete e segue uma regra clara. O resto continua com gente.',
       casesTitle: 'O que já está rodando',
       casesLead: 'Projetos em produção, com o número que o cliente mediu depois.',
       industriesTitle: 'Por setor',
-      industriesLead: 'O gargalo de uma clínica não é o de um e-commerce. Cada setor tem sua página.',
+      industriesLead: 'O que trava uma clínica não é o que trava uma loja online. Veja o seu ramo e o problema que costuma aparecer primeiro nele.',
       guidesTitle: 'Respostas diretas',
       guidesLead:
         'Preço, prazo, limite e risco — escrito sem rodeio, inclusive quando a resposta é que não vale a pena automatizar.',
@@ -44,15 +44,15 @@ const copy = pt
     }
   : {
       headline: ['Your business', "doesn't sleep.", 'Your staff does.'],
-      lead: 'Etter builds AI agents, applications and dashboards that take over the repetitive work in your company — on WhatsApp, inside the systems you already use, at any hour.',
+      lead: 'Etter puts an artificial intelligence assistant on your company WhatsApp. It answers customers, books appointments and resolves orders on its own, including overnight. We also build custom applications and dashboards.',
       proof: 'Automation running in production for clinics, nutritionists, barbershops, online stores, personal trainers and consultancies.',
       servicesTitle: 'What Etter builds',
       servicesLead:
-        'Five areas, one rule: a process only gets automated if it repeats and follows clear logic. Everything else stays human.',
+        'Six services. The rule is the same for all of them: only automate what repeats and follows clear logic. Everything else stays with people.',
       casesTitle: "What's already running",
       casesLead: 'Projects in production, with the numbers the client measured afterwards.',
       industriesTitle: 'By industry',
-      industriesLead: "A clinic's bottleneck isn't an online store's. Each industry has its own page.",
+      industriesLead: 'What holds back a clinic is not what holds back an online store. Find your line of work and the problem that usually shows up first.',
       guidesTitle: 'Straight answers',
       guidesLead:
         "Price, timeline, limits and risk — written plainly, including when the answer is that automating isn't worth it.",
@@ -75,6 +75,31 @@ const steps = pt
       { n: '3', t: 'Development', d: "Built and trained on your company's knowledge base, validated by you." },
       { n: '4', t: 'Activation', d: 'Assisted rollout and continuous tuning as the business changes.' },
     ];
+
+/** Situações reconhecíveis, na linguagem de quem vive o problema. */
+const signals = pt
+  ? {
+      title: 'Reconhece alguma dessas situações?',
+      items: [
+        'Mensagem de cliente chega de madrugada e só é respondida no dia seguinte.',
+        'Sua equipe responde a mesma pergunta dezenas de vezes por dia.',
+        'Cliente marca horário e não aparece — e você só descobre na hora.',
+        'Você digita a mesma informação em dois sistemas diferentes.',
+        'Fechar o relatório da semana consome uma tarde inteira.',
+        'Tem gente boa da sua equipe fazendo trabalho que um sistema faria.',
+      ],
+    }
+  : {
+      title: 'Do any of these sound familiar?',
+      items: [
+        'Customer messages arrive overnight and only get answered the next day.',
+        'Your team answers the same question dozens of times a day.',
+        'Customers book and never show up — and you only find out at the time.',
+        'You type the same information into two different systems.',
+        'Closing the weekly report eats a whole afternoon.',
+        'Good people on your team are doing work a system could do.',
+      ],
+    };
 
 const featured = services.find((s) => s.data.featured) ?? services[0];
 const rest = services.filter((s) => s.id !== featured?.id);
@@ -108,6 +133,20 @@ const rest = services.filter((s) => s.id !== featured?.id);
     <ShiftLog lang={lang} />
   </div>
 </section>
+
+<!-- Reconhecimento antes de explicação: o leitor se identifica pelo problema. -->
+<Section title={signals.title}>
+  <ul class="mt-10 grid gap-x-10 gap-y-5 md:grid-cols-2">
+    {
+      signals.items.map((item) => (
+        <li class="flex gap-3.5 text-[1.02rem] leading-relaxed text-ink-soft">
+          <span class="mt-[0.68em] h-px w-4 shrink-0 bg-signal" aria-hidden="true" />
+          {item}
+        </li>
+      ))
+    }
+  </ul>
+</Section>
 
 <!-- Serviços -->
 <Section title={copy.servicesTitle} lead={copy.servicesLead} id={paths.s}>
@@ -167,6 +206,41 @@ const rest = services.filter((s) => s.id !== featured?.id);
   </div>
 </Section>
 
+
+<!-- Setores -->
+<Section title={copy.industriesTitle} lead={copy.industriesLead} id={paths.i}>
+  <div class="mt-10 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
+    {
+      industries.map((i) => (
+        <a
+          href={localePath(lang, `${paths.i}/${i.data.slug}`)}
+          class="group bg-paper p-6 transition-colors hover:bg-paper-2"
+        >
+          <h3 class="text-[1.02rem] font-semibold group-hover:text-signal">{i.data.title}</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{i.data.pains[0]}</p>
+        </a>
+      ))
+    }
+    <a
+      href={WA_DEFAULT[lang]}
+      target="_blank"
+      rel="noopener"
+      class="group bg-paper-2/60 p-6 transition-colors hover:bg-paper-2"
+    >
+      <h3 class="text-[1.02rem] font-semibold group-hover:text-signal">
+        {pt ? 'Seu ramo não está aqui?' : 'Your line of work is not listed?'}
+      </h3>
+      <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">
+        {
+          pt
+            ? 'O que muda de um ramo para outro é o problema, não a solução. Me conta o seu.'
+            : 'What changes between industries is the problem, not the solution. Tell me yours.'
+        }
+      </p>
+    </a>
+  </div>
+</Section>
+
 <!-- Cases -->
 <Section title={copy.casesTitle} lead={copy.casesLead} id={paths.c}>
   <div class="mt-12 border-t border-rule">
@@ -189,22 +263,6 @@ const rest = services.filter((s) => s.id !== featured?.id);
               </div>
             ))}
           </div>
-        </a>
-      ))
-    }
-  </div>
-</Section>
-
-<!-- Setores -->
-<Section title={copy.industriesTitle} lead={copy.industriesLead} id={paths.i}>
-  <div class="mt-10 flex flex-wrap gap-3">
-    {
-      industries.map((i) => (
-        <a
-          href={localePath(lang, `${paths.i}/${i.data.slug}`)}
-          class="rounded-full border border-rule px-5 py-2.5 text-[0.94rem] transition-colors hover:border-signal hover:text-signal"
-        >
-          {i.data.title}
         </a>
       ))
     }

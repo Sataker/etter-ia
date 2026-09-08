@@ -4,9 +4,8 @@ import { NAV, UI } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
-  updated?: string;
 }
-const { lang, updated } = Astro.props;
+const { lang } = Astro.props;
 const t = UI[lang];
 const year = new Date().getFullYear();
 ---
@@ -30,12 +29,10 @@ const year = new Date().getFullYear();
         WhatsApp
       </a>
       <a href={`mailto:${SITE.email}`} class="text-ash transition-colors hover:text-ink">{SITE.email}</a>
-      <a href="/llms.txt" class="text-ash transition-colors hover:text-ink">llms.txt</a>
     </div>
   </div>
 
-  <div class="shell flex flex-col gap-1 border-t border-rule py-6 font-mono text-[0.75rem] text-ash sm:flex-row sm:justify-between">
+  <div class="shell border-t border-rule py-6 font-mono text-[0.75rem] text-ash">
     <span>© {year} Etter — {SITE.founder}</span>
-    {updated && <span>{t.updated} {updated}</span>}
   </div>
 </footer>

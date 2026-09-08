@@ -8,7 +8,7 @@ seoTitle: 'AI agent for WhatsApp — automated customer service 24/7'
 description: 'An AI agent that handles WhatsApp, Instagram and website chat: understands context, qualifies leads, books appointments and hands over to a human when needed.'
 answer: 'An AI agent for WhatsApp is an automated assistant that understands conversation context, answers with the company''s real information and performs tasks — booking, order lookups, lead qualification. Unlike a button-based chatbot, it handles questions outside the script and knows when to hand over to a person. Rollout takes two to four weeks and uses the official WhatsApp Business API.'
 updated: '2026-09-07'
-summary: The assistant that never sleeps, never forgets what was said and never leaves a message unanswered.
+summary: An assistant that answers on WhatsApp instantly, any day and any hour. It handles questions, books appointments and calls you in when the customer needs a person.
 bullets:
   - Instant answers with the context of the whole conversation
   - Official integration with WhatsApp Business API, Instagram and your site

@@ -5,11 +5,11 @@ order: 4
 audience: Lojas online e operações de e-commerce
 title: IA para e-commerce
 seoTitle: IA para e-commerce — suporte, rastreio de pedido e devolução
-description: Como lojas online usam agente de IA para responder dúvida de produto, rastrear pedido e processar devolução sem fila de ticket.
+description: Como lojas online usam agente de IA para responder dúvida de produto, rastrear pedido e processar devolução sem fila de atendimento.
 answer: 'Lojas online usam agente de IA para resolver as três perguntas que concentram quase todo o volume de suporte: onde está meu pedido, esse produto serve para o meu caso e como faço a devolução. Conectado ao sistema de rastreio e à política de trocas, o agente resolve ponta a ponta e deixa para o humano só o que exige julgamento.'
 updated: '2026-09-07'
 pains:
-  - Fila de ticket que cresce em campanha e some a margem no frete de erro
+  - Fila de atendimento que estoura em campanha, e o frete do pedido errado come a margem
   - Mesma pergunta de rastreio respondida cem vezes por dia
   - Carrinho abandonado por dúvida que ninguém respondeu a tempo
   - Devolução manual que consome atendente inteiro

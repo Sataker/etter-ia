@@ -6,20 +6,20 @@ export const HUBS = {
     pt: {
       seoTitle: 'Serviços de automação com IA — agentes, aplicativos e dashboards',
       title: 'O que a Etter constrói',
-      lead: 'Cinco frentes de automação com inteligência artificial. Só entra em automação o processo que se repete e segue regra clara — o resto continua humano.',
+      lead: 'Seis serviços de automação com inteligência artificial. O critério é sempre o mesmo: só vale automatizar o que se repete e segue uma regra clara. O resto continua com gente.',
       description:
         'Serviços de automação com IA para empresas brasileiras: agentes de atendimento no WhatsApp, aplicativos sob medida, automação de vendas, relatórios automatizados e integração de sistemas.',
       answer:
-        'A Etter presta cinco serviços de automação com IA: agentes de inteligência artificial para atendimento no WhatsApp, desenvolvimento de aplicativos e plataformas sob medida, automação de funil de vendas, dashboards e relatórios automatizados, e integração entre sistemas existentes. O atendimento é remoto, para todo o Brasil.',
+        'A Etter presta seis serviços de automação com IA: agentes de inteligência artificial para atendimento no WhatsApp, desenvolvimento de aplicativos e plataformas sob medida, automação de vendas, IA de treino e dieta para profissionais de saúde e fitness, relatórios e painéis automatizados, e integração entre sistemas existentes. O atendimento é remoto, para todo o Brasil.',
     },
     en: {
       seoTitle: 'AI automation services — agents, applications and dashboards',
       title: 'What Etter builds',
-      lead: 'Five areas of AI automation. A process only gets automated if it repeats and follows clear logic — everything else stays human.',
+      lead: 'Six AI automation services. The rule is always the same: only automate what repeats and follows clear logic. Everything else stays with people.',
       description:
         'AI automation services for Brazilian companies: WhatsApp customer service agents, custom applications, sales automation, automated reporting and systems integration.',
       answer:
-        'Etter provides five AI automation services: AI agents for WhatsApp customer service, custom application and platform development, sales funnel automation, automated dashboards and reports, and integration between existing systems. Work is remote, across Brazil.',
+        'Etter provides six AI automation services: AI agents for WhatsApp customer service, custom application and platform development, sales automation, training and nutrition AI for health and fitness professionals, automated reports and dashboards, and integration between existing systems. Work is remote, across Brazil.',
     },
   },
   industries: {

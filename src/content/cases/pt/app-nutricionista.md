@@ -11,9 +11,9 @@ answer: Aplicativo desenvolvido para uma nutricionista, com planos alimentares p
 updated: '2026-09-07'
 metrics:
   - value: "+85%"
-    label: Adesão ao plano
+    label: Pacientes seguindo o plano
   - value: "-40%"
-    label: Tempo de montagem
+    label: Tempo para montar
   - value: "4,9★"
     label: Avaliação
 faq: []

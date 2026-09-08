@@ -7,7 +7,7 @@ seoTitle: 'Automated reports and dashboards powered by AI'
 description: Systems that collect data from multiple sources and deliver a finished executive report, with alerts when something goes off track.
 answer: 'An automated report is a system that pulls data from the original sources, consolidates it and delivers the summary at the agreed time. It replaces the routine of exporting a spreadsheet, pasting it into another file and formatting — work that usually eats hours per week and still gets things wrong.'
 updated: '2026-09-07'
-summary: Eight hours a week building a spreadsheet is eight hours nobody spent looking at the number.
+summary: Pulls the numbers scattered across your systems and sends the finished summary every week, by WhatsApp or email.
 bullets:
   - Automatic collection from several sources at once
   - Consolidation without copy and paste

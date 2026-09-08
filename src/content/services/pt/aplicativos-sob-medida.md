@@ -7,7 +7,7 @@ seoTitle: Desenvolvimento de aplicativo sob medida com IA integrada
 description: Apps mobile e web desenvolvidos do zero para o processo específico do seu negócio, com IA integrada e painel administrativo próprio.
 answer: Um aplicativo sob medida é construído para o processo específico de uma empresa, em vez de forçar o processo a caber num sistema pronto. Faz sentido quando o software de prateleira não cobre a operação ou quando a diferença competitiva está justamente no fluxo interno. O desenvolvimento típico leva de seis a doze semanas.
 updated: '2026-09-07'
-summary: Quando nenhum sistema pronto encaixa, o software passa a ser feito em volta da operação.
+summary: Um aplicativo feito para o seu jeito de trabalhar, quando nenhum sistema pronto serve.
 bullets:
   - Design e fluxo desenhados para a sua operação, não para o mercado inteiro
   - IA integrada onde ela resolve, não como enfeite

@@ -13,9 +13,9 @@ metrics:
   - value: 30s
     label: Reply time
   - value: 92%
-    label: Resolved without a human
+    label: Solved without staff
   - value: '-60%'
-    label: Tickets opened
+    label: Support tickets
 faq: []
 ---
 

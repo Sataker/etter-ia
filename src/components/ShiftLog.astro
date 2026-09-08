@@ -11,23 +11,27 @@ const ENTRIES: Record<Lang, { time: string; text: string }[]> = {
   pt: [
     { time: '23:41', text: 'dúvida sobre plano mensal respondida' },
     { time: '01:07', text: 'pedido #4471 rastreado, cliente avisado' },
-    { time: '02:19', text: 'lead qualificado e marcado como quente' },
+    { time: '02:19', text: 'cliente interessado, vendedor avisado' },
     { time: '03:52', text: 'consulta agendada para 14/09, 09h' },
-    { time: '04:30', text: 'no-show previsto, confirmação reenviada' },
+    { time: '04:30', text: 'risco de falta, confirmação reenviada' },
     { time: '06:03', text: 'relatório da noite enviado ao dono' },
   ],
   en: [
     { time: '23:41', text: 'monthly plan question answered' },
     { time: '01:07', text: 'order #4471 tracked, customer notified' },
-    { time: '02:19', text: 'lead qualified and flagged as hot' },
+    { time: '02:19', text: 'interested customer, sales team notified' },
     { time: '03:52', text: 'appointment booked for Sep 14, 9am' },
-    { time: '04:30', text: 'likely no-show, confirmation resent' },
+    { time: '04:30', text: 'likely to miss, confirmation resent' },
     { time: '06:03', text: 'overnight report sent to the owner' },
   ],
 };
 
 const entries = ENTRIES[lang];
 const label = lang === 'pt' ? 'turno da noite' : 'night shift';
+const caption =
+  lang === 'pt'
+    ? 'O que um atendente de IA resolveu sozinho de madrugada, sem ninguém trabalhando.'
+    : 'What an AI assistant handled on its own overnight, with nobody working.';
 const summary =
   lang === 'pt' ? '47 ações, nenhum humano acordado' : '47 actions, nobody awake';
 ---
@@ -52,10 +56,11 @@ const summary =
     }
   </ol>
 
-  <p
-    class="log-line mt-5 border-t border-rule pt-4 font-mono text-[0.78rem] text-ash"
+  <div
+    class="log-line mt-5 border-t border-rule pt-4"
     style={`animation-delay:${320 + entries.length * 260}ms`}
   >
-    {summary}
-  </p>
+    <p class="font-mono text-[0.78rem] text-ash">{summary}</p>
+    <p class="mt-2.5 text-[0.85rem] leading-relaxed text-ash">{caption}</p>
+  </div>
 </figure>

@@ -7,7 +7,7 @@ seoTitle: 'AI sales automation — lead qualification and automatic follow-up'
 description: Systems that qualify leads, send proposals and follow up on their own, integrated with the CRM you already use.
 answer: 'AI sales automation covers the part of the funnel that runs on repetition: qualifying who arrived, answering immediately, sending the proposal and keeping the follow-up alive. The bigger gain rarely comes from selling more to people who already reply — it comes from no longer losing the lead who went two days without an answer.'
 updated: '2026-09-07'
-summary: Most lost sales were never refused. They just went unanswered.
+summary: Answers new enquiries immediately, sends the quote and keeps following up — without anyone having to remember.
 bullets:
   - Automatic qualification of leads from ads, site or referrals
   - Replies in seconds, in the channel the lead used

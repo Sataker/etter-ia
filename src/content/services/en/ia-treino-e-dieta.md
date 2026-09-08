@@ -7,7 +7,7 @@ seoTitle: 'AI for personal trainers and nutritionists — plans and follow-up'
 description: Specialised agents that build training and meal plans, track client progress and answer questions around the clock.
 answer: 'A training and nutrition AI agent builds plans from the professional''s own protocol, tracks how clients follow through and answers questions outside working hours. It does not replace the professional: it applies their method at scale and hands back anything outside the pattern.'
 updated: '2026-09-07'
-summary: The method is yours. The AI applies it, tracks it and chases it — for a hundred clients at once.
+summary: Builds workouts and meal plans following your method, tracks the client and alerts you when something looks off.
 bullets:
   - Plans built from the professional's own protocol
   - Adjustments based on what the client reports

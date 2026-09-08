@@ -7,7 +7,7 @@ seoTitle: 'Systems and API integration — end manual re-entry'
 description: Connecting the tools your company already uses, to end re-typing, data mismatches and manual error.
 answer: 'Systems integration means connecting tools that do not talk to each other today, so data gets entered once. It is the lowest-cost, highest-return automation in most companies, because it attacks human error and rework without requiring anyone to change software.'
 updated: '2026-09-07'
-summary: Data entered twice is data that will eventually disagree with itself.
+summary: Makes the programs you already use talk to each other, so nobody types the same thing twice.
 bullets:
   - API and webhook connections between your current tools
   - Automatic two-way synchronisation

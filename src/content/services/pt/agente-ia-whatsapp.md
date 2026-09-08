@@ -5,21 +5,21 @@ order: 1
 featured: true
 title: Agentes de IA para atendimento
 seoTitle: Agente de IA para WhatsApp — atendimento automático 24h
-description: 'Agente de IA que atende no WhatsApp, Instagram e site: entende contexto, qualifica lead, agenda horário e passa para humano quando precisa. Integração com WhatsApp Business API.'
-answer: Um agente de IA para WhatsApp é um atendente automático que entende o contexto da conversa, responde com a informação real da empresa e executa tarefas — agendar, consultar pedido, qualificar lead. Diferente de um chatbot de botões, ele lida com perguntas fora do roteiro e sabe quando transferir para uma pessoa. A implantação leva de duas a quatro semanas e usa a WhatsApp Business API oficial.
+description: 'Agente de IA que atende no WhatsApp, Instagram e site: entende o contexto, identifica quem está pronto para comprar, agenda horário e passa para uma pessoa quando precisa. Integração com WhatsApp Business API.'
+answer: Um agente de IA para WhatsApp é um atendente automático que entende o contexto da conversa, responde com a informação real da empresa e executa tarefas — agendar horário, consultar pedido, identificar quem está pronto para comprar. Diferente de um chatbot de botões, ele lida com perguntas fora do roteiro e sabe quando transferir para uma pessoa. A implantação leva de duas a quatro semanas e usa a WhatsApp Business API oficial.
 updated: '2026-09-07'
-summary: O atendente que não dorme, não esquece o que foi dito e nunca deixa mensagem sem resposta.
+summary: Um atendente que responde no WhatsApp na hora, a qualquer dia e horário. Tira dúvida, marca horário e chama você quando o cliente precisa de gente.
 bullets:
   - Respostas instantâneas e com contexto da conversa inteira
   - Integração oficial com WhatsApp Business API, Instagram e site
   - Agendamento automático na agenda que você já usa
-  - Qualificação de lead antes de chegar no comercial
+  - Separa quem está pronto para comprar antes de passar para você
   - Transferência para humano quando a conversa exige
   - Relatório do que foi atendido, sem você abrir o painel
 deliverables:
   - Agente treinado na sua base de conhecimento
   - Número conectado à API oficial do WhatsApp
-  - Integração com agenda, CRM ou planilha
+  - Conexão com a sua agenda, planilha ou sistema de clientes (CRM)
   - Painel de conversas e relatórios
   - Ajuste fino nas primeiras semanas de operação
 faq:

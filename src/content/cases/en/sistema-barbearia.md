@@ -11,7 +11,7 @@ answer: 'An AI agent deployed in a barbershop to book, confirm and reschedule ap
 updated: '2026-09-07'
 metrics:
   - value: '-70%'
-    label: No-shows
+    label: Missed appointments
   - value: '+35%'
     label: Revenue
   - value: 24/7

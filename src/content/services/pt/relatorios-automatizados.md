@@ -7,7 +7,7 @@ seoTitle: Relatórios e dashboards automatizados com IA
 description: Sistemas que coletam dados de várias fontes e entregam relatório executivo pronto, com alerta quando algo sai da curva.
 answer: Relatório automatizado é um sistema que busca os dados nas fontes originais, consolida e entrega o resumo pronto no horário combinado. Substitui a rotina de exportar planilha, colar em outro arquivo e formatar — trabalho que costuma consumir horas por semana e ainda assim erra.
 updated: '2026-09-07'
-summary: Oito horas por semana montando planilha é oito horas que ninguém passou olhando o número.
+summary: Junta os números que estão espalhados nos seus sistemas e manda o resumo pronto toda semana, no WhatsApp ou no e-mail.
 bullets:
   - Coleta automática de várias fontes ao mesmo tempo
   - Consolidação sem copiar e colar

@@ -7,7 +7,7 @@ seoTitle: Integração de sistemas e APIs — eliminar digitação manual
 description: Conexão entre as ferramentas que a empresa já usa, para acabar com redigitação, divergência de dado e erro manual.
 answer: Integração de sistemas é conectar ferramentas que hoje não conversam, para que o dado seja digitado uma vez só. É a automação de menor custo e maior retorno na maioria das empresas, porque ataca erro humano e retrabalho sem exigir troca de software.
 updated: '2026-09-07'
-summary: O dado digitado duas vezes é o dado que vai divergir.
+summary: Faz os programas que você já usa conversarem entre si, para ninguém digitar a mesma coisa duas vezes.
 bullets:
   - Conexão por API e webhook entre as ferramentas atuais
   - Sincronização automática nos dois sentidos

@@ -11,7 +11,7 @@ answer: 'An application built for a nutritionist, with AI-personalised meal plan
 updated: '2026-09-07'
 metrics:
   - value: '+85%'
-    label: Plan adherence
+    label: Patients following the plan
   - value: '-40%'
     label: Time per plan
   - value: '4.9★'

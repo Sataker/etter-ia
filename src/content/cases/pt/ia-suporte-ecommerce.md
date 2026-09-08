@@ -13,9 +13,9 @@ metrics:
   - value: "30s"
     label: Tempo de resposta
   - value: "92%"
-    label: Resolução sem humano
+    label: Resolvido sem atendente
   - value: "-60%"
-    label: Tickets abertos
+    label: Chamados abertos
 faq: []
 ---
 

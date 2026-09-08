@@ -7,7 +7,7 @@ seoTitle: IA para personal trainer e nutricionista — planos e acompanhamento
 description: Agentes especializados que montam plano de treino e alimentação, acompanham a evolução do aluno e respondem dúvidas 24h.
 answer: 'Um agente de IA para treino e dieta monta planos a partir do protocolo do próprio profissional, acompanha a execução do aluno e responde dúvidas fora do horário de atendimento. Ele não substitui o profissional: aplica o método dele em escala, e devolve para o humano o que sai do padrão.'
 updated: '2026-09-07'
-summary: O método é seu. A IA aplica, acompanha e cobra — para cem alunos ao mesmo tempo.
+summary: Monta treino e dieta seguindo o seu método, acompanha o aluno e te avisa quando algo foge do normal.
 bullets:
   - Planos montados a partir do protocolo do profissional
   - Ajuste conforme a evolução relatada pelo aluno
