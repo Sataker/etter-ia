@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  updated: string;
+}
+const { title, updated } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title} · Etter Tecnologia</title>
+    <meta name="robots" content="index,follow" />
+    <link rel="icon" href="/favicon.ico" />
+    <style is:global>
+      :root{--bg:#fff;--fg:#1d1d1f;--mut:#555;--ac:#0b6b4f}
+      @media(prefers-color-scheme:dark){:root{--bg:#121212;--fg:#eee;--mut:#aaa;--ac:#5fd3a5}}
+      body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,sans-serif;margin:0}
+      main{max-width:760px;margin:0 auto;padding:40px 16px 80px}
+      h1{font-size:28px;margin:0 0 4px}h2{font-size:19px;margin:32px 0 8px}
+      .d{color:var(--mut);font-size:14px}a{color:var(--ac)}
+      nav{margin-bottom:28px;font-size:14px}nav a{margin-right:14px}
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="/">Etter</a>
+        <a href="/privacidade">Privacidade</a>
+        <a href="/termos">Termos de Serviço</a>
+        <a href="/exclusao-de-dados">Exclusão de dados</a>
+      </nav>
+      <h1>{title}</h1>
+      <p class="d">Última atualização: {updated}</p>
+      <slot />
+      <p class="d" style="margin-top:40px">
+        ETTER TECNOLOGIA · ENZO SATAKE VACCARO RIBEIRO · CNPJ 62.524.528/0001-17<br />
+        Rua João Batista Vono, 75, Residencial Baraldi, Monte Azul Paulista/SP, 14730-000
+      </p>
+    </main>
+  </body>
+</html>
