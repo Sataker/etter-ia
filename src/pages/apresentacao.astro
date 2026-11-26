@@ -17,9 +17,9 @@ import { SITE, wa } from '../lib/site';
 */
 const WA = wa('Olá Enzo! Vi a apresentação da Etter e quero conversar sobre um processo da minha empresa.');
 const canonical = `${SITE.url}/apresentacao`;
-const title = 'Etter — IA funcionando dentro da sua empresa';
+const title = 'Etter | Automação de processos com IA para empresas';
 const description =
-  'A Etter coloca IA para atender no WhatsApp, montar compras e entregar relatórios dentro dos sistemas que a sua empresa já usa. Casos reais, com nome e número.';
+  'A Etter automatiza com IA os processos que consomem horas da sua equipe: compras, conferências, relatórios e atendimento, dentro dos sistemas que a empresa já usa. Casos reais, com nome e número.';
 
 const waIcon =
   'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z';
@@ -171,11 +171,12 @@ const faq = [
       <div class="grid-bg" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="kicker"><span class="pulse"></span>Inteligência artificial em operação, não em palestra</p>
-          <h1>A sua empresa atendendo, conferindo e vendendo <span>até de madrugada.</span></h1>
+          <p class="kicker"><span class="pulse"></span>Automação de processos com inteligência artificial</p>
+          <h1>Os processos que travam a sua operação, <span>rodando sozinhos.</span></h1>
           <p class="lead">
-            A Etter coloca IA para responder clientes no WhatsApp, montar compras e entregar relatórios — dentro dos
-            sistemas que a sua empresa já usa. A sua equipe só aprova e fecha.
+            Compra de estoque, conferência de notas, relatórios, atendimento: a Etter automatiza com IA o trabalho
+            repetido que hoje consome horas da sua equipe, dentro dos sistemas que a empresa já usa. As pessoas só
+            aprovam e decidem.
           </p>
           <div class="cta-row">
             <a href={WA} target="_blank" rel="noopener" class="btn btn-wa">
@@ -191,20 +192,20 @@ const faq = [
         <div class="phone-stage" aria-label="Exemplo de atendimento da IA no WhatsApp">
           <div class="phone">
             <div class="phone-bar">
-              <span class="avatar-sm">L</span>
-              <div><strong>Loja do cliente</strong><small class="status">online agora</small></div>
+              <span class="avatar-sm">IA</span>
+              <div><strong>Assistente de operação</strong><small class="status">online agora</small></div>
             </div>
             <div class="chat" id="chat">
               <p class="day">hoje</p>
-              <p class="msg in" data-step="0">Oi! Vocês têm horário amanhã de manhã? <time>23:47</time></p>
-              <p class="msg out" data-step="1">Olá! Tenho às 9h e às 10h30. Qual fica melhor para você? <time>23:47</time></p>
-              <p class="msg in" data-step="2">9h, por favor <time>23:48</time></p>
-              <p class="msg out" data-step="3">Pronto, marcado para amanhã às 9h. Mando um lembrete 1 hora antes. <time>23:48</time></p>
+              <p class="msg in" data-step="0">Bom dia. Como ficou a compra de hoje? <time>07:02</time></p>
+              <p class="msg out" data-step="1">Conferi os 132 produtos no ERP e o que já está a caminho. 4 itens precisam de reposição, a lista está pronta para você aprovar. <time>07:02</time></p>
+              <p class="msg in" data-step="2">Aprovado. <time>07:03</time></p>
+              <p class="msg out" data-step="3">Pedido gerado no ERP. Também conferi as 38 notas de ontem: 2 com valor divergente, já marquei para o financeiro. <time>07:03</time></p>
               <p class="typing" aria-hidden="true"><i></i><i></i><i></i></p>
             </div>
           </div>
-          <div class="float f1"><span class="ok"></span>Respondido em 8 segundos</div>
-          <div class="float f2"><span class="ok"></span>Horário salvo na agenda</div>
+          <div class="float f1"><span class="ok"></span>132 produtos conferidos</div>
+          <div class="float f2"><span class="ok"></span>Pedido gerado no ERP</div>
         </div>
       </div>
 
@@ -447,7 +448,7 @@ const faq = [
           <h2>Prazer, eu sou o Enzo.</h2>
           <p>
             Sou o fundador da Etter e quem constrói cada projeto. Trabalho com agentes de inteligência artificial e
-            automação de processos para empresas brasileiras — do atendimento no WhatsApp a sistemas internos.
+            automação de processos para empresas brasileiras, do atendimento no WhatsApp a sistemas internos.
           </p>
           <p>
             Passei dois meses em San Francisco, no Vale do Silício. O que mais trouxe de lá não foi a parte técnica:
@@ -457,11 +458,6 @@ const faq = [
             Por isso eu não vendo pacote pronto. Cada projeto começa entendendo como a sua empresa trabalha hoje, e é
             montado em cima disso.
           </p>
-          <ul class="facts">
-            <li><b>Direto comigo</b><span>sem vendedor no meio</span></li>
-            <li><b>O código é seu</b><span>sem ficar preso a plataforma</span></li>
-            <li><b>Valor fechado</b><span>antes de começar</span></li>
-          </ul>
         </div>
       </div>
     </section>
@@ -652,7 +648,7 @@ const faq = [
   .phone-bar { display: flex; align-items: center; gap: 0.6rem; background: #075e54; color: #fff; padding: 0.8rem 0.9rem; border-radius: 1.6rem 1.6rem 0 0; }
   .phone-bar strong { display: block; font-size: 0.9rem; }
   .phone-bar small { font-size: 0.72rem; opacity: 0.8; }
-  .avatar-sm { width: 2rem; height: 2rem; border-radius: 50%; background: #128c7e; display: grid; place-items: center; font-weight: 700; }
+  .avatar-sm { width: 2rem; height: 2rem; border-radius: 50%; background: #128c7e; display: grid; place-items: center; font-weight: 700; font-size: 0.75rem; }
   .chat { background: #ece5dd; padding: 0.9rem 0.7rem 1.2rem; border-radius: 0 0 1.6rem 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; min-height: 21rem; }
   .day { align-self: center; font-size: 0.68rem; background: #e1f2fb; color: #4b5a6b; padding: 0.15rem 0.6rem; border-radius: 0.4rem; }
   .msg { max-width: 85%; font-size: 0.84rem; line-height: 1.4; color: #111b21; padding: 0.45rem 0.6rem 0.35rem; border-radius: 0.6rem; box-shadow: 0 1px 0 rgba(0,0,0,0.08); }
