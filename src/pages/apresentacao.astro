@@ -9,12 +9,17 @@ import { SITE, wa } from '../lib/site';
   Página de apresentação: link que se manda para uma empresa, não página de busca.
   Visual próprio (azul, fotos, telas simuladas) — o site principal segue o estilo documento.
   Fica fora do índice e do sitemap. Só número que o cliente confirmou entra aqui.
+  v3 (26/11/2026): estrutura inspirada em Sierra, Decagon e Morningside AI — resultado no topo,
+  "por que a IA não saiu do papel", calculadora do custo do trabalho repetido, método em 3 fases.
 */
 const WA = wa('Olá Enzo! Vi a apresentação da Etter e quero conversar sobre um processo da minha empresa.');
 const canonical = `${SITE.url}/apresentacao`;
-const title = 'Etter — automação com IA para a sua empresa';
+const title = 'Etter — IA funcionando dentro da sua empresa';
 const description =
-  'Veja como a IA da Etter atende no WhatsApp, monta compras e entrega relatórios sozinha — com casos reais e números medidos pelos clientes.';
+  'A Etter coloca IA para atender no WhatsApp, montar compras e entregar relatórios dentro dos sistemas que a sua empresa já usa. Casos reais, com nome e número.';
+
+const waIcon =
+  'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z';
 
 const proof = [
   { value: '214 mil', label: 'conversas atendidas em 30 dias', who: 'Peak' },
@@ -59,25 +64,55 @@ const cases = [
   },
 ];
 
-const steps = [
-  { t: 'Conversa de 30 min', d: 'Você conta como o processo funciona hoje. Sem custo e sem compromisso.' },
-  { t: 'Proposta por escrito', d: 'O que vale automatizar, o que não vale, quanto custa e em quanto tempo fica no ar.' },
-  { t: 'Construção', d: 'A IA é montada com as regras e as informações da sua empresa, e você testa antes de ir ao ar.' },
-  { t: 'Acompanhamento', d: 'Depois que está rodando, eu continuo ajustando quando o negócio muda.' },
+const phases = [
+  {
+    n: '01',
+    t: 'Diagnóstico',
+    d: 'Uma conversa de 30 minutos sobre como o trabalho anda hoje. Você recebe por escrito o que vale automatizar, o que não vale, o valor e o prazo.',
+    tag: 'Sem custo',
+  },
+  {
+    n: '02',
+    t: 'Construção',
+    d: 'A IA é montada com as regras, os preços e o jeito de falar da sua empresa, ligada aos sistemas que você já usa. Você testa antes de ir ao ar.',
+    tag: 'Valor fechado',
+  },
+  {
+    n: '03',
+    t: 'Operação',
+    d: 'Depois que está rodando, eu acompanho os números, treino a equipe e ajusto quando o negócio muda. Não entrego e sumo.',
+    tag: 'Acompanhamento',
+  },
+];
+
+const compare = [
+  { them: 'Pacote pronto, igual para todo mundo', us: 'Montado em cima de como a sua empresa já trabalha' },
+  { them: 'Você fala com o vendedor; quem constrói é outro', us: 'Você fala direto com quem constrói' },
+  { them: 'Fica preso à plataforma da agência', us: 'O que foi construído é da sua empresa' },
+  { them: 'Entrega e some', us: 'Acompanha os números depois que vai ao ar' },
+  { them: 'Promete tudo automático', us: 'Onde o erro custa caro, uma pessoa aprova' },
 ];
 
 const faq = [
   {
     q: 'Quanto custa?',
-    a: 'Depende do processo. Depois da conversa você recebe uma proposta com valor e prazo fechados, antes de qualquer trabalho começar.',
+    a: 'Depende do processo. Depois da conversa você recebe uma proposta com valor e prazo fechados, antes de qualquer trabalho começar. Se não compensar, eu digo.',
   },
   {
     q: 'Preciso trocar os sistemas que já uso?',
-    a: 'Não. A IA trabalha em cima do que a empresa já usa: WhatsApp, ERP, planilha, agenda.',
+    a: 'Não. A IA trabalha em cima do que a empresa já usa: WhatsApp, ERP, planilha, agenda, CRM.',
   },
   {
     q: 'E se a IA errar?',
     a: 'Onde o erro custa caro, quem decide é uma pessoa: a IA prepara, alguém da equipe aprova. E o acompanhamento depois da entrega existe justamente para corrigir rápido.',
+  },
+  {
+    q: 'Minha equipe vai ser substituída?',
+    a: 'A IA tira o trabalho repetido da mesa das pessoas. Quem hoje copia pedido e responde a mesma pergunta 50 vezes passa a cuidar do cliente que vai comprar.',
+  },
+  {
+    q: 'E os dados da minha empresa?',
+    a: 'Ficam nos seus sistemas e nas suas contas. A IA só acessa o que o processo precisa, e o acesso pode ser retirado quando você quiser.',
   },
   {
     q: 'Funciona para empresa pequena?',
@@ -110,46 +145,53 @@ const faq = [
 
   <body>
     <!-- Topo -->
-    <header class="top">
+    <header class="top" id="top">
       <div class="wrap top-in">
         <a href="/" class="brand">Etter<span class="dot"></span></a>
+        <nav class="nav" aria-label="Seções">
+          <a href="#como-fica">Como funciona</a>
+          <a href="#casos">Casos</a>
+          <a href="#enzo">Quem sou</a>
+        </nav>
         <a href={WA} target="_blank" rel="noopener" class="btn btn-ghost">Falar no WhatsApp</a>
       </div>
     </header>
 
     <!-- Hero -->
     <section class="hero">
+      <div class="grid-bg" aria-hidden="true"></div>
       <div class="wrap hero-grid">
-        <div>
-          <p class="kicker">Automação com inteligência artificial para empresas</p>
-          <h1>A IA faz o trabalho repetido. <span>Sua equipe cuida do que dá resultado.</span></h1>
+        <div class="hero-copy">
+          <p class="kicker"><span class="pulse"></span>Inteligência artificial em operação, não em palestra</p>
+          <h1>A sua empresa atendendo, conferindo e vendendo <span>até de madrugada.</span></h1>
           <p class="lead">
-            A Etter coloca inteligência artificial para atender clientes no WhatsApp, montar compras, conferir dados e
-            entregar relatórios — dentro dos sistemas que a sua empresa já usa.
+            A Etter coloca IA para responder clientes no WhatsApp, montar compras e entregar relatórios — dentro dos
+            sistemas que a sua empresa já usa. A sua equipe só aprova e fecha.
           </p>
           <div class="cta-row">
             <a href={WA} target="_blank" rel="noopener" class="btn btn-wa">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waIcon}/></svg>
               Agendar conversa de 30 min
             </a>
-            <a href="#como-fica" class="btn btn-line">Ver como funciona</a>
+            <a href="#como-fica" class="btn btn-line">Ver a IA trabalhando</a>
           </div>
           <p class="mini">Sem custo e sem compromisso · Atendimento no Brasil inteiro</p>
         </div>
 
-        <!-- Celular com conversa simulada -->
+        <!-- Celular com conversa simulada (animada) -->
         <div class="phone-stage" aria-label="Exemplo de atendimento da IA no WhatsApp">
           <div class="phone">
             <div class="phone-bar">
               <span class="avatar-sm">L</span>
-              <div><strong>Loja do cliente</strong><small>online agora</small></div>
+              <div><strong>Loja do cliente</strong><small class="status">online agora</small></div>
             </div>
-            <div class="chat">
+            <div class="chat" id="chat">
               <p class="day">hoje</p>
-              <p class="msg in">Oi! Vocês têm horário amanhã de manhã? <time>23:47</time></p>
-              <p class="msg out">Olá! Tenho às 9h e às 10h30. Qual fica melhor para você? <time>23:47</time></p>
-              <p class="msg in">9h, por favor <time>23:48</time></p>
-              <p class="msg out">Pronto, marcado para amanhã às 9h. Mando um lembrete 1 hora antes. <time>23:48</time></p>
+              <p class="msg in" data-step="0">Oi! Vocês têm horário amanhã de manhã? <time>23:47</time></p>
+              <p class="msg out" data-step="1">Olá! Tenho às 9h e às 10h30. Qual fica melhor para você? <time>23:47</time></p>
+              <p class="msg in" data-step="2">9h, por favor <time>23:48</time></p>
+              <p class="msg out" data-step="3">Pronto, marcado para amanhã às 9h. Mando um lembrete 1 hora antes. <time>23:48</time></p>
+              <p class="typing" aria-hidden="true"><i></i><i></i><i></i></p>
             </div>
           </div>
           <div class="float f1"><span class="ok"></span>Respondido em 8 segundos</div>
@@ -167,17 +209,31 @@ const faq = [
             </div>
           ))}
         </dl>
+        <p class="logos"><span>Já rodando em</span><b>Peak</b><b>Cyber Nutrition</b><b>App de nutrição</b></p>
+      </div>
+    </section>
+
+    <!-- Por que não saiu do papel -->
+    <section class="sec story">
+      <div class="wrap narrow">
+        <p class="eyebrow">Talvez você já tenha passado por isso</p>
+        <h2 class="reveal">Você já testou o ChatGPT. Já viu palestra, vídeo, curso de IA.</h2>
+        <h2 class="reveal dim">E na segunda-feira a equipe continua copiando pedido do WhatsApp para a planilha.</h2>
+        <p class="reveal story-p">
+          Não é falta de ferramenta. O que falta é alguém entrar na operação, entender como o trabalho anda e
+          colocar a IA para fazer a parte repetida <strong>todo dia</strong>, ligada aos sistemas da empresa. É isso que a Etter faz.
+        </p>
       </div>
     </section>
 
     <!-- Dores -->
-    <section class="sec">
+    <section class="sec soft">
       <div class="wrap">
         <p class="eyebrow">O trabalho que ninguém vê</p>
         <h2>Isso acontece na sua empresa?</h2>
         <div class="pains">
           {pains.map((p) => (
-            <div class="pain">
+            <div class="pain reveal">
               <span class="ico" aria-hidden="true">
                 {p.icon === 'moon' && <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>}
                 {p.icon === 'copy' && <svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>}
@@ -188,17 +244,47 @@ const faq = [
             </div>
           ))}
         </div>
+
+        <!-- Calculadora -->
+        <div class="calc reveal" id="calc">
+          <div class="calc-in">
+            <div>
+              <p class="eyebrow">Faça a conta</p>
+              <h3>Quanto o trabalho repetido custa hoje?</h3>
+              <p class="calc-sub">Pense numa tarefa só: responder a mesma pergunta, digitar pedido, montar relatório.</p>
+              <label>
+                <span>Pessoas fazendo essa tarefa <output id="o-p">2</output></span>
+                <input type="range" id="i-p" min="1" max="20" value="2" />
+              </label>
+              <label>
+                <span>Horas por semana, cada uma <output id="o-h">10 h</output></span>
+                <input type="range" id="i-h" min="1" max="40" value="10" />
+              </label>
+              <label>
+                <span>Custo mensal de cada pessoa, com encargos <output id="o-c">R$ 3.500</output></span>
+                <input type="range" id="i-c" min="1500" max="15000" step="250" value="3500" />
+              </label>
+            </div>
+            <div class="calc-out" aria-live="polite">
+              <small>Essa tarefa custa por ano</small>
+              <b id="r-y">R$ 20.700</b>
+              <span id="r-h">87 horas por mês</span>
+              <p>É o valor pago hoje para fazer o que uma IA bem montada pode preparar sozinha. Quanto disso dá para tirar da mesa, a gente descobre na conversa.</p>
+              <a href={WA} target="_blank" rel="noopener" class="btn btn-wa">Quero ver essa conta na minha empresa</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Como fica na empresa -->
-    <section class="sec soft" id="como-fica">
+    <section class="sec" id="como-fica">
       <div class="wrap">
         <p class="eyebrow">Na prática</p>
         <h2>Veja como fica dentro da sua empresa</h2>
         <p class="note">Telas de exemplo, para mostrar o formato.</p>
 
-        <div class="row">
+        <div class="row reveal">
           <div class="row-text">
             <span class="tag">1 · Atendimento</span>
             <h3>O cliente é respondido na hora, a qualquer hora</h3>
@@ -213,12 +299,12 @@ const faq = [
             <div class="mock-head"><span>Painel de atendimento</span><span class="live">ao vivo</span></div>
             <div class="lead-row"><b>Mariana S.</b><span class="pill hot">Pronta para comprar</span><small>passada ao vendedor · 02:14</small></div>
             <div class="lead-row"><b>Carlos R.</b><span class="pill">Tirou dúvida de preço</span><small>respondido pela IA · 01:51</small></div>
-            <div class="lead-row"><b>Juliana P.</b><span class="pill ok">Horário marcado</span><small>amanhã, 9h · 23:48</small></div>
+            <div class="lead-row"><b>Juliana P.</b><span class="pill done">Horário marcado</span><small>amanhã, 9h · 23:48</small></div>
             <div class="lead-row"><b>Pedro A.</b><span class="pill">Pediu catálogo</span><small>enviado pela IA · 23:12</small></div>
           </div>
         </div>
 
-        <div class="row rev">
+        <div class="row rev reveal">
           <div class="row-text">
             <span class="tag">2 · Processos internos</span>
             <h3>A tarefa da semana chega pronta, só para aprovar</h3>
@@ -244,7 +330,7 @@ const faq = [
           </div>
         </div>
 
-        <div class="row">
+        <div class="row reveal">
           <div class="row-text">
             <span class="tag">3 · Números</span>
             <h3>O relatório chega no seu WhatsApp toda manhã</h3>
@@ -263,22 +349,28 @@ const faq = [
               <div><small>Faltas</small><b>2</b></div>
             </div>
             <div class="bars" aria-hidden="true">
-              {[38, 52, 45, 61, 58, 74, 69].map((h) => <span style={`height:${h}%`}></span>)}
+              {[38, 52, 45, 61, 58, 74, 69].map((h) => <span style={`--h:${h}%`}></span>)}
             </div>
             <p class="alert">Atenção: creatina acaba em 3 dias no ritmo atual.</p>
           </div>
         </div>
+
+        <p class="works">
+          <span>Funciona com o que você já usa</span>
+          <b>WhatsApp</b><b>Instagram</b><b>Bling</b><b>Planilhas</b><b>Google Agenda</b><b>ERP</b><b>CRM</b><b>E-mail</b>
+        </p>
       </div>
     </section>
 
     <!-- Casos -->
-    <section class="sec" id="casos">
+    <section class="sec dark" id="casos">
       <div class="wrap">
-        <p class="eyebrow">Casos reais, com nome</p>
+        <p class="eyebrow light">Casos reais, com nome</p>
         <h2>O que mudou para quem já usa</h2>
+        <p class="note light">Números medidos pelos próprios clientes.</p>
         <div class="cases">
           {cases.map((c) => (
-            <article class="case">
+            <article class="case reveal">
               <header>
                 <span class="mono">{c.client.slice(0, 1)}</span>
                 <div><h3>{c.client}</h3><p>{c.sector}</p></div>
@@ -299,8 +391,43 @@ const faq = [
       </div>
     </section>
 
+    <!-- Método -->
+    <section class="sec">
+      <div class="wrap">
+        <p class="eyebrow">Do primeiro contato à IA rodando</p>
+        <h2>Três fases. Você sabe o valor antes de começar.</h2>
+        <ol class="phases">
+          {phases.map((s) => (
+            <li class="reveal">
+              <span class="ph-n">{s.n}</span>
+              <span class="ph-tag">{s.tag}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Comparação -->
+    <section class="sec soft">
+      <div class="wrap narrow">
+        <p class="eyebrow">Por que a Etter</p>
+        <h2>Não é mais uma agência de IA</h2>
+        <div class="vs reveal">
+          <div class="vs-head"><span>Agência comum</span><span>Etter</span></div>
+          {compare.map((c) => (
+            <div class="vs-row">
+              <p class="them">{c.them}</p>
+              <p class="us">{c.us}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- Quem sou eu -->
-    <section class="sec about">
+    <section class="sec about" id="enzo">
       <div class="wrap about-grid">
         <div class="about-photo">
           <Image src={enzoSf} alt="Enzo Vaccaro em San Francisco" widths={[480, 800]} sizes="(min-width: 900px) 420px, 90vw" />
@@ -330,22 +457,10 @@ const faq = [
       </div>
     </section>
 
-    <!-- Como funciona -->
-    <section class="sec">
-      <div class="wrap">
-        <p class="eyebrow">Do primeiro contato à IA rodando</p>
-        <h2>Como funciona</h2>
-        <ol class="steps">
-          {steps.map((s, i) => (
-            <li><span class="num">{i + 1}</span><h3>{s.t}</h3><p>{s.d}</p></li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
     <!-- FAQ -->
     <section class="sec soft">
       <div class="wrap faq-wrap">
+        <p class="eyebrow">Antes de conversar</p>
         <h2>Perguntas que todo dono faz</h2>
         <div class="faq">
           {faq.map((f) => (
@@ -364,7 +479,10 @@ const faq = [
         <Image src={enzoPerfil} alt="Enzo Vaccaro" width={120} height={120} class="final-photo" />
         <h2>Qual tarefa mais toma tempo na sua empresa hoje?</h2>
         <p>Me conta em 30 minutos. Você sai sabendo se dá para automatizar, quanto custa e em quanto tempo fica pronto.</p>
-        <a href={WA} target="_blank" rel="noopener" class="btn btn-wa big">Falar com o Enzo no WhatsApp</a>
+        <a href={WA} target="_blank" rel="noopener" class="btn btn-wa big">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waIcon}/></svg>
+          Falar com o Enzo no WhatsApp
+        </a>
         <a href={`mailto:${SITE.email}`} class="mail">{SITE.email}</a>
       </div>
     </section>
@@ -372,6 +490,79 @@ const faq = [
     <footer class="foot">
       <div class="wrap">© 2026 Etter · Automação com inteligência artificial · <a href="/">etter.app.br</a></div>
     </footer>
+
+    <!-- Botão fixo no celular -->
+    <a href={WA} target="_blank" rel="noopener" class="sticky-wa" id="sticky" aria-label="Falar com o Enzo no WhatsApp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={waIcon}/></svg>
+      Conversar com o Enzo
+    </a>
+
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Entrada suave das seções
+      const els = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach((e) => e.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }),
+          { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+        );
+        els.forEach((e) => io.observe(e));
+      }
+
+      // Conversa do celular aparecendo mensagem por mensagem
+      const chat = document.getElementById('chat');
+      if (chat && !reduce) {
+        chat.classList.add('play');
+        const msgs = [...chat.querySelectorAll('.msg')];
+        const typing = chat.querySelector('.typing') as HTMLElement;
+        const status = document.querySelector('.status') as HTMLElement;
+        const delays = [400, 1500, 1200, 1500];
+        let t = 0;
+        msgs.forEach((m, i) => {
+          const isOut = m.classList.contains('out');
+          if (isOut) {
+            setTimeout(() => { typing.classList.add('on'); status.textContent = 'digitando...'; }, t + 200);
+          }
+          t += delays[i] + (isOut ? 900 : 0);
+          setTimeout(() => {
+            typing.classList.remove('on');
+            status.textContent = 'online agora';
+            m.classList.add('show');
+          }, t);
+        });
+        setTimeout(() => document.querySelectorAll('.float').forEach((f) => f.classList.add('show')), t + 400);
+      } else {
+        document.querySelectorAll('.float').forEach((f) => f.classList.add('show'));
+      }
+
+      // Calculadora do custo do trabalho repetido
+      const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const brl = (v: number) => 'R$ ' + (Math.round(v / 100) * 100).toLocaleString('pt-BR');
+      function calc() {
+        const p = +$('i-p').value, h = +$('i-h').value, c = +$('i-c').value;
+        const hourly = c / 176;
+        const monthHours = p * h * 4.33;
+        $('o-p').textContent = String(p);
+        $('o-h').textContent = h + ' h';
+        $('o-c').textContent = brl(c);
+        $('r-y').textContent = brl(monthHours * hourly * 12);
+        $('r-h').textContent = Math.round(monthHours).toLocaleString('pt-BR') + ' horas por mês';
+      }
+      ['i-p', 'i-h', 'i-c'].forEach((id) => $(id)?.addEventListener('input', calc));
+      calc();
+
+      // Botão fixo some no topo e no fim da página
+      const sticky = document.getElementById('sticky');
+      const final = document.querySelector('.final');
+      const onScroll = () => {
+        const nearEnd = final ? final.getBoundingClientRect().top < window.innerHeight : false;
+        sticky?.classList.toggle('on', window.scrollY > 600 && !nearEnd);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
   </body>
 </html>
 
@@ -519,7 +710,7 @@ const faq = [
   .lead-row small { grid-column: 1 / -1; color: var(--muted); font-size: 0.78rem; }
   .pill { white-space: nowrap; font-size: 0.75rem; font-weight: 600; background: var(--bg-soft); color: var(--muted); padding: 0.25rem 0.6rem; border-radius: 999px; }
   .pill.hot { background: #fff1e6; color: #c2410c; }
-  .pill.ok { background: #dcfce7; color: #15803d; }
+  .pill.done { background: #dcfce7; color: #15803d; }
   .buy { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.4rem; }
   .buy th { text-align: left; font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.7rem 0.3rem 0.4rem; }
   .buy td { padding: 0.65rem 0.3rem; border-top: 1px solid var(--line); }
@@ -532,7 +723,9 @@ const faq = [
   .kpis small { display: block; color: var(--muted); font-size: 0.74rem; }
   .kpis b { font-size: 1.5rem; letter-spacing: -0.02em; }
   .bars { display: flex; align-items: flex-end; gap: 0.5rem; height: 7rem; margin-top: 1rem; padding: 0 0.3rem; }
-  .bars span { flex: 1; background: linear-gradient(180deg, var(--blue), var(--sky)); border-radius: 0.35rem 0.35rem 0 0; }
+  .bars span { flex: 1; height: var(--h); background: linear-gradient(180deg, var(--blue), var(--sky)); border-radius: 0.35rem 0.35rem 0 0; transform-origin: bottom; transform: scaleY(0.05); transition: transform 0.9s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in .bars span { transform: none; }
+  .bars span:nth-child(2){transition-delay:.06s}.bars span:nth-child(3){transition-delay:.12s}.bars span:nth-child(4){transition-delay:.18s}.bars span:nth-child(5){transition-delay:.24s}.bars span:nth-child(6){transition-delay:.3s}.bars span:nth-child(7){transition-delay:.36s}
   .alert { margin-top: 1rem; font-size: 0.85rem; background: #fff7e6; color: #92400e; border-radius: 0.7rem; padding: 0.7rem 0.85rem; font-weight: 500; }
 
   .note { margin-top: 0.6rem; color: var(--muted); font-size: 0.9rem; }
@@ -567,7 +760,7 @@ const faq = [
   .facts span { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
 
   /* Passos */
-  .steps { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 1rem; counter-reset: s; }
+  .old-steps { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 1rem; counter-reset: s; }
   @media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } }
   .steps li { position: relative; border: 1px solid var(--line); border-radius: 1rem; padding: 1.5rem; background: #fff; }
   .num { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; }
@@ -596,4 +789,129 @@ const faq = [
   .foot a { color: rgba(255,255,255,0.75); }
 
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+
+  /* ===== v3 ===== */
+  .nav { display: none; gap: 1.8rem; font-size: 0.92rem; }
+  .nav a { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .nav a:hover { color: #fff; }
+  @media (min-width: 860px) { .nav { display: flex; } }
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+    background-image: linear-gradient(rgba(127,166,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(127,166,255,0.12) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 60% 30%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 30%, #000 30%, transparent 75%);
+  }
+  .hero-grid, .hero .wrap { position: relative; z-index: 1; }
+  .kicker { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(127,166,255,0.12); border: 1px solid rgba(127,166,255,0.25); padding: 0.4rem 0.85rem; border-radius: 999px; }
+  .pulse { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(34,197,94,0.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+  .hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.35rem); line-height: 1.04; }
+  .float { z-index: 3; }
+  .phone { position: relative; z-index: 1; }
+  .btn-wa { box-shadow: 0 12px 30px -10px rgba(37,211,102,0.65); }
+
+  /* chat animado */
+  .chat.play .msg { opacity: 0; transform: translateY(8px) scale(0.98); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .chat.play .msg.show { opacity: 1; transform: none; }
+  .typing { display: none; align-self: flex-end; background: #d9fdd3; border-radius: 0.6rem; padding: 0.55rem 0.7rem; gap: 0.25rem; }
+  .typing.on { display: inline-flex; }
+  .typing i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: #6b8f71; animation: dots 1s infinite; }
+  .typing i:nth-child(2) { animation-delay: 0.15s; } .typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes dots { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+  .float { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .float.show { opacity: 1; transform: none; }
+  .float.f2.show { transition-delay: 0.35s; }
+
+  .logos { margin: 1.6rem 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem 2.2rem; color: var(--muted); }
+  .logos span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .logos b { font-size: 1.15rem; color: #8a94ad; letter-spacing: -0.02em; }
+
+  /* história */
+  .narrow { max-width: 52rem; }
+  .story { padding-top: 4.5rem; }
+  .story h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
+  .story h2.dim { color: #93a0bd; margin-top: 0.8rem; }
+  .story-p { margin-top: 1.8rem; font-size: 1.15rem; color: var(--muted); max-width: 44rem; }
+  .story-p strong { color: var(--ink); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .pains .reveal:nth-child(2), .cases .reveal:nth-child(2), .phases .reveal:nth-child(2) { transition-delay: 0.1s; }
+  .pains .reveal:nth-child(3), .cases .reveal:nth-child(3), .phases .reveal:nth-child(3) { transition-delay: 0.2s; }
+  .story h2.dim.reveal { transition-delay: 0.15s; }
+
+  /* calculadora */
+  .calc { margin-top: 3rem; background: #fff; border: 1px solid var(--line); border-radius: 1.4rem; box-shadow: 0 30px 70px -35px rgba(11,31,77,0.4); overflow: hidden; }
+  .calc-in { display: grid; }
+  @media (min-width: 900px) { .calc-in { grid-template-columns: 1.15fr 0.85fr; } }
+  .calc-in > div:first-child { padding: 2rem; }
+  @media (min-width: 900px) { .calc-in > div:first-child { padding: 2.6rem; } }
+  .calc h3 { margin-top: 0.5rem; font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .calc-sub { margin-top: 0.5rem; color: var(--muted); }
+  .calc label { display: block; margin-top: 1.6rem; }
+  .calc label span { display: flex; justify-content: space-between; gap: 1rem; font-weight: 600; font-size: 0.95rem; }
+  .calc output { color: var(--blue); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .calc input[type=range] { width: 100%; margin-top: 0.7rem; accent-color: var(--blue); height: 1.6rem; cursor: pointer; }
+  .calc-out { background: linear-gradient(160deg, var(--navy), var(--navy-2)); color: #fff; padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+  @media (min-width: 900px) { .calc-out { padding: 2.6rem; } }
+  .calc-out small { color: var(--sky); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .calc-out b { font-size: clamp(2.4rem, 5vw, 3.4rem); letter-spacing: -0.04em; line-height: 1.05; margin-top: 0.4rem; font-variant-numeric: tabular-nums; }
+  .calc-out > span { color: rgba(255,255,255,0.7); margin-top: 0.3rem; }
+  .calc-out p { margin-top: 1.3rem; color: rgba(255,255,255,0.78); font-size: 0.95rem; }
+  .calc-out .btn { margin-top: 1.5rem; align-self: flex-start; font-size: 0.95rem; }
+
+  .works { margin: 4rem 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem; }
+  .works span { width: 100%; text-align: center; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--muted); margin-bottom: 0.4rem; }
+  .works b { font-size: 0.9rem; font-weight: 600; background: var(--bg-soft); border: 1px solid var(--line); padding: 0.45rem 0.9rem; border-radius: 999px; }
+
+  /* casos em fundo escuro */
+  .sec.dark { background: radial-gradient(50rem 25rem at 90% 0%, rgba(31,94,255,0.35), transparent 60%), var(--navy); color: #fff; }
+  .note.light { color: rgba(255,255,255,0.6); }
+  .dark .case { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+  .dark .case header p, .dark .ba dd { color: rgba(255,255,255,0.68); }
+  .dark .ba dt { color: #fff; }
+  .dark .mono { background: var(--blue); }
+  .dark .results { background: rgba(31,94,255,0.18); }
+  .dark .results b { color: #fff; font-size: 1.9rem; }
+  .dark .results small { color: rgba(255,255,255,0.7); }
+  .dark .ba div:last-child dt { color: var(--green); }
+
+  /* fases */
+  .phases { list-style: none; padding: 0; margin: 2.8rem 0 0; display: grid; gap: 1rem; }
+  @media (min-width: 900px) { .phases { grid-template-columns: repeat(3, 1fr); gap: 1.4rem; } }
+  .phases li { position: relative; border: 1px solid var(--line); border-radius: 1.2rem; padding: 1.8rem; background: #fff; overflow: hidden; }
+  .phases li::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--blue), var(--sky)); }
+  .ph-n { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.05em; color: var(--blue-soft); -webkit-text-stroke: 1.5px var(--blue); line-height: 1; }
+  .ph-tag { position: absolute; top: 1.8rem; right: 1.6rem; font-size: 0.74rem; font-weight: 700; color: #15803d; background: #dcfce7; padding: 0.25rem 0.6rem; border-radius: 999px; }
+  .phases h3 { margin-top: 1rem; font-size: 1.3rem; }
+  .phases p { margin-top: 0.5rem; color: var(--muted); }
+
+  /* comparação */
+  .vs { margin-top: 2.2rem; background: #fff; border: 1px solid var(--line); border-radius: 1.2rem; overflow: hidden; }
+  .vs-head, .vs-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .vs-head span { padding: 1rem 1.3rem; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .vs-head span:first-child { color: var(--muted); }
+  .vs-head span:last-child { background: var(--blue); color: #fff; }
+  .vs-row p { padding: 1rem 1.3rem; border-top: 1px solid var(--line); font-size: 0.95rem; position: relative; padding-left: 2.6rem; }
+  .vs-row .them { color: #8a94ad; }
+  .vs-row .us { background: var(--blue-soft); font-weight: 600; }
+  .vs-row p::before { position: absolute; left: 1.1rem; top: 1rem; font-weight: 700; }
+  .vs-row .them::before { content: '✕'; color: #c0c7d6; }
+  .vs-row .us::before { content: '✓'; color: var(--blue); }
+
+  /* botão fixo celular */
+  .sticky-wa {
+    position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 50; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--wa); color: #06331a; font-weight: 700; text-decoration: none; padding: 1rem; border-radius: 999px;
+    box-shadow: 0 15px 35px -10px rgba(0,0,0,0.45); transform: translateY(150%); transition: transform 0.3s ease;
+  }
+  .sticky-wa.on { transform: none; }
+  @media (min-width: 860px) { .sticky-wa { left: auto; right: 1.5rem; bottom: 1.5rem; padding: 0.9rem 1.4rem; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .float, .bars span { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .pulse, .typing i { animation: none; }
+  }
 </style>
