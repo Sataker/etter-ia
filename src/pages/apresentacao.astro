@@ -1,0 +1,221 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import { SITE, wa } from '../lib/site';
+
+/*
+  Página de apresentação: link que se manda para uma empresa, não página de busca.
+  Fica fora do índice e do sitemap. Só número que o cliente confirmou entra aqui.
+*/
+const WA = wa('Olá Enzo! Vi a apresentação da Etter e quero conversar sobre um processo da minha empresa.');
+
+const proof = [
+  { value: '214 mil', label: 'conversas atendidas em 30 dias', who: 'Peak' },
+  { value: '+50%', label: 'na conversão com agentes de pré-venda', who: 'Peak' },
+  { value: '5 dias → 3 h', label: 'para fechar o pedido de compra', who: 'Cyber Nutrition' },
+  { value: '20 → 4', label: 'nutricionistas para a mesma operação', who: 'App de nutrição' },
+];
+
+const cases = [
+  {
+    client: 'Peak',
+    sector: 'Atendimento e vendas no WhatsApp',
+    problem:
+      'Volume alto de conversas espalhado em dezenas de números, com o time comercial gastando o dia em contato que ainda não estava pronto para comprar.',
+    built: [
+      'Plataforma de atendimento própria para 45 números de WhatsApp, em servidores com balanceamento de carga.',
+      'Agentes de pré-venda que respondem, qualificam e só passam para o vendedor quem está pronto.',
+      'Relatórios de acompanhamento da operação.',
+    ],
+    results: [
+      { value: '214 mil', label: 'conversas em 30 dias' },
+      { value: '+50%', label: 'na taxa de conversão, comparada à de antes' },
+    ],
+  },
+  {
+    client: 'Cyber Nutrition',
+    sector: 'E-commerce de suplementos',
+    problem:
+      'A reposição de estoque era montada à mão: conferir venda, estoque e ruptura produto por produto até fechar o pedido ao fornecedor. Levava cinco dias.',
+    built: [
+      'Agente que lê o ERP (Bling) todo dia de madrugada e calcula a média de venda, corrigindo os períodos em que o produto faltou.',
+      'Pedido de compra montado automaticamente, com regras de segurança para não comprar errado.',
+      'O dono só revisa e aprova.',
+    ],
+    results: [{ value: '5 dias → 3 h', label: 'para o processo de compras' }],
+  },
+  {
+    client: 'App de nutrição',
+    sector: 'Plataforma de experts em nutrição e treino',
+    problem:
+      'Negócio de US$ 50 mil por mês em que cada plano de dieta e treino era montado do zero por um nutricionista, paciente a paciente.',
+    built: [
+      'IA que lê a anamnese do paciente e sugere a dieta e o treino seguindo o método da empresa.',
+      'O nutricionista revisa e aprova, em vez de escrever o plano inteiro.',
+    ],
+    results: [{ value: '20 → 4', label: 'nutricionistas na equipe' }],
+  },
+];
+
+const services = [
+  { t: 'Agentes de IA no WhatsApp', d: 'Atendem, tiram dúvida, agendam e qualificam a qualquer hora. Chamam uma pessoa quando o cliente precisa de gente.' },
+  { t: 'Automação de processos internos', d: 'Compras, relatórios, conferências: o trabalho que se repete toda semana passa a rodar sozinho, com aprovação humana no fim.' },
+  { t: 'Integração de sistemas', d: 'ERP, CRM, planilha e WhatsApp conversando entre si, para ninguém digitar a mesma informação duas vezes.' },
+  { t: 'Aplicativos e painéis sob medida', d: 'Quando nenhum sistema pronto serve, construímos o seu. O código e os dados ficam com a empresa.' },
+];
+
+const steps = [
+  { n: '1', t: 'Diagnóstico', d: 'Conversa de 30 minutos e leitura do processo real. Se não valer a pena automatizar, a resposta é essa.' },
+  { n: '2', t: 'Proposta', d: 'Escopo, prazo e valor fechados antes de começar.' },
+  { n: '3', t: 'Construção', d: 'Desenvolvimento com a base de conhecimento da empresa, validado por você antes de ir ao ar.' },
+  { n: '4', t: 'Operação', d: 'Acompanhamento depois da entrega: ajuste quando o negócio muda e quando o sistema erra.' },
+];
+
+const principles = [
+  { t: 'Quem constrói é quem atende', d: 'Sem camada comercial no meio. Você fala direto com quem desenvolve.' },
+  { t: 'O código é da empresa', d: 'Código-fonte e base de dados pertencem ao cliente. Sem aprisionamento em plataforma.' },
+  { t: 'Humano no ponto de decisão', d: 'A IA faz o trabalho repetitivo; a aprovação que importa continua com uma pessoa.' },
+  { t: 'Só o que se paga', d: 'Automatizamos o que se repete e segue regra clara. O resto continua com gente.' },
+];
+---
+
+<Base
+  title="Etter — apresentação"
+  description="Apresentação da Etter: automação com inteligência artificial em produção, com os resultados medidos pelos clientes."
+  noindex
+>
+  <section class="pt-14 pb-16 md:pt-20 md:pb-20">
+    <div class="shell">
+      <p class="font-mono text-[0.78rem] text-ash">Etter · apresentação</p>
+      <h1 class="mt-5 max-w-[18ch] text-[length:var(--text-display)] leading-[0.96] tracking-[-0.035em]">
+        IA que já trabalha dentro de empresas.
+      </h1>
+      <p class="mt-7 max-w-[58ch] text-[1.08rem] leading-relaxed text-ink-soft">
+        A Etter constrói agentes de inteligência artificial, automações e sistemas sob medida para empresas brasileiras.
+        Não é demonstração: são operações rodando todo dia, com o resultado que o próprio cliente mediu.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href={WA} target="_blank" rel="noopener" class="rounded-full bg-ink px-6 py-3.5 font-medium text-paper transition-colors hover:bg-signal">
+          Agendar um diagnóstico de 30 min
+        </a>
+        <a href="#cases" class="link-underline text-[0.98rem]">Ver os casos</a>
+      </div>
+    </div>
+
+    <div class="shell mt-14">
+      <dl class="grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+        {
+          proof.map((p) => (
+            <div class="bg-paper p-6">
+              <dt class="sr-only">{p.label}</dt>
+              <dd class="tnum text-[1.9rem] font-semibold leading-none tracking-tight">{p.value}</dd>
+              <dd class="mt-2.5 text-[0.9rem] leading-snug text-ink-soft">{p.label}</dd>
+              <dd class="mt-3 font-mono text-[0.72rem] text-signal">{p.who}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <Section title="Casos em produção" lead="O problema que a empresa tinha, o que foi construído e o número depois." id="cases">
+    <div class="mt-12 space-y-4">
+      {
+        cases.map((c) => (
+          <article class="rounded-lg border border-rule bg-paper-2/40 p-7 md:p-9">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h3 class="text-[length:var(--text-h3)] font-semibold">{c.client}</h3>
+              <p class="font-mono text-[0.74rem] text-ash">{c.sector}</p>
+            </div>
+            <div class="mt-6 grid gap-8 md:grid-cols-[1.1fr_1.2fr_0.8fr] md:gap-10">
+              <div>
+                <p class="font-mono text-[0.72rem] text-ash">O problema</p>
+                <p class="mt-2 text-[0.96rem] leading-relaxed text-ink-soft">{c.problem}</p>
+              </div>
+              <div>
+                <p class="font-mono text-[0.72rem] text-ash">O que foi construído</p>
+                <ul class="mt-2 space-y-2.5 text-[0.95rem] leading-relaxed text-ink-soft">
+                  {c.built.map((b) => (
+                    <li class="flex gap-3">
+                      <span class="mt-[0.68em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="space-y-5 md:border-l md:border-rule md:pl-8">
+                {c.results.map((r) => (
+                  <div>
+                    <p class="tnum text-[1.6rem] font-semibold leading-none tracking-tight">{r.value}</p>
+                    <p class="mt-2 text-[0.86rem] leading-snug text-ash">{r.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="O que a Etter faz" lead="Quatro frentes, um critério: automatizar o que se repete e segue uma regra clara.">
+    <div class="mt-10 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2">
+      {
+        services.map((s) => (
+          <div class="bg-paper p-6 md:p-7">
+            <h3 class="text-[1.04rem] font-semibold">{s.t}</h3>
+            <p class="mt-2 text-[0.93rem] leading-relaxed text-ash">{s.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Como funciona">
+    <ol class="mt-12 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((s) => (
+          <li class="bg-paper p-6">
+            <span class="tnum font-mono text-[0.8rem] text-signal">{s.n}</span>
+            <h3 class="mt-3 text-[1.02rem] font-semibold">{s.t}</h3>
+            <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{s.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section title="Como trabalhamos">
+    <ul class="mt-10 grid gap-x-10 gap-y-7 md:grid-cols-2">
+      {
+        principles.map((p) => (
+          <li class="flex gap-3.5">
+            <span class="mt-[0.72em] h-px w-4 shrink-0 bg-signal" aria-hidden="true" />
+            <div>
+              <h3 class="text-[1.02rem] font-semibold">{p.t}</h3>
+              <p class="mt-1.5 text-[0.94rem] leading-relaxed text-ash">{p.d}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <section class="rule-top py-16 md:py-24">
+    <div class="shell grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-end">
+      <div class="max-w-xl">
+        <h2 class="text-[length:var(--text-h2)] leading-[1.08]">Qual processo mais consome tempo na sua empresa?</h2>
+        <p class="mt-4 text-[1.02rem] leading-relaxed text-ash">
+          Em 30 minutos você descreve o processo e sai sabendo se dá para automatizar, o que isso exige e quanto tempo leva.
+          Atendimento remoto, Brasil inteiro.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <a href={WA} target="_blank" rel="noopener" class="rounded-full bg-ink px-6 py-3.5 text-center font-medium text-paper transition-colors hover:bg-signal">
+          Agendar o diagnóstico
+        </a>
+        <a href={`mailto:${SITE.email}`} class="text-center text-[0.92rem] text-ash link-underline">{SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</Base>

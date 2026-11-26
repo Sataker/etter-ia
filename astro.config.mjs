@@ -13,6 +13,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // Páginas de apresentação são link direto para empresas, não entram na busca.
+      filter: (page) => !page.includes('/apresentacao'),
       i18n: { defaultLocale: 'pt', locales: { pt: 'pt-BR', en: 'en-US' } },
     }),
   ],
