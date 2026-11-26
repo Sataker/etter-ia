@@ -1,221 +1,599 @@
 ---
-import Base from '../layouts/Base.astro';
-import Section from '../components/Section.astro';
+import '@fontsource-variable/archivo/index.css';
+import { Image } from 'astro:assets';
+import enzoSf from '../assets/enzo-sf.jpg';
+import enzoPerfil from '../assets/enzo-perfil.jpg';
 import { SITE, wa } from '../lib/site';
 
 /*
   Página de apresentação: link que se manda para uma empresa, não página de busca.
+  Visual próprio (azul, fotos, telas simuladas) — o site principal segue o estilo documento.
   Fica fora do índice e do sitemap. Só número que o cliente confirmou entra aqui.
 */
 const WA = wa('Olá Enzo! Vi a apresentação da Etter e quero conversar sobre um processo da minha empresa.');
+const canonical = `${SITE.url}/apresentacao`;
+const title = 'Etter — automação com IA para a sua empresa';
+const description =
+  'Veja como a IA da Etter atende no WhatsApp, monta compras e entrega relatórios sozinha — com casos reais e números medidos pelos clientes.';
 
 const proof = [
   { value: '214 mil', label: 'conversas atendidas em 30 dias', who: 'Peak' },
-  { value: '+50%', label: 'na conversão com agentes de pré-venda', who: 'Peak' },
-  { value: '5 dias → 3 h', label: 'para fechar o pedido de compra', who: 'Cyber Nutrition' },
+  { value: '+50%', label: 'na taxa de fechamento', who: 'Peak' },
+  { value: '5 dias → 3 h', label: 'para montar a compra do estoque', who: 'Cyber Nutrition' },
   { value: '20 → 4', label: 'nutricionistas para a mesma operação', who: 'App de nutrição' },
+];
+
+const pains = [
+  { icon: 'moon', t: 'Cliente sem resposta', d: 'A mensagem chega às 23h e só é respondida no dia seguinte. Até lá, ele já fechou com outro.' },
+  { icon: 'copy', t: 'Trabalho digitado duas vezes', d: 'O pedido chega no WhatsApp, vai para a planilha e é digitado de novo no sistema.' },
+  { icon: 'lock', t: 'Tudo para em você', d: 'Aprovação, conferência, relatório: se o dono não olha, não anda.' },
 ];
 
 const cases = [
   {
     client: 'Peak',
-    sector: 'Atendimento e vendas no WhatsApp',
-    problem:
-      'Volume alto de conversas espalhado em dezenas de números, com o time comercial gastando o dia em contato que ainda não estava pronto para comprar.',
-    built: [
-      'Plataforma de atendimento própria para 45 números de WhatsApp, em servidores com balanceamento de carga.',
-      'Agentes de pré-venda que respondem, qualificam e só passam para o vendedor quem está pronto.',
-      'Relatórios de acompanhamento da operação.',
-    ],
+    sector: 'Rede de consultorias do mercado fitness',
+    before: '45 números de WhatsApp lotados. O vendedor passava o dia respondendo curioso, e quem queria comprar esperava na fila.',
+    after: 'A IA responde cada pessoa na hora, faz as perguntas que o vendedor faria e passa para ele só quem quer comprar.',
+    stays: 'O fechamento continua com o vendedor, que já recebe a conversa inteira.',
     results: [
       { value: '214 mil', label: 'conversas em 30 dias' },
-      { value: '+50%', label: 'na taxa de conversão, comparada à de antes' },
+      { value: '+50%', label: 'na taxa de fechamento' },
     ],
   },
   {
     client: 'Cyber Nutrition',
-    sector: 'E-commerce de suplementos',
-    problem:
-      'A reposição de estoque era montada à mão: conferir venda, estoque e ruptura produto por produto até fechar o pedido ao fornecedor. Levava cinco dias.',
-    built: [
-      'Agente que lê o ERP (Bling) todo dia de madrugada e calcula a média de venda, corrigindo os períodos em que o produto faltou.',
-      'Pedido de compra montado automaticamente, com regras de segurança para não comprar errado.',
-      'O dono só revisa e aprova.',
-    ],
-    results: [{ value: '5 dias → 3 h', label: 'para o processo de compras' }],
+    sector: 'E-commerce de nutrição esportiva',
+    before: 'A compra do estoque era montada à mão, cruzando venda, estoque e o que já estava a caminho. Levava 5 dias.',
+    after: 'Todo dia a IA lê o Bling, confere o estoque, desconta o que já foi pedido e deixa a lista de compra pronta.',
+    stays: 'O dono abre a lista, confere e aprova. Nenhuma compra sai sem ele.',
+    results: [{ value: '5 dias → 3 h', label: 'para cada rodada de compra' }],
   },
   {
     client: 'App de nutrição',
-    sector: 'Plataforma de experts em nutrição e treino',
-    problem:
-      'Negócio de US$ 50 mil por mês em que cada plano de dieta e treino era montado do zero por um nutricionista, paciente a paciente.',
-    built: [
-      'IA que lê a anamnese do paciente e sugere a dieta e o treino seguindo o método da empresa.',
-      'O nutricionista revisa e aprova, em vez de escrever o plano inteiro.',
-    ],
+    sector: 'Plataforma de experts, US$ 50 mil por mês',
+    before: 'Cada plano de dieta e treino era escrito do zero por um nutricionista, paciente a paciente.',
+    after: 'A IA lê a anamnese e sugere a dieta e o treino seguindo o método da empresa.',
+    stays: 'O nutricionista revisa e aprova, em vez de escrever o plano inteiro.',
     results: [{ value: '20 → 4', label: 'nutricionistas na equipe' }],
   },
 ];
 
-const services = [
-  { t: 'Agentes de IA no WhatsApp', d: 'Atendem, tiram dúvida, agendam e qualificam a qualquer hora. Chamam uma pessoa quando o cliente precisa de gente.' },
-  { t: 'Automação de processos internos', d: 'Compras, relatórios, conferências: o trabalho que se repete toda semana passa a rodar sozinho, com aprovação humana no fim.' },
-  { t: 'Integração de sistemas', d: 'ERP, CRM, planilha e WhatsApp conversando entre si, para ninguém digitar a mesma informação duas vezes.' },
-  { t: 'Aplicativos e painéis sob medida', d: 'Quando nenhum sistema pronto serve, construímos o seu. O código e os dados ficam com a empresa.' },
-];
-
 const steps = [
-  { n: '1', t: 'Diagnóstico', d: 'Conversa de 30 minutos e leitura do processo real. Se não valer a pena automatizar, a resposta é essa.' },
-  { n: '2', t: 'Proposta', d: 'Escopo, prazo e valor fechados antes de começar.' },
-  { n: '3', t: 'Construção', d: 'Desenvolvimento com a base de conhecimento da empresa, validado por você antes de ir ao ar.' },
-  { n: '4', t: 'Operação', d: 'Acompanhamento depois da entrega: ajuste quando o negócio muda e quando o sistema erra.' },
+  { t: 'Conversa de 30 min', d: 'Você conta como o processo funciona hoje. Sem custo e sem compromisso.' },
+  { t: 'Proposta por escrito', d: 'O que vale automatizar, o que não vale, quanto custa e em quanto tempo fica no ar.' },
+  { t: 'Construção', d: 'A IA é montada com as regras e as informações da sua empresa, e você testa antes de ir ao ar.' },
+  { t: 'Acompanhamento', d: 'Depois que está rodando, eu continuo ajustando quando o negócio muda.' },
 ];
 
-const principles = [
-  { t: 'Quem constrói é quem atende', d: 'Sem camada comercial no meio. Você fala direto com quem desenvolve.' },
-  { t: 'O código é da empresa', d: 'Código-fonte e base de dados pertencem ao cliente. Sem aprisionamento em plataforma.' },
-  { t: 'Humano no ponto de decisão', d: 'A IA faz o trabalho repetitivo; a aprovação que importa continua com uma pessoa.' },
-  { t: 'Só o que se paga', d: 'Automatizamos o que se repete e segue regra clara. O resto continua com gente.' },
+const faq = [
+  {
+    q: 'Quanto custa?',
+    a: 'Depende do processo. Depois da conversa você recebe uma proposta com valor e prazo fechados, antes de qualquer trabalho começar.',
+  },
+  {
+    q: 'Preciso trocar os sistemas que já uso?',
+    a: 'Não. A IA trabalha em cima do que a empresa já usa: WhatsApp, ERP, planilha, agenda.',
+  },
+  {
+    q: 'E se a IA errar?',
+    a: 'Onde o erro custa caro, quem decide é uma pessoa: a IA prepara, alguém da equipe aprova. E o acompanhamento depois da entrega existe justamente para corrigir rápido.',
+  },
+  {
+    q: 'Funciona para empresa pequena?',
+    a: 'O que importa não é o tamanho, é ter uma tarefa que se repete toda semana. Se não compensar automatizar, eu digo na primeira conversa.',
+  },
 ];
 ---
 
-<Base
-  title="Etter — apresentação"
-  description="Apresentação da Etter: automação com inteligência artificial em produção, com os resultados medidos pelos clientes."
-  noindex
->
-  <section class="pt-14 pb-16 md:pt-20 md:pb-20">
-    <div class="shell">
-      <p class="font-mono text-[0.78rem] text-ash">Etter · apresentação</p>
-      <h1 class="mt-5 max-w-[18ch] text-[length:var(--text-display)] leading-[0.96] tracking-[-0.035em]">
-        IA que já trabalha dentro de empresas.
-      </h1>
-      <p class="mt-7 max-w-[58ch] text-[1.08rem] leading-relaxed text-ink-soft">
-        A Etter constrói agentes de inteligência artificial, automações e sistemas sob medida para empresas brasileiras.
-        Não é demonstração: são operações rodando todo dia, com o resultado que o próprio cliente mediu.
-      </p>
-      <div class="mt-9 flex flex-wrap items-center gap-4">
-        <a href={WA} target="_blank" rel="noopener" class="rounded-full bg-ink px-6 py-3.5 font-medium text-paper transition-colors hover:bg-signal">
-          Agendar um diagnóstico de 30 min
-        </a>
-        <a href="#cases" class="link-underline text-[0.98rem]">Ver os casos</a>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE.url}/og.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0b1f4d" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+  </head>
+
+  <body>
+    <!-- Topo -->
+    <header class="top">
+      <div class="wrap top-in">
+        <a href="/" class="brand">Etter<span class="dot"></span></a>
+        <a href={WA} target="_blank" rel="noopener" class="btn btn-ghost">Falar no WhatsApp</a>
       </div>
-    </div>
+    </header>
 
-    <div class="shell mt-14">
-      <dl class="grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
-        {
-          proof.map((p) => (
-            <div class="bg-paper p-6">
-              <dt class="sr-only">{p.label}</dt>
-              <dd class="tnum text-[1.9rem] font-semibold leading-none tracking-tight">{p.value}</dd>
-              <dd class="mt-2.5 text-[0.9rem] leading-snug text-ink-soft">{p.label}</dd>
-              <dd class="mt-3 font-mono text-[0.72rem] text-signal">{p.who}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </section>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="kicker">Automação com inteligência artificial para empresas</p>
+          <h1>A IA faz o trabalho repetido. <span>Sua equipe cuida do que dá resultado.</span></h1>
+          <p class="lead">
+            A Etter coloca inteligência artificial para atender clientes no WhatsApp, montar compras, conferir dados e
+            entregar relatórios — dentro dos sistemas que a sua empresa já usa.
+          </p>
+          <div class="cta-row">
+            <a href={WA} target="_blank" rel="noopener" class="btn btn-wa">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+              Agendar conversa de 30 min
+            </a>
+            <a href="#como-fica" class="btn btn-line">Ver como funciona</a>
+          </div>
+          <p class="mini">Sem custo e sem compromisso · Atendimento no Brasil inteiro</p>
+        </div>
 
-  <Section title="Casos em produção" lead="O problema que a empresa tinha, o que foi construído e o número depois." id="cases">
-    <div class="mt-12 space-y-4">
-      {
-        cases.map((c) => (
-          <article class="rounded-lg border border-rule bg-paper-2/40 p-7 md:p-9">
-            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <h3 class="text-[length:var(--text-h3)] font-semibold">{c.client}</h3>
-              <p class="font-mono text-[0.74rem] text-ash">{c.sector}</p>
+        <!-- Celular com conversa simulada -->
+        <div class="phone-stage" aria-label="Exemplo de atendimento da IA no WhatsApp">
+          <div class="phone">
+            <div class="phone-bar">
+              <span class="avatar-sm">L</span>
+              <div><strong>Loja do cliente</strong><small>online agora</small></div>
             </div>
-            <div class="mt-6 grid gap-8 md:grid-cols-[1.1fr_1.2fr_0.8fr] md:gap-10">
-              <div>
-                <p class="font-mono text-[0.72rem] text-ash">O problema</p>
-                <p class="mt-2 text-[0.96rem] leading-relaxed text-ink-soft">{c.problem}</p>
-              </div>
-              <div>
-                <p class="font-mono text-[0.72rem] text-ash">O que foi construído</p>
-                <ul class="mt-2 space-y-2.5 text-[0.95rem] leading-relaxed text-ink-soft">
-                  {c.built.map((b) => (
-                    <li class="flex gap-3">
-                      <span class="mt-[0.68em] h-px w-3 shrink-0 bg-signal" aria-hidden="true" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div class="space-y-5 md:border-l md:border-rule md:pl-8">
+            <div class="chat">
+              <p class="day">hoje</p>
+              <p class="msg in">Oi! Vocês têm horário amanhã de manhã? <time>23:47</time></p>
+              <p class="msg out">Olá! Tenho às 9h e às 10h30. Qual fica melhor para você? <time>23:47</time></p>
+              <p class="msg in">9h, por favor <time>23:48</time></p>
+              <p class="msg out">Pronto, marcado para amanhã às 9h. Mando um lembrete 1 hora antes. <time>23:48</time></p>
+            </div>
+          </div>
+          <div class="float f1"><span class="ok"></span>Respondido em 8 segundos</div>
+          <div class="float f2"><span class="ok"></span>Horário salvo na agenda</div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <dl class="proof">
+          {proof.map((p) => (
+            <div>
+              <dt>{p.value}</dt>
+              <dd>{p.label}</dd>
+              <dd class="who">{p.who}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- Dores -->
+    <section class="sec">
+      <div class="wrap">
+        <p class="eyebrow">O trabalho que ninguém vê</p>
+        <h2>Isso acontece na sua empresa?</h2>
+        <div class="pains">
+          {pains.map((p) => (
+            <div class="pain">
+              <span class="ico" aria-hidden="true">
+                {p.icon === 'moon' && <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>}
+                {p.icon === 'copy' && <svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>}
+                {p.icon === 'lock' && <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>}
+              </span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Como fica na empresa -->
+    <section class="sec soft" id="como-fica">
+      <div class="wrap">
+        <p class="eyebrow">Na prática</p>
+        <h2>Veja como fica dentro da sua empresa</h2>
+        <p class="note">Telas de exemplo, para mostrar o formato.</p>
+
+        <div class="row">
+          <div class="row-text">
+            <span class="tag">1 · Atendimento</span>
+            <h3>O cliente é respondido na hora, a qualquer hora</h3>
+            <p>A IA responde no WhatsApp da empresa, tira dúvida, marca horário e faz as perguntas que o vendedor faria. Quem está pronto para comprar chega para a sua equipe com a conversa inteira.</p>
+            <ul class="checks">
+              <li>Responde de madrugada e no fim de semana</li>
+              <li>Usa as informações e as regras da sua empresa</li>
+              <li>Chama uma pessoa quando o cliente precisa de gente</li>
+            </ul>
+          </div>
+          <div class="card mock">
+            <div class="mock-head"><span>Painel de atendimento</span><span class="live">ao vivo</span></div>
+            <div class="lead-row"><b>Mariana S.</b><span class="pill hot">Pronta para comprar</span><small>passada ao vendedor · 02:14</small></div>
+            <div class="lead-row"><b>Carlos R.</b><span class="pill">Tirou dúvida de preço</span><small>respondido pela IA · 01:51</small></div>
+            <div class="lead-row"><b>Juliana P.</b><span class="pill ok">Horário marcado</span><small>amanhã, 9h · 23:48</small></div>
+            <div class="lead-row"><b>Pedro A.</b><span class="pill">Pediu catálogo</span><small>enviado pela IA · 23:12</small></div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="row-text">
+            <span class="tag">2 · Processos internos</span>
+            <h3>A tarefa da semana chega pronta, só para aprovar</h3>
+            <p>Compra de estoque, conferência de pedidos, cobrança de documentos: a IA cruza os dados do seu sistema e prepara o trabalho. A decisão continua com você.</p>
+            <ul class="checks">
+              <li>Lê o ERP, a planilha ou o sistema que você já usa</li>
+              <li>Confere tudo antes de sugerir</li>
+              <li>Nada sai sem a sua aprovação</li>
+            </ul>
+          </div>
+          <div class="card mock">
+            <div class="mock-head"><span>Lista de compra · hoje, 05:30</span><span class="live">pronta</span></div>
+            <table class="buy">
+              <thead><tr><th>Produto</th><th>Estoque</th><th>Comprar</th></tr></thead>
+              <tbody>
+                <tr><td>Whey 900g baunilha</td><td>12</td><td><b>48</b></td></tr>
+                <tr><td>Creatina 300g</td><td>4</td><td><b>60</b></td></tr>
+                <tr><td>Pré-treino 300g</td><td>31</td><td><b>0</b></td></tr>
+                <tr><td>Barra proteica cx 12</td><td>9</td><td><b>24</b></td></tr>
+              </tbody>
+            </table>
+            <div class="approve"><span>132 produtos conferidos</span><button type="button" tabindex="-1">Aprovar compra</button></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-text">
+            <span class="tag">3 · Números</span>
+            <h3>O relatório chega no seu WhatsApp toda manhã</h3>
+            <p>Vendas, atendimentos, faltas, estoque: os números que hoje estão espalhados em vários sistemas chegam juntos, prontos, sem ninguém montar planilha.</p>
+            <ul class="checks">
+              <li>Junta dados de vários sistemas</li>
+              <li>Avisa quando algo foge do normal</li>
+              <li>No WhatsApp ou no e-mail, no horário que você escolher</li>
+            </ul>
+          </div>
+          <div class="card mock report">
+            <div class="mock-head"><span>Resumo de ontem · 07:00</span><span class="live">enviado</span></div>
+            <div class="kpis">
+              <div><small>Atendimentos</small><b>186</b></div>
+              <div><small>Vendas</small><b>23</b></div>
+              <div><small>Faltas</small><b>2</b></div>
+            </div>
+            <div class="bars" aria-hidden="true">
+              {[38, 52, 45, 61, 58, 74, 69].map((h) => <span style={`height:${h}%`}></span>)}
+            </div>
+            <p class="alert">Atenção: creatina acaba em 3 dias no ritmo atual.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Casos -->
+    <section class="sec" id="casos">
+      <div class="wrap">
+        <p class="eyebrow">Casos reais, com nome</p>
+        <h2>O que mudou para quem já usa</h2>
+        <div class="cases">
+          {cases.map((c) => (
+            <article class="case">
+              <header>
+                <span class="mono">{c.client.slice(0, 1)}</span>
+                <div><h3>{c.client}</h3><p>{c.sector}</p></div>
+              </header>
+              <div class="results">
                 {c.results.map((r) => (
-                  <div>
-                    <p class="tnum text-[1.6rem] font-semibold leading-none tracking-tight">{r.value}</p>
-                    <p class="mt-2 text-[0.86rem] leading-snug text-ash">{r.label}</p>
-                  </div>
+                  <div><b>{r.value}</b><small>{r.label}</small></div>
                 ))}
               </div>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </Section>
-
-  <Section title="O que a Etter faz" lead="Quatro frentes, um critério: automatizar o que se repete e segue uma regra clara.">
-    <div class="mt-10 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2">
-      {
-        services.map((s) => (
-          <div class="bg-paper p-6 md:p-7">
-            <h3 class="text-[1.04rem] font-semibold">{s.t}</h3>
-            <p class="mt-2 text-[0.93rem] leading-relaxed text-ash">{s.d}</p>
-          </div>
-        ))
-      }
-    </div>
-  </Section>
-
-  <Section title="Como funciona">
-    <ol class="mt-12 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
-      {
-        steps.map((s) => (
-          <li class="bg-paper p-6">
-            <span class="tnum font-mono text-[0.8rem] text-signal">{s.n}</span>
-            <h3 class="mt-3 text-[1.02rem] font-semibold">{s.t}</h3>
-            <p class="mt-2 text-[0.92rem] leading-relaxed text-ash">{s.d}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </Section>
-
-  <Section title="Como trabalhamos">
-    <ul class="mt-10 grid gap-x-10 gap-y-7 md:grid-cols-2">
-      {
-        principles.map((p) => (
-          <li class="flex gap-3.5">
-            <span class="mt-[0.72em] h-px w-4 shrink-0 bg-signal" aria-hidden="true" />
-            <div>
-              <h3 class="text-[1.02rem] font-semibold">{p.t}</h3>
-              <p class="mt-1.5 text-[0.94rem] leading-relaxed text-ash">{p.d}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <section class="rule-top py-16 md:py-24">
-    <div class="shell grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-end">
-      <div class="max-w-xl">
-        <h2 class="text-[length:var(--text-h2)] leading-[1.08]">Qual processo mais consome tempo na sua empresa?</h2>
-        <p class="mt-4 text-[1.02rem] leading-relaxed text-ash">
-          Em 30 minutos você descreve o processo e sai sabendo se dá para automatizar, o que isso exige e quanto tempo leva.
-          Atendimento remoto, Brasil inteiro.
-        </p>
+              <dl class="ba">
+                <div><dt>Como era</dt><dd>{c.before}</dd></div>
+                <div><dt>O que a IA faz</dt><dd>{c.after}</dd></div>
+                <div><dt>O que continua com a pessoa</dt><dd>{c.stays}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
       </div>
-      <div class="flex flex-col gap-3">
-        <a href={WA} target="_blank" rel="noopener" class="rounded-full bg-ink px-6 py-3.5 text-center font-medium text-paper transition-colors hover:bg-signal">
-          Agendar o diagnóstico
-        </a>
-        <a href={`mailto:${SITE.email}`} class="text-center text-[0.92rem] text-ash link-underline">{SITE.email}</a>
+    </section>
+
+    <!-- Quem sou eu -->
+    <section class="sec about">
+      <div class="wrap about-grid">
+        <div class="about-photo">
+          <Image src={enzoSf} alt="Enzo Vaccaro em San Francisco" widths={[480, 800]} sizes="(min-width: 900px) 420px, 90vw" />
+          <span class="photo-tag">San Francisco, Vale do Silício</span>
+        </div>
+        <div>
+          <p class="eyebrow light">Quem vai cuidar do seu projeto</p>
+          <h2>Prazer, eu sou o Enzo.</h2>
+          <p>
+            Sou o fundador da Etter e quem constrói cada projeto. Trabalho com agentes de inteligência artificial e
+            automação de processos para empresas brasileiras — do atendimento no WhatsApp a sistemas internos.
+          </p>
+          <p>
+            Passei dois meses em San Francisco, no Vale do Silício. O que mais trouxe de lá não foi a parte técnica:
+            foi entender que um projeto de IA se prova <strong>depois</strong> da entrega, quando ele precisa funcionar todo dia na operação real.
+          </p>
+          <p>
+            Por isso eu não vendo pacote pronto. Cada projeto começa entendendo como a sua empresa trabalha hoje, e é
+            montado em cima disso.
+          </p>
+          <ul class="facts">
+            <li><b>Direto comigo</b><span>sem vendedor no meio</span></li>
+            <li><b>O código é seu</b><span>sem ficar preso a plataforma</span></li>
+            <li><b>Valor fechado</b><span>antes de começar</span></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-</Base>
+    </section>
+
+    <!-- Como funciona -->
+    <section class="sec">
+      <div class="wrap">
+        <p class="eyebrow">Do primeiro contato à IA rodando</p>
+        <h2>Como funciona</h2>
+        <ol class="steps">
+          {steps.map((s, i) => (
+            <li><span class="num">{i + 1}</span><h3>{s.t}</h3><p>{s.d}</p></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec soft">
+      <div class="wrap faq-wrap">
+        <h2>Perguntas que todo dono faz</h2>
+        <div class="faq">
+          {faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="final">
+      <div class="wrap final-in">
+        <Image src={enzoPerfil} alt="Enzo Vaccaro" width={120} height={120} class="final-photo" />
+        <h2>Qual tarefa mais toma tempo na sua empresa hoje?</h2>
+        <p>Me conta em 30 minutos. Você sai sabendo se dá para automatizar, quanto custa e em quanto tempo fica pronto.</p>
+        <a href={WA} target="_blank" rel="noopener" class="btn btn-wa big">Falar com o Enzo no WhatsApp</a>
+        <a href={`mailto:${SITE.email}`} class="mail">{SITE.email}</a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap">© 2026 Etter · Automação com inteligência artificial · <a href="/">etter.app.br</a></div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --navy: #0b1f4d;
+    --navy-2: #102a66;
+    --blue: #1f5eff;
+    --blue-soft: #e8efff;
+    --sky: #7fa6ff;
+    --ink: #0f1a33;
+    --muted: #5b6785;
+    --line: #e2e7f2;
+    --bg-soft: #f4f7fd;
+    --green: #22c55e;
+    --wa: #25d366;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: 'Archivo Variable', system-ui, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.025em; text-wrap: balance; }
+  p { margin: 0; text-wrap: pretty; }
+  a { color: inherit; }
+  .wrap { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+  @media (min-width: 768px) { .wrap { padding: 0 2rem; } }
+
+  /* Botões */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+    border-radius: 999px; padding: 0.95rem 1.5rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-wa { background: var(--wa); color: #06331a; }
+  .btn-wa:hover { background: #2fe072; }
+  .btn-line { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+  .btn-line:hover { background: rgba(255,255,255,0.08); }
+  .btn-ghost { padding: 0.55rem 1.1rem; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: #fff; }
+  .btn.big { padding: 1.1rem 2rem; font-size: 1.05rem; }
+
+  /* Topo */
+  .top { position: absolute; inset: 0 0 auto; z-index: 10; }
+  .top-in { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
+  .brand { color: #fff; font-weight: 700; font-size: 1.3rem; text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.3rem; }
+  .dot { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--green); display: inline-block; }
+
+  /* Hero */
+  .hero {
+    position: relative; color: #fff; padding: 7.5rem 0 0;
+    background:
+      radial-gradient(60rem 30rem at 85% 10%, rgba(31,94,255,0.55), transparent 60%),
+      radial-gradient(40rem 25rem at 0% 100%, rgba(31,94,255,0.25), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+  }
+  .hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 5.5rem; background: #fff; }
+  .hero-grid { display: grid; gap: 3rem; align-items: center; padding-bottom: 4.5rem; }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 4rem; padding-bottom: 5.5rem; } }
+  .kicker { color: var(--sky); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.02em; }
+  .hero h1 { margin-top: 1rem; font-size: clamp(2.3rem, 5.4vw, 3.9rem); line-height: 1.02; font-weight: 700; }
+  .hero h1 span { color: var(--sky); }
+  .lead { margin-top: 1.4rem; max-width: 36rem; font-size: 1.1rem; color: rgba(255,255,255,0.82); }
+  .cta-row { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .mini { margin-top: 1.1rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+  /* Celular */
+  .phone-stage { position: relative; justify-self: center; width: min(100%, 20rem); }
+  .phone {
+    background: #0a1430; border-radius: 2.2rem; padding: 0.7rem; border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+  }
+  .phone-bar { display: flex; align-items: center; gap: 0.6rem; background: #075e54; color: #fff; padding: 0.8rem 0.9rem; border-radius: 1.6rem 1.6rem 0 0; }
+  .phone-bar strong { display: block; font-size: 0.9rem; }
+  .phone-bar small { font-size: 0.72rem; opacity: 0.8; }
+  .avatar-sm { width: 2rem; height: 2rem; border-radius: 50%; background: #128c7e; display: grid; place-items: center; font-weight: 700; }
+  .chat { background: #ece5dd; padding: 0.9rem 0.7rem 1.2rem; border-radius: 0 0 1.6rem 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; min-height: 21rem; }
+  .day { align-self: center; font-size: 0.68rem; background: #e1f2fb; color: #4b5a6b; padding: 0.15rem 0.6rem; border-radius: 0.4rem; }
+  .msg { max-width: 85%; font-size: 0.84rem; line-height: 1.4; color: #111b21; padding: 0.45rem 0.6rem 0.35rem; border-radius: 0.6rem; box-shadow: 0 1px 0 rgba(0,0,0,0.08); }
+  .msg time { display: block; text-align: right; font-size: 0.62rem; color: #667781; margin-top: 0.15rem; }
+  .msg.in { background: #fff; align-self: flex-start; border-top-left-radius: 0.1rem; }
+  .msg.out { background: #d9fdd3; align-self: flex-end; border-top-right-radius: 0.1rem; }
+  .float {
+    position: absolute; display: flex; align-items: center; gap: 0.5rem; background: #fff; color: var(--ink);
+    font-size: 0.8rem; font-weight: 600; padding: 0.6rem 0.85rem; border-radius: 0.8rem; box-shadow: 0 15px 35px -10px rgba(0,0,0,0.45); white-space: nowrap;
+  }
+  .f1 { left: -2.2rem; top: 5.5rem; }
+  .f2 { right: -1.8rem; bottom: -1.3rem; }
+  @media (max-width: 520px) { .f1 { left: -0.4rem; } .f2 { right: -0.4rem; } }
+  .chat { padding-bottom: 2rem; }
+  .ok { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
+
+  /* Números */
+  .proof {
+    position: relative; z-index: 2; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr);
+    background: #fff; border-radius: 1.2rem; box-shadow: 0 25px 60px -25px rgba(11,31,77,0.45); border: 1px solid var(--line); overflow: hidden;
+  }
+  @media (min-width: 900px) { .proof { grid-template-columns: repeat(4, 1fr); } }
+  .proof > div { padding: 1.5rem 1.4rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .proof dt { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--blue); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .proof dd { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.9rem; line-height: 1.35; }
+  .proof dd.who { margin-top: 0.6rem; font-size: 0.75rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* Seções */
+  .sec { padding: 5.5rem 0; }
+  .sec.soft { background: var(--bg-soft); }
+  .eyebrow { color: var(--blue); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .eyebrow.light { color: var(--sky); }
+  .sec h2, .about h2, .final h2 { margin-top: 0.6rem; font-size: clamp(1.8rem, 3.6vw, 2.7rem); line-height: 1.1; font-weight: 700; }
+
+  .pains { margin-top: 2.5rem; display: grid; gap: 1rem; }
+  @media (min-width: 820px) { .pains { grid-template-columns: repeat(3, 1fr); } }
+  .pain { border: 1px solid var(--line); border-radius: 1rem; padding: 1.6rem; background: #fff; }
+  .ico { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 0.8rem; background: var(--blue-soft); }
+  .ico svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .pain h3 { margin-top: 1rem; font-size: 1.15rem; }
+  .pain p { margin-top: 0.5rem; color: var(--muted); }
+
+  /* Linhas com tela */
+  .row { margin-top: 3.5rem; display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 900px) {
+    .row { grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4.5rem; }
+    .row.rev .row-text { order: 2; }
+  }
+  .tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 999px; }
+  .row h3 { margin-top: 0.9rem; font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.15; }
+  .row-text > p { margin-top: 0.8rem; color: var(--muted); font-size: 1.02rem; }
+  .checks { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 0.55rem; }
+  .checks li { position: relative; padding-left: 1.8rem; font-weight: 500; }
+  .checks li::before {
+    content: ''; position: absolute; left: 0; top: 0.2rem; width: 1.15rem; height: 1.15rem; border-radius: 50%;
+    background: var(--blue-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5eff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/0.7rem no-repeat;
+  }
+  .card { background: #fff; border-radius: 1.2rem; border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(11,31,77,0.35); }
+  .mock { padding: 1.2rem; }
+  .mock-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.9rem; padding: 0.2rem 0.3rem 0.9rem; border-bottom: 1px solid var(--line); }
+  .live { font-size: 0.72rem; color: #15803d; background: #dcfce7; padding: 0.2rem 0.55rem; border-radius: 999px; }
+  .lead-row { display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 0.8rem; padding: 0.85rem 0.3rem; border-bottom: 1px solid var(--line); align-items: center; }
+  .lead-row:last-child { border-bottom: 0; }
+  .lead-row small { grid-column: 1 / -1; color: var(--muted); font-size: 0.78rem; }
+  .pill { white-space: nowrap; font-size: 0.75rem; font-weight: 600; background: var(--bg-soft); color: var(--muted); padding: 0.25rem 0.6rem; border-radius: 999px; }
+  .pill.hot { background: #fff1e6; color: #c2410c; }
+  .pill.ok { background: #dcfce7; color: #15803d; }
+  .buy { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.4rem; }
+  .buy th { text-align: left; font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.7rem 0.3rem 0.4rem; }
+  .buy td { padding: 0.65rem 0.3rem; border-top: 1px solid var(--line); }
+  .buy th:not(:first-child), .buy td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  .buy b { color: var(--blue); }
+  .approve { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 0.9rem; padding: 0.8rem 0.3rem 0.2rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); }
+  .approve button { font: inherit; font-weight: 700; font-size: 0.85rem; background: var(--blue); color: #fff; border: 0; border-radius: 0.6rem; padding: 0.6rem 1rem; cursor: default; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 1rem; }
+  .kpis div { background: var(--bg-soft); border-radius: 0.8rem; padding: 0.8rem; }
+  .kpis small { display: block; color: var(--muted); font-size: 0.74rem; }
+  .kpis b { font-size: 1.5rem; letter-spacing: -0.02em; }
+  .bars { display: flex; align-items: flex-end; gap: 0.5rem; height: 7rem; margin-top: 1rem; padding: 0 0.3rem; }
+  .bars span { flex: 1; background: linear-gradient(180deg, var(--blue), var(--sky)); border-radius: 0.35rem 0.35rem 0 0; }
+  .alert { margin-top: 1rem; font-size: 0.85rem; background: #fff7e6; color: #92400e; border-radius: 0.7rem; padding: 0.7rem 0.85rem; font-weight: 500; }
+
+  .note { margin-top: 0.6rem; color: var(--muted); font-size: 0.9rem; }
+
+  /* Casos */
+  .cases { margin-top: 2.5rem; display: grid; gap: 1.2rem; }
+  @media (min-width: 960px) { .cases { grid-template-columns: repeat(3, 1fr); } }
+  .case { border: 1px solid var(--line); border-radius: 1.2rem; padding: 1.6rem; display: flex; flex-direction: column; background: #fff; }
+  .case header { display: flex; gap: 0.8rem; align-items: center; }
+  .mono { width: 2.8rem; height: 2.8rem; border-radius: 0.8rem; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; }
+  .case h3 { font-size: 1.15rem; }
+  .case header p { font-size: 0.82rem; color: var(--muted); }
+  .results { display: flex; gap: 1.5rem; margin-top: 1.3rem; padding: 1rem 1.1rem; background: var(--blue-soft); border-radius: 0.9rem; }
+  .results b { display: block; font-size: 1.6rem; color: var(--blue); letter-spacing: -0.03em; line-height: 1.1; }
+  .results small { color: var(--muted); font-size: 0.8rem; }
+  .ba { margin: 1.2rem 0 0; display: grid; gap: 0.9rem; }
+  .ba dt { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); }
+  .ba dd { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.93rem; }
+
+  /* Quem sou eu */
+  .about { background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%); color: #fff; }
+  .about-grid { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 900px) { .about-grid { grid-template-columns: 0.8fr 1.2fr; gap: 4.5rem; } }
+  .about-photo { position: relative; justify-self: center; width: min(100%, 26rem); }
+  .about-photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 45%; border-radius: 1.4rem; display: block; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6); }
+  .photo-tag { position: absolute; left: 1rem; bottom: 1rem; background: rgba(11,31,77,0.85); backdrop-filter: blur(6px); font-size: 0.8rem; font-weight: 600; padding: 0.45rem 0.8rem; border-radius: 999px; }
+  .about p:not(.eyebrow) { margin-top: 1rem; color: rgba(255,255,255,0.82); font-size: 1.04rem; }
+  .about strong { color: #fff; }
+  .facts { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+  .facts li { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 0.9rem; padding: 0.9rem 1rem; }
+  .facts b { display: block; }
+  .facts span { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+
+  /* Passos */
+  .steps { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 1rem; counter-reset: s; }
+  @media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li { position: relative; border: 1px solid var(--line); border-radius: 1rem; padding: 1.5rem; background: #fff; }
+  .num { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; }
+  .steps h3 { margin-top: 1rem; font-size: 1.08rem; }
+  .steps p { margin-top: 0.45rem; color: var(--muted); font-size: 0.93rem; }
+
+  /* FAQ */
+  .faq-wrap { max-width: 50rem; }
+  .faq { margin-top: 2rem; display: grid; gap: 0.7rem; }
+  .faq details { background: #fff; border: 1px solid var(--line); border-radius: 0.9rem; padding: 1.1rem 1.3rem; }
+  .faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--blue); font-weight: 700; font-size: 1.3rem; line-height: 1; }
+  .faq details[open] summary::after { content: '–'; }
+  .faq details p { margin-top: 0.7rem; color: var(--muted); }
+
+  /* CTA final */
+  .final { background: radial-gradient(50rem 25rem at 50% 0%, rgba(31,94,255,0.5), transparent 70%), var(--navy); color: #fff; padding: 5.5rem 0; text-align: center; }
+  .final-in { max-width: 44rem; display: flex; flex-direction: column; align-items: center; }
+  .final-photo { width: 6.5rem; height: 6.5rem; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.85); }
+  .final h2 { margin-top: 1.4rem; }
+  .final p { margin-top: 1rem; color: rgba(255,255,255,0.8); font-size: 1.08rem; }
+  .final .btn { margin-top: 2rem; }
+  .mail { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+  .foot { background: #081738; color: rgba(255,255,255,0.5); font-size: 0.82rem; padding: 1.4rem 0; text-align: center; }
+  .foot a { color: rgba(255,255,255,0.75); }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+</style>
