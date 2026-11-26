@@ -147,16 +147,17 @@ const faq = [
     <meta property="og:image" content={`${SITE.url}/og.png`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0b1f4d" />
-    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
-    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+    <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
+    <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=4" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
   </head>
 
   <body>
     <!-- Topo -->
     <header class="top" id="top">
       <div class="wrap top-in">
-        <a href="/" class="brand">Etter<span class="dot"></span></a>
+        <a href="/" class="brand"><img src="/logo-etter-escuro.svg" alt="Etter" width="132" height="40" /></a>
         <nav class="nav" aria-label="Seções">
           <a href="#como-fica">Como funciona</a>
           <a href="#casos">Casos</a>
@@ -618,7 +619,8 @@ const faq = [
   /* Topo */
   .top { position: absolute; inset: 0 0 auto; z-index: 10; }
   .top-in { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
-  .brand { color: #fff; font-weight: 700; font-size: 1.3rem; text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.3rem; }
+  .brand { display: inline-flex; align-items: center; }
+  .brand img { height: 2.8rem; width: auto; display: block; }
   .dot { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--green); display: inline-block; }
 
   /* Hero */

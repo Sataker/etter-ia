@@ -15,13 +15,8 @@ const current = Astro.url.pathname;
 
 <header class="sticky top-0 z-40 border-b border-rule bg-paper/92 backdrop-blur-sm">
   <div class="shell flex h-16 items-center justify-between gap-6">
-    <a
-      href={localePath(lang)}
-      class="flex items-baseline gap-2 text-[1.05rem] font-semibold tracking-tight"
-      aria-label="Etter"
-    >
-      Etter
-      <span class="h-1.5 w-1.5 translate-y-[-0.1em] rounded-full bg-signal dot-live" aria-hidden="true"></span>
+    <a href={localePath(lang)} class="flex items-center" aria-label="Etter">
+      <img src="/logo-etter-claro.svg" alt="Etter" width="132" height="40" class="h-10 w-auto" />
     </a>
 
     <nav class="hidden items-center gap-7 text-[0.9rem] md:flex" aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
